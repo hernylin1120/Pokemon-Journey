@@ -1,0 +1,19 @@
+# 忽略編譯輸出的目錄
+/build/
+out/
+
+# 忽略 IDE 設定檔
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# 忽略系統檔案
+.DS_Store
+Thumbs.db
+
+# 忽略日誌檔案
+*.log
+
+# 忽略 Gradle 暫存檔
+.gradle/
