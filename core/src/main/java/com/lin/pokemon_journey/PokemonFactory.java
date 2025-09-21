@@ -1,5 +1,7 @@
 package com.lin.pokemon_journey;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import java.awt.image.BufferedImage;
 
 public class PokemonFactory {
@@ -16,8 +18,11 @@ public class PokemonFactory {
         return new Pokemon(
             6,
             "Charizard",
+            false,
             new String[]{"Fire", "Flying"},
-            Main.pokemonSpriteExtractor.extractSprite(6),
+            new Texture[] {
+                new Texture("Gen1_Pokemon/Charizard_Front1.png"),
+            },
             78, 84, 78, 109, 85, 100,
             new Ability[]{}
         );
