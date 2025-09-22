@@ -27,7 +27,6 @@ public class Home_Screen implements Screen {
 //        image = new Texture("libgdx.png");
         buttonTexture = new Texture("9926cea75b7feebf809ee0d9bf576f21.png");
 
-        // 建立按鈕邊界
         buttonBounds = new Rectangle(buttonX, buttonY, buttonTexture.getWidth(), buttonTexture.getHeight());
     }
 

@@ -10,6 +10,9 @@ import com.badlogic.gdx.Gdx;
 public class Battle_Screen implements Screen {
     private Game game;
     private SpriteBatch batch;
+    private Texture background;
+    private Texture subtitle_bar;
+    private Texture choosing_ability_screen;
 
     public Battle_Screen(Game game) {
         this.game = game;
@@ -18,27 +21,34 @@ public class Battle_Screen implements Screen {
     @Override
     public void show() {
         batch = new SpriteBatch();
-
+        background = new Texture("Grassland_Field_Background.png");
+        subtitle_bar = new Texture("Subtitle.png");
+        choosing_ability_screen = new Texture("Choosing_Ability_Screen.png");
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(1f, 0f, 0f, 1f); // 紅色背景表示戰鬥畫面
-        // 在這裡添加戰鬥畫面的內容
-        Pokemon charizard = Main.pokemonFactory.createPokemon("Charizard"); // 噴火龍
+        ScreenUtils.clear(1f, 0f, 0f, 1f);
+        Pokemon charizard = Main.pokemonFactory.createPokemon("Charizard");
         batch.begin();
-        Texture background = new Texture("9926cea75b7feebf809ee0d9bf576f21.png");
-        batch.draw(background, 0, Gdx.graphics.getHeight() - background.getHeight());
+        int backgroundY = Gdx.graphics.getHeight() - background.getHeight();
+        batch.draw(background, 0, backgroundY);
         if (charizard.sprites != null) {
-            // 假設 sprites 是 TextureRegion
-            batch.draw(charizard.sprites[0], 400, Gdx.graphics.getHeight() - 100); // 在 (100, 100) 繪製
+            batch.draw(charizard.sprites[0], 150, Gdx.graphics.getHeight() - 100);
         }
+        int subtitleBarY = backgroundY - subtitle_bar.getHeight();
+        batch.draw(subtitle_bar, 0, subtitleBarY);
+        int choosingAbilityScreenY = subtitleBarY - choosing_ability_screen.getHeight();
+        batch.draw(choosing_ability_screen, 0, choosingAbilityScreenY);
         batch.end();
     }
 
     @Override
     public void dispose() {
         if (batch != null) batch.dispose();
+        if (background != null) background.dispose();
+        if (subtitle_bar != null) subtitle_bar.dispose();
+        if (choosing_ability_screen != null) choosing_ability_screen.dispose();
     }
 
     @Override public void resize(int width, int height) {}
