@@ -109,6 +109,12 @@ public class Battle_Screen implements Screen {
         opponentPokemon = opponent.pokemons[0];
         batch.draw(opponentPokemon.sprites[0], 150, Gdx.graphics.getHeight() - 100);
 
+        Pokemon charmander = Main.pokemonFactory.createPokemon("Charmander");
+        playerPokemon = charmander;
+        batch.draw(playerPokemon.sprites[2], 24, backgroundY - 8);
+        charmander.abilities[0] = Main.abilityFactory.createAbility("Growl");
+        charmander.abilities[1] = Main.abilityFactory.createAbility("Scratch");
+
         BitmapFont font = new BitmapFont();
         font.getData().setScale(25f);
         font.draw(batch, String.valueOf(opponentPokemon.HP), 500, 500);

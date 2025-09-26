@@ -9,6 +9,7 @@ import java.io.IOException;
 public class Main extends Game {
     public static PokemonFactory pokemonFactory;
     public static OpponentFactory opponentFactory;
+    public static AbilityFactory abilityFactory;
 
     @Override
     public void create() {

@@ -20,11 +20,10 @@ public class Pokemon {
     int[] iv;
     int[] ev;
     String condition; //e.g. poisoned
-    Ability[] abilities;
+    Ability[] abilities = new Ability[4];
 
     public Pokemon(int id, String name, Boolean genderDifferences, String[] type, Texture[] sprites,
-                   int HP, int attack, int defense, int specialAttack, int specialDefense, int speed,
-                   Ability[] abilities) {
+                   int HP, int attack, int defense, int specialAttack, int specialDefense, int speed) {
         this.id = id;
         this.name = name;
         this.genderDifferences = genderDifferences;
@@ -38,7 +37,6 @@ public class Pokemon {
         this.specialDefense = specialDefense;
         this.speed = speed;
         this.iv = new int[] {new java.util.Random().nextInt(32), new java.util.Random().nextInt(32), new java.util.Random().nextInt(32), new java.util.Random().nextInt(32), new java.util.Random().nextInt(32),new java.util.Random().nextInt(32)};
-        this.abilities = abilities;
     }
 }
 
