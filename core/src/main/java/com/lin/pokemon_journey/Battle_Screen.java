@@ -5,22 +5,36 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Battle_Screen implements Screen {
     private Game game;
     private SpriteBatch batch;
     private Texture background;
+    private int backgroundY;
     private Texture ground;
     private Texture subtitle_bar;
+    private int subtitleBarY;
     private Texture choosing_ability_screen;
+    private int choosingAbilityScreenY;
+    private Texture ability_button;
     private Opponent opponent;
     private Pokemon playerPokemon;
     private Pokemon opponentPokemon;
+    private boolean inDecideScreen = false;
+    private boolean inAbilityScreen = true;
 
     public Battle_Screen(Game game) {
         this.game = game;
+    }
+
+    public int damage_formula(Pokemon attacker, Pokemon defender, Ability ability) {
+        return (int) (Math.floor(((2 * attacker.level / 5 + 2) * ability.power * (attacker.attack / defender.defense) / 50) + 2) * damage_multiply(ability.type, defender.type));
     }
 
     public double damage_multiply(String attackType, String[] defenderType) {
@@ -74,7 +88,7 @@ public class Battle_Screen implements Screen {
             case "Dark": return 15;
             case "Steel": return 16;
             case "Fairy": return 17;
-            default: return -1; // Invalid type
+            default: return -1;
         }
     }
 
@@ -85,6 +99,59 @@ public class Battle_Screen implements Screen {
         ground = new Texture("Grass_Ground.png");
         subtitle_bar = new Texture("Subtitle.png");
         choosing_ability_screen = new Texture("Choosing_Ability_Screen.png");
+        ability_button = new Texture("AbilityButton/Fire_AbilityButton.png");
+        opponent = Main.opponentFactory.Cynthia();
+        opponentPokemon = opponent.pokemons[0];
+        Pokemon charmander = Main.pokemonFactory.createPokemon("Charmander");
+        playerPokemon = charmander;
+        charmander.abilities[0] = Main.abilityFactory.createAbility("Growl");
+        charmander.abilities[1] = Main.abilityFactory.createAbility("Scratch");
+        charmander.abilities[2] = Main.abilityFactory.createAbility("Ember");
+    }
+
+    public void abilityButton(int buttonX, int buttonY, Texture buttonTexture, Ability ability) {
+        batch.draw(ability_button, buttonX, buttonY);
+        Rectangle buttonBounds = new Rectangle(buttonX, buttonY, buttonTexture.getWidth(), buttonTexture.getHeight());
+        if (Gdx.input.justTouched()) {
+            float touchX = Gdx.input.getX();
+            float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
+            if (buttonBounds.contains(touchX, touchY)) {
+                opponentPokemon.currentHP -= damage_formula(playerPokemon, opponentPokemon, ability);
+            }
+        }
+    }
+
+    public void allAbilityButton(Pokemon pokemon) {
+        int Row1ButtonY = subtitleBarY - 24 - ability_button.getHeight();
+        int Row2ButtonY = Row1ButtonY - 7 - ability_button.getHeight();
+        int buttonX;
+        int buttonY;
+        int abilityNo = 1;
+        while (abilityNo <= Arrays.stream(pokemon.abilities).filter(Objects::nonNull).count()) {
+            switch (abilityNo) {
+                case 1:
+                    buttonX = 2;
+                    buttonY = Row1ButtonY;
+                    abilityButton(buttonX, buttonY, ability_button, pokemon.abilities[0]);
+                    break;
+                case 2:
+                    buttonX = 6 + ability_button.getWidth();
+                    buttonY = Row1ButtonY;
+                    abilityButton(buttonX, buttonY, ability_button, pokemon.abilities[1]);
+                    break;
+                case 3:
+                    buttonX = 2;
+                    buttonY = Row2ButtonY;
+                    abilityButton(buttonX, buttonY, ability_button, pokemon.abilities[2]);
+                    break;
+                case 4:
+                    buttonX = 6 + ability_button.getWidth();
+                    buttonY = Row2ButtonY;
+                    abilityButton(buttonX, buttonY, ability_button, pokemon.abilities[3]);
+                    break;
+            }
+            abilityNo++;
+        }
     }
 
     @Override
@@ -95,8 +162,8 @@ public class Battle_Screen implements Screen {
 //        batch.setProjectionMatrix(batch.getProjectionMatrix().scale(scale, scale, 1));
 
         batch.begin();
-        int backgroundY = Gdx.graphics.getHeight() - background.getHeight();
-//        int backgroundY = (int) ((Gdx.graphics.getHeight() / scale) - background.getHeight());
+        backgroundY = Gdx.graphics.getHeight() - background.getHeight();
+//      backgroundY = (int) ((Gdx.graphics.getHeight() / scale) - background.getHeight());
         batch.draw(background, 0, backgroundY);
         batch.draw(ground, 0, backgroundY);
 
@@ -105,26 +172,25 @@ public class Battle_Screen implements Screen {
 //            batch.draw(charizard.sprites[0], 150, Gdx.graphics.getHeight() - 100);
 //        }
 
-        opponent = Main.opponentFactory.Cynthia();
-        opponentPokemon = opponent.pokemons[0];
         batch.draw(opponentPokemon.sprites[0], 150, Gdx.graphics.getHeight() - 100);
-
-        Pokemon charmander = Main.pokemonFactory.createPokemon("Charmander");
-        playerPokemon = charmander;
         batch.draw(playerPokemon.sprites[2], 24, backgroundY - 8);
-        charmander.abilities[0] = Main.abilityFactory.createAbility("Growl");
-        charmander.abilities[1] = Main.abilityFactory.createAbility("Scratch");
 
         BitmapFont font = new BitmapFont();
         font.getData().setScale(25f);
-        font.draw(batch, String.valueOf(opponentPokemon.HP), 500, 500);
+        font.draw(batch, String.valueOf(opponentPokemon.currentHP), 500, 500);
 
-        int subtitleBarY = backgroundY - subtitle_bar.getHeight();
+        subtitleBarY = backgroundY - subtitle_bar.getHeight();
         batch.draw(subtitle_bar, 0, subtitleBarY);
-        int choosingAbilityScreenY = subtitleBarY - choosing_ability_screen.getHeight();
-        batch.draw(choosing_ability_screen, 0, choosingAbilityScreenY);
-        batch.end();
 
+        if (inDecideScreen) {
+
+        } else if (inAbilityScreen) {
+            choosingAbilityScreenY = subtitleBarY - choosing_ability_screen.getHeight();
+            batch.draw(choosing_ability_screen, 0, choosingAbilityScreenY);
+            allAbilityButton(playerPokemon);
+        }
+
+        batch.end();
 //        batch.setProjectionMatrix(batch.getProjectionMatrix().scale(1 / scale, 1 / scale, 1));
     }
 

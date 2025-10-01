@@ -18,6 +18,9 @@ public class AbilityFactory {
             case "Scratch":
                 ability = new Ability("Scratch", "Normal", "Physical", 40, 100);
                 break;
+            case "Ember":
+                ability = new Ability("Ember", "Fire", "Special", 40, 100);
+                break;
             default:
                 throw new IllegalArgumentException("Unknown Ability: " + abilityName);
         }
