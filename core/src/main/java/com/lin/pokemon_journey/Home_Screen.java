@@ -32,7 +32,7 @@ public class Home_Screen implements Screen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        ScreenUtils.clear(0f, 0f, 0f, 1f);
 
         // 檢查點擊
         if (Gdx.input.justTouched()) {

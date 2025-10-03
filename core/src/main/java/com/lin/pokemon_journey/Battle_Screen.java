@@ -20,14 +20,34 @@ public class Battle_Screen implements Screen {
     private Texture ground;
     private Texture subtitle_bar;
     private int subtitleBarY;
-    private Texture choosing_ability_screen;
-    private int choosingAbilityScreenY;
-    private Texture ability_button;
+    private Texture decideScreen;
+    private Texture decideScreenFightButton;
+    private Texture choosingAbilityScreen;
+    private Texture choosingAbilityScreenCancelButton;
+    private int lowerScreenY;
+    private Texture Bug_AbilityButton;
+    private Texture Dark_AbilityButton;
+    private Texture Dragon_AbilityButton;
+    private Texture Electric_AbilityButton;
+    private Texture Fairy_AbilityButton;
+    private Texture Fighting_AbilityButton;
+    private Texture Fire_AbilityButton;
+    private Texture Flying_AbilityButton;
+    private Texture Ghost_AbilityButton;
+    private Texture Grass_AbilityButton;
+    private Texture Ground_AbilityButton;
+    private Texture Ice_AbilityButton;
+    private Texture Normal_AbilityButton;
+    private Texture Poison_AbilityButton;
+    private Texture Psychic_AbilityButton;
+    private Texture Rock_AbilityButton;
+    private Texture Steel_AbilityButton;
+    private Texture Water_AbilityButton;
     private Opponent opponent;
     private Pokemon playerPokemon;
     private Pokemon opponentPokemon;
-    private boolean inDecideScreen = false;
-    private boolean inAbilityScreen = true;
+    private boolean inDecideScreen = true;
+    private boolean inAbilityScreen = false;
 
     public Battle_Screen(Game game) {
         this.game = game;
@@ -98,8 +118,28 @@ public class Battle_Screen implements Screen {
         background = new Texture("Grassland_Field_Background.png");
         ground = new Texture("Grass_Ground.png");
         subtitle_bar = new Texture("Subtitle.png");
-        choosing_ability_screen = new Texture("Choosing_Ability_Screen.png");
-        ability_button = new Texture("AbilityButton/Fire_AbilityButton.png");
+        decideScreen = new Texture("Decide_Screen.png");
+        decideScreenFightButton = new Texture("Decide_Screen_FightButton.png");
+        choosingAbilityScreen = new Texture("Choosing_Ability_Screen.png");
+        choosingAbilityScreenCancelButton = new Texture("Choosing_Ability_Screen_CancelButton.png");
+        Bug_AbilityButton = new Texture("AbilityButton/Bug_AbilityButton.png");
+        Dark_AbilityButton = new Texture("AbilityButton/Dark_AbilityButton.png");
+        Dragon_AbilityButton = new Texture("AbilityButton/Dragon_AbilityButton.png");
+        Electric_AbilityButton = new Texture("AbilityButton/Electric_AbilityButton.png");
+//        Fairy_AbilityButton = new Texture("AbilityButton/Fairy_AbilityButton.png");
+        Fighting_AbilityButton = new Texture("AbilityButton/Fighting_AbilityButton.png");
+        Fire_AbilityButton = new Texture("AbilityButton/Fire_AbilityButton.png");
+        Flying_AbilityButton = new Texture("AbilityButton/Flying_AbilityButton.png");
+        Ghost_AbilityButton = new Texture("AbilityButton/Ghost_AbilityButton.png");
+        Grass_AbilityButton = new Texture("AbilityButton/Grass_AbilityButton.png");
+        Ground_AbilityButton = new Texture("AbilityButton/Ground_AbilityButton.png");
+        Ice_AbilityButton = new Texture("AbilityButton/Ice_AbilityButton.png");
+        Normal_AbilityButton = new Texture("AbilityButton/Normal_AbilityButton.png");
+        Poison_AbilityButton = new Texture("AbilityButton/Poison_AbilityButton.png");
+        Psychic_AbilityButton = new Texture("AbilityButton/Psychic_AbilityButton.png");
+        Rock_AbilityButton = new Texture("AbilityButton/Rock_AbilityButton.png");
+        Steel_AbilityButton = new Texture("AbilityButton/Steel_AbilityButton.png");
+        Water_AbilityButton = new Texture("AbilityButton/Water_AbilityButton.png");
         opponent = Main.opponentFactory.Cynthia();
         opponentPokemon = opponent.pokemons[0];
         Pokemon charmander = Main.pokemonFactory.createPokemon("Charmander");
@@ -109,8 +149,32 @@ public class Battle_Screen implements Screen {
         charmander.abilities[2] = Main.abilityFactory.createAbility("Ember");
     }
 
+    private Texture getAbilityButtonTexture(String type) {
+        switch (type) {
+            case "Normal": return Normal_AbilityButton;
+            case "Fire": return Fire_AbilityButton;
+            case "Water": return Water_AbilityButton;
+            case "Grass": return Grass_AbilityButton;
+            case "Electric": return Electric_AbilityButton;
+            case "Ice": return Ice_AbilityButton;
+            case "Fighting": return Fighting_AbilityButton;
+            case "Poison": return Poison_AbilityButton;
+            case "Ground": return Ground_AbilityButton;
+            case "Flying": return Flying_AbilityButton;
+            case "Psychic": return Psychic_AbilityButton;
+            case "Bug": return Bug_AbilityButton;
+            case "Rock": return Rock_AbilityButton;
+            case "Ghost": return Ghost_AbilityButton;
+            case "Dragon": return Dragon_AbilityButton;
+            case "Dark": return Dark_AbilityButton;
+            case "Steel": return Steel_AbilityButton;
+//            case "Fairy": return Fairy_AbilityButton;
+            default: return Normal_AbilityButton;
+        }
+    }
+
     public void abilityButton(int buttonX, int buttonY, Texture buttonTexture, Ability ability) {
-        batch.draw(ability_button, buttonX, buttonY);
+        batch.draw(buttonTexture, buttonX, buttonY);
         Rectangle buttonBounds = new Rectangle(buttonX, buttonY, buttonTexture.getWidth(), buttonTexture.getHeight());
         if (Gdx.input.justTouched()) {
             float touchX = Gdx.input.getX();
@@ -122,8 +186,8 @@ public class Battle_Screen implements Screen {
     }
 
     public void allAbilityButton(Pokemon pokemon) {
-        int Row1ButtonY = subtitleBarY - 24 - ability_button.getHeight();
-        int Row2ButtonY = Row1ButtonY - 7 - ability_button.getHeight();
+        int Row1ButtonY = subtitleBarY - 24 - Fire_AbilityButton.getHeight();
+        int Row2ButtonY = Row1ButtonY - 7 - Fire_AbilityButton.getHeight();
         int buttonX;
         int buttonY;
         int abilityNo = 1;
@@ -132,22 +196,22 @@ public class Battle_Screen implements Screen {
                 case 1:
                     buttonX = 2;
                     buttonY = Row1ButtonY;
-                    abilityButton(buttonX, buttonY, ability_button, pokemon.abilities[0]);
+                    abilityButton(buttonX, buttonY, getAbilityButtonTexture(pokemon.abilities[0].type), pokemon.abilities[0]);
                     break;
                 case 2:
-                    buttonX = 6 + ability_button.getWidth();
+                    buttonX = 6 + Fire_AbilityButton.getWidth();
                     buttonY = Row1ButtonY;
-                    abilityButton(buttonX, buttonY, ability_button, pokemon.abilities[1]);
+                    abilityButton(buttonX, buttonY, getAbilityButtonTexture(pokemon.abilities[1].type), pokemon.abilities[1]);
                     break;
                 case 3:
                     buttonX = 2;
                     buttonY = Row2ButtonY;
-                    abilityButton(buttonX, buttonY, ability_button, pokemon.abilities[2]);
+                    abilityButton(buttonX, buttonY, getAbilityButtonTexture(pokemon.abilities[2].type), pokemon.abilities[2]);
                     break;
                 case 4:
-                    buttonX = 6 + ability_button.getWidth();
+                    buttonX = 6 + Fire_AbilityButton.getWidth();
                     buttonY = Row2ButtonY;
-                    abilityButton(buttonX, buttonY, ability_button, pokemon.abilities[3]);
+                    abilityButton(buttonX, buttonY, getAbilityButtonTexture(pokemon.abilities[3].type), pokemon.abilities[3]);
                     break;
             }
             abilityNo++;
@@ -156,7 +220,7 @@ public class Battle_Screen implements Screen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(1f, 0f, 0f, 1f);
+        ScreenUtils.clear(0f, 0f, 0f, 1f);
 
 //        float scale = Gdx.graphics.getWidth() / 256f;
 //        batch.setProjectionMatrix(batch.getProjectionMatrix().scale(scale, scale, 1));
@@ -183,11 +247,36 @@ public class Battle_Screen implements Screen {
         batch.draw(subtitle_bar, 0, subtitleBarY);
 
         if (inDecideScreen) {
-
+            lowerScreenY = subtitleBarY - decideScreen.getHeight();
+            batch.draw(decideScreen, 0, lowerScreenY);
+            int fightButtonX = 20;
+            int fightButtonY = lowerScreenY + 76;
+            batch.draw(decideScreenFightButton, fightButtonX, fightButtonY);
+            Rectangle buttonBounds = new Rectangle(fightButtonX, fightButtonY, decideScreenFightButton.getWidth(), decideScreenFightButton.getHeight());
+            if (Gdx.input.justTouched()) {
+                float touchX = Gdx.input.getX();
+                float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
+                if (buttonBounds.contains(touchX, touchY)) {
+                    inDecideScreen = false;
+                    inAbilityScreen = true;
+                }
+            }
         } else if (inAbilityScreen) {
-            choosingAbilityScreenY = subtitleBarY - choosing_ability_screen.getHeight();
-            batch.draw(choosing_ability_screen, 0, choosingAbilityScreenY);
+            lowerScreenY = subtitleBarY - choosingAbilityScreen.getHeight();
+            batch.draw(choosingAbilityScreen, 0, lowerScreenY);
             allAbilityButton(playerPokemon);
+            int fightButtonX = 9;
+            int cancelButtonY = lowerScreenY + 2;
+            batch.draw(choosingAbilityScreenCancelButton, fightButtonX, cancelButtonY);
+            Rectangle buttonBounds = new Rectangle(fightButtonX, cancelButtonY, choosingAbilityScreenCancelButton.getWidth(), choosingAbilityScreenCancelButton.getHeight());
+            if (Gdx.input.justTouched()) {
+                float touchX = Gdx.input.getX();
+                float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
+                if (buttonBounds.contains(touchX, touchY)) {
+                    inDecideScreen = true;
+                    inAbilityScreen = false;
+                }
+            }
         }
 
         batch.end();
@@ -199,7 +288,7 @@ public class Battle_Screen implements Screen {
         if (batch != null) batch.dispose();
         if (background != null) background.dispose();
         if (subtitle_bar != null) subtitle_bar.dispose();
-        if (choosing_ability_screen != null) choosing_ability_screen.dispose();
+        if (choosingAbilityScreen != null) choosingAbilityScreen.dispose();
     }
 
     @Override public void resize(int width, int height) {}

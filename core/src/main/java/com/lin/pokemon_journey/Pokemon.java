@@ -9,6 +9,7 @@ public class Pokemon {
     Boolean genderDifferences;
     String[] type; // e.g., "Fire", "Water"
     String nature;
+    Characteristic characteristic;
     Texture[] sprites;
     int HP;
     int currentHP;
@@ -46,6 +47,7 @@ public class Pokemon {
     }
 
     public void setLevel(int level) {
+        // current havent consider natures and abilities
         this.level = level;
         this.currentHP = (int) Math.floor(((2 * this.HP + this.iv[0] + (this.ev[0]) / 4) * level) / 100) + level + 10;
         this.currentAttack = (int) Math.floor((((2 * this.attack + this.iv[1] + (this.ev[1]) / 4) * level) / 100) + 5);
