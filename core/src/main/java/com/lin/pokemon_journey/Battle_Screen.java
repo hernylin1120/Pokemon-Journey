@@ -48,6 +48,10 @@ public class Battle_Screen implements Screen {
     private Pokemon opponentPokemon;
     private boolean inDecideScreen = true;
     private boolean inAbilityScreen = false;
+    private InputText inputText = new InputText();
+    private String subtitle = "";
+    private String abilityEffectText = "";
+    private float subtitleTimer = 0f;
 
     public Battle_Screen(Game game) {
         this.game = game;
@@ -81,11 +85,20 @@ public class Battle_Screen implements Screen {
         int attackTypeInt = getRelativeInt(attackType);
         int defenderTypeInt1 = getRelativeInt(defenderType[0]);
         int defenderTypeInt2;
+        double multiplier;
         if (defenderType.length > 1) {
             defenderTypeInt2 = getRelativeInt(defenderType[1]);
-            return multiply_chart[attackTypeInt][defenderTypeInt1] * multiply_chart[attackTypeInt][defenderTypeInt2];
+            multiplier = multiply_chart[attackTypeInt][defenderTypeInt1] * multiply_chart[attackTypeInt][defenderTypeInt2];
         }
-        return multiply_chart[attackTypeInt][defenderTypeInt1];
+        multiplier = multiply_chart[attackTypeInt][defenderTypeInt1];
+        if (multiplier == 0) {
+            abilityEffectText = "It doesn't affect " + opponentPokemon.name + "...";
+        } else if (multiplier < 1) {
+            abilityEffectText = "It's not very effective...";
+        } else if (multiplier > 1) {
+            abilityEffectText = "It's super effective!";
+        }
+        return multiplier;
     }
 
     public int getRelativeInt(String type) {
@@ -119,6 +132,7 @@ public class Battle_Screen implements Screen {
         ground = new Texture("Grass_Ground.png");
         subtitle_bar = new Texture("Subtitle.png");
         decideScreen = new Texture("Decide_Screen.png");
+
         decideScreenFightButton = new Texture("Decide_Screen_FightButton.png");
         choosingAbilityScreen = new Texture("Choosing_Ability_Screen.png");
         choosingAbilityScreenCancelButton = new Texture("Choosing_Ability_Screen_CancelButton.png");
@@ -140,8 +154,10 @@ public class Battle_Screen implements Screen {
         Rock_AbilityButton = new Texture("AbilityButton/Rock_AbilityButton.png");
         Steel_AbilityButton = new Texture("AbilityButton/Steel_AbilityButton.png");
         Water_AbilityButton = new Texture("AbilityButton/Water_AbilityButton.png");
+
         opponent = Main.opponentFactory.Cynthia();
         opponentPokemon = opponent.pokemons[0];
+
         Pokemon charmander = Main.pokemonFactory.createPokemon("Charmander");
         playerPokemon = charmander;
         charmander.abilities[0] = Main.abilityFactory.createAbility("Growl");
@@ -180,6 +196,7 @@ public class Battle_Screen implements Screen {
             float touchX = Gdx.input.getX();
             float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
             if (buttonBounds.contains(touchX, touchY)) {
+                subtitle = playerPokemon.name + " used " + ability.name + ".";
                 opponentPokemon.currentHP -= damage_formula(playerPokemon, opponentPokemon, ability);
             }
         }
@@ -240,8 +257,8 @@ public class Battle_Screen implements Screen {
         batch.draw(playerPokemon.sprites[2], 24, backgroundY - 8);
 
         BitmapFont font = new BitmapFont();
-        font.getData().setScale(25f);
-        font.draw(batch, String.valueOf(opponentPokemon.currentHP), 500, 500);
+        font.getData().setScale(10f);
+        font.draw(batch, String.valueOf(opponentPokemon.currentHP), 0, 2000);
 
         subtitleBarY = backgroundY - subtitle_bar.getHeight();
         batch.draw(subtitle_bar, 0, subtitleBarY);
@@ -277,6 +294,22 @@ public class Battle_Screen implements Screen {
                     inAbilityScreen = false;
                 }
             }
+        }
+
+        float subtitleDuration = 1f;
+        if (!subtitle.isEmpty()) {
+            inputText.getText(batch, subtitle, 16, backgroundY - 22);
+            subtitleTimer += delta;
+            if (subtitleTimer > subtitleDuration) {
+                subtitle = "";
+                if (!abilityEffectText.isEmpty()) {
+                    subtitle = abilityEffectText;
+                    subtitleTimer = 0f;
+                    abilityEffectText = "";
+                }
+            }
+        } else {
+            subtitleTimer = 0f;
         }
 
         batch.end();

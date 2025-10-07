@@ -2,8 +2,6 @@ package com.lin.pokemon_journey;
 
 import com.badlogic.gdx.graphics.Texture;
 
-import java.util.Arrays;
-
 public class Opponent {
     String name;
     Pokemon[] pokemons;

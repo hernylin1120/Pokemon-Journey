@@ -14,8 +14,8 @@ public class Home_Screen implements Screen {
     private Texture image;
     private Texture buttonTexture;
     private Rectangle buttonBounds;
-    private float buttonX = 100;
-    private float buttonY = 100;
+    private float buttonX = 0;
+    private float buttonY = Gdx.graphics.getHeight() - 400;
 
     public Home_Screen(Game game) {
         this.game = game;

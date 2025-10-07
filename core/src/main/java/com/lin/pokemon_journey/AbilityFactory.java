@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AbilityFactory {
-    private static final Map<String, Ability> abilityCache = new HashMap<>();
+    private static final Map<String, Ability> abilityMap = new HashMap<>();
 
     public static Ability createAbility(String abilityName) {
-        if (abilityCache.containsKey(abilityName)) {
-            return abilityCache.get(abilityName);
+        if (abilityMap.containsKey(abilityName)) {
+            return abilityMap.get(abilityName);
         }
         Ability ability;
         switch (abilityName) {
@@ -24,7 +24,7 @@ public class AbilityFactory {
             default:
                 throw new IllegalArgumentException("Unknown Ability: " + abilityName);
         }
-        abilityCache.put(abilityName, ability);
+        abilityMap.put(abilityName, ability);
         return ability;
     }
 }

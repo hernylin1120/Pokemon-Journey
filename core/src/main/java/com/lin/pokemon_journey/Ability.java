@@ -6,6 +6,7 @@ public class Ability {
     String category; // Physical, Special, Status
     int power;
     int accuracy;
+    String effectText = "";
     public Ability(String name, String type, String category, int power, int accuracy) {
         this.name = name;
         this.type = type;

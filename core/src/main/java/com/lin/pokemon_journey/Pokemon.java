@@ -56,5 +56,9 @@ public class Pokemon {
         this.currentSpecialDefense = (int) Math.floor((((2 * this.specialDefense + this.iv[4] + (this.ev[4]) / 4) * level) / 100) + 5);
         this.currentSpeed = (int) Math.floor((((2 * this.speed + this.iv[5] + (this.ev[5]) / 4) * level) / 100) + 5);
     }
+
+    public void levelUp() {
+        setLevel(this.level + 1);
+    }
 }
 
