@@ -1,6 +1,8 @@
 package com.lin.pokemon_journey;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

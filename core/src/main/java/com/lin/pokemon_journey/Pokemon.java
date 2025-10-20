@@ -60,5 +60,9 @@ public class Pokemon {
     public void levelUp() {
         setLevel(this.level + 1);
     }
+
+    public void setEffect() {
+        int[] statsMultiplier;
+    }
 }
 

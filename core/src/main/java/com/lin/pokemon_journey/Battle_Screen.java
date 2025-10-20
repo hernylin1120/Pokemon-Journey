@@ -9,7 +9,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Battle_Screen implements Screen {
@@ -89,8 +91,9 @@ public class Battle_Screen implements Screen {
         if (defenderType.length > 1) {
             defenderTypeInt2 = getRelativeInt(defenderType[1]);
             multiplier = multiply_chart[attackTypeInt][defenderTypeInt1] * multiply_chart[attackTypeInt][defenderTypeInt2];
+        } else {
+            multiplier = multiply_chart[attackTypeInt][defenderTypeInt1];
         }
-        multiplier = multiply_chart[attackTypeInt][defenderTypeInt1];
         if (multiplier == 0) {
             abilityEffectText = "It doesn't affect " + opponentPokemon.name + "...";
         } else if (multiplier < 1) {
@@ -99,6 +102,10 @@ public class Battle_Screen implements Screen {
             abilityEffectText = "It's super effective!";
         }
         return multiplier;
+    }
+
+    public void setPokemonEffect() {
+
     }
 
     public int getRelativeInt(String type) {
@@ -160,9 +167,9 @@ public class Battle_Screen implements Screen {
 
         Pokemon charmander = Main.pokemonFactory.createPokemon("Charmander");
         playerPokemon = charmander;
-        charmander.abilities[0] = Main.abilityFactory.createAbility("Growl");
-        charmander.abilities[1] = Main.abilityFactory.createAbility("Scratch");
-        charmander.abilities[2] = Main.abilityFactory.createAbility("Ember");
+        playerPokemon.abilities[0] = Main.abilityFactory.createAbility("Growl");
+        playerPokemon.abilities[1] = Main.abilityFactory.createAbility("Scratch");
+        playerPokemon.abilities[2] = Main.abilityFactory.createAbility("Ember");
     }
 
     private Texture getAbilityButtonTexture(String type) {
@@ -196,8 +203,12 @@ public class Battle_Screen implements Screen {
             float touchX = Gdx.input.getX();
             float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
             if (buttonBounds.contains(touchX, touchY)) {
-                subtitle = playerPokemon.name + " used " + ability.name + ".";
-                opponentPokemon.currentHP -= damage_formula(playerPokemon, opponentPokemon, ability);
+                subtitle = playerPokemon.name + " used, " + ability.name + ".";
+                if (ability.category.equals("Status")) {
+
+                } else {
+                    opponentPokemon.currentHP -= damage_formula(playerPokemon, opponentPokemon, ability);
+                }
             }
         }
     }
@@ -240,11 +251,12 @@ public class Battle_Screen implements Screen {
         ScreenUtils.clear(0f, 0f, 0f, 1f);
 
 //        float scale = Gdx.graphics.getWidth() / 256f;
+//        batch.getProjectionMatrix().setToOrtho2D(0, 0, 256, Gdx.graphics.getHeight() / scale);
 //        batch.setProjectionMatrix(batch.getProjectionMatrix().scale(scale, scale, 1));
 
         batch.begin();
         backgroundY = Gdx.graphics.getHeight() - background.getHeight();
-//      backgroundY = (int) ((Gdx.graphics.getHeight() / scale) - background.getHeight());
+//        backgroundY = (int) ((Gdx.graphics.getHeight() / scale) - background.getHeight());
         batch.draw(background, 0, backgroundY);
         batch.draw(ground, 0, backgroundY);
 
@@ -268,32 +280,20 @@ public class Battle_Screen implements Screen {
             batch.draw(decideScreen, 0, lowerScreenY);
             int fightButtonX = 20;
             int fightButtonY = lowerScreenY + 76;
-            batch.draw(decideScreenFightButton, fightButtonX, fightButtonY);
-            Rectangle buttonBounds = new Rectangle(fightButtonX, fightButtonY, decideScreenFightButton.getWidth(), decideScreenFightButton.getHeight());
-            if (Gdx.input.justTouched()) {
-                float touchX = Gdx.input.getX();
-                float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
-                if (buttonBounds.contains(touchX, touchY)) {
-                    inDecideScreen = false;
-                    inAbilityScreen = true;
-                }
-            }
+            Button decideButton = new Button(fightButtonX, fightButtonY, decideScreenFightButton, batch, () -> {
+                inDecideScreen = false;
+                inAbilityScreen = true;
+            });
         } else if (inAbilityScreen) {
             lowerScreenY = subtitleBarY - choosingAbilityScreen.getHeight();
             batch.draw(choosingAbilityScreen, 0, lowerScreenY);
             allAbilityButton(playerPokemon);
             int fightButtonX = 9;
             int cancelButtonY = lowerScreenY + 2;
-            batch.draw(choosingAbilityScreenCancelButton, fightButtonX, cancelButtonY);
-            Rectangle buttonBounds = new Rectangle(fightButtonX, cancelButtonY, choosingAbilityScreenCancelButton.getWidth(), choosingAbilityScreenCancelButton.getHeight());
-            if (Gdx.input.justTouched()) {
-                float touchX = Gdx.input.getX();
-                float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
-                if (buttonBounds.contains(touchX, touchY)) {
-                    inDecideScreen = true;
-                    inAbilityScreen = false;
-                }
-            }
+            Button cancelButton = new Button(fightButtonX, cancelButtonY, choosingAbilityScreenCancelButton, batch, () -> {
+                inDecideScreen = true;
+                inAbilityScreen = false;
+            });
         }
 
         float subtitleDuration = 1f;

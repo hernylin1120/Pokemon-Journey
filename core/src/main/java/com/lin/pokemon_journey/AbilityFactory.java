@@ -13,13 +13,13 @@ public class AbilityFactory {
         Ability ability;
         switch (abilityName) {
             case "Growl":
-                ability = new Ability("Growl", "Normal", "Status", 0, 100);
+                ability = new Ability("Growl", "Normal", "Status", 0, 100, 40);
                 break;
             case "Scratch":
-                ability = new Ability("Scratch", "Normal", "Physical", 40, 100);
+                ability = new Ability("Scratch", "Normal", "Physical", 40, 100, 35);
                 break;
             case "Ember":
-                ability = new Ability("Ember", "Fire", "Special", 40, 100);
+                ability = new Ability("Ember", "Fire", "Special", 40, 100, 25);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown Ability: " + abilityName);

@@ -5,10 +5,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class InputText {
     private Texture font = new Texture("Text.png");
+    int size;
 
     //the position has to recalculated
     public void getText(SpriteBatch batch, String text, int x, int y) {
-        int fontWidth = 7;
+        int fontWidth;
         int fontHeight;
         String[] words = text.split(" ");
         for (String word : words) {
@@ -20,16 +21,20 @@ public class InputText {
                 int UDspace = 8;
                 if (character == '.') {
                     fontHeight = 11;
+                    fontWidth = 5;
                     batch.draw(font, x, y, fontWidth, fontHeight, 160, 76, fontWidth, fontHeight, false, false);
                 } else if (character == ',') {
-                    fontHeight = 12;
-                    batch.draw(font, x, y - 1, fontWidth, fontHeight, 167, 76, fontWidth, fontHeight, false, false);
+                    fontHeight = 4;
+                    fontWidth = 4;
+                    batch.draw(font, x, y - 1, fontWidth, fontHeight, 177, 85, fontWidth, fontHeight, false, false);
                 } else if ((int) character < 58 && (int) character > 47) {
+                    fontWidth = 7;
                     position = character - 48;
                     fontHeight = 11;
                     position = position % 13;
                     batch.draw(font, x, y, fontWidth, fontHeight, (fontWidth + LRspace) * position, 76, fontWidth, fontHeight, false, false);
                 } else {
+                    fontWidth = 7;
                     position = character - 65;
                     fontHeight = 11;
                     if (position < 26) {
@@ -52,5 +57,6 @@ public class InputText {
             }
             x += 5; // space between words
         }
+        size = x;
     }
 }
