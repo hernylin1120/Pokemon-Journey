@@ -7,7 +7,7 @@ public class Ability {
     int power;
     int accuracy;
     int maxPP;
-    int currentPP = maxPP;
+    int currentPP;
     String description;
     String subtitle;
     public Ability(String name, String type, String category, int power, int accuracy, int maxPP) {
@@ -17,6 +17,7 @@ public class Ability {
         this.power = power;
         this.accuracy = accuracy;
         this.maxPP = maxPP;
+        this.currentPP = maxPP;
     }
     public void useAbility() {
         if (currentPP > 0) {

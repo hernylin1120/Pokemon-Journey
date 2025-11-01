@@ -6,7 +6,7 @@ public class Fishing_Screen {
         if (i < 84) {
             //pokemon
         } else if (i < 94) {
-            // fruit / seeds(grow fruits)
+            // berries
         } else {
             //cd
         }

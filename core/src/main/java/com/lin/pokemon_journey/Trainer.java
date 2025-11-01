@@ -2,15 +2,15 @@ package com.lin.pokemon_journey;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class Opponent {
+public class Trainer {
     String name;
     Pokemon[] pokemons;
     Texture[] sprites;
     int PokemonAvailable;
-    public Opponent(String name, Pokemon[] pokemons) {
+    public Trainer(String name, Pokemon[] pokemons, Texture[] sprites) {
         this.name = name;
         this.pokemons = pokemons;
-        this.sprites = new Texture[] {};
+        this.sprites = sprites;
         this.PokemonAvailable = pokemons.length;
     }
 }
