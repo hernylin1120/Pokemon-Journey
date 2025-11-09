@@ -13,4 +13,8 @@ public class Trainer {
         this.sprites = sprites;
         this.PokemonAvailable = pokemons.length;
     }
+
+    public void nextMove(Pokemon currentPokemon, Pokemon opponent) {
+
+    }
 }

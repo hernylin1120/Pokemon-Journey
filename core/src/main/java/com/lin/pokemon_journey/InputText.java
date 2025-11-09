@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class InputText {
+    private Texture subtitleFont = new Texture("SubtitleText.png");
     private Texture font = new Texture("Text.png");
     int fontWidth;
     int fontHeight;
@@ -15,7 +16,7 @@ public class InputText {
 
     //the position has to recalculated
     //214 is the max pixel
-    public void subtitleText(SpriteBatch batch, String text, int x, int y) {
+    public void inputText(boolean black , SpriteBatch batch, String text, int x, int y) {
         originalX = x;
         String[] words = text.split(" ");
         for (String word : words) {
@@ -92,7 +93,28 @@ public class InputText {
                         }
                     }
                 }
-                batch.draw(font, x, y + currentY_tuning, fontWidth, fontHeight, srcX, srcY, fontWidth, fontHeight, false, false);
+//                switch (character) {
+//                    case 'f':
+//                    case 'r':
+//                    case 't':
+//                    case 'y':
+//                        fontWidth = 6;
+//                        break;
+//                    case 'i':
+//                        fontWidth = 2;
+//                        break;
+//                    case 'j':
+//                        fontWidth = 5;
+//                        break;
+//                    case 'l':
+//                        fontWidth = 3;
+//                        break;
+//                }
+                if (black) {
+                    batch.draw(subtitleFont, x, y + currentY_tuning, fontWidth, fontHeight, srcX, srcY, fontWidth, fontHeight, false, false);
+                } else {
+                    batch.draw(font, x, y + currentY_tuning, fontWidth, fontHeight, srcX, srcY, fontWidth, fontHeight, false, false);
+                }
                 x += fontWidth;
             }
             x += 5; // space between words

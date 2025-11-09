@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Objects;
 
 public class Battle_Screen implements Screen {
@@ -28,8 +27,14 @@ public class Battle_Screen implements Screen {
     private Texture subtitle_bar;
     private int subtitleBarY;
     private Texture decideScreen;
+    boolean clickable = true;
     private Texture decideScreenFightButton;
+    private Texture decideScreenBagButton;
+    private Texture decideScreenRunButton;
+    private Texture decideScreenPokemonButton;
+
     private Texture choosingAbilityScreen;
+    private Texture pokemonScreen;
     private Texture choosingAbilityScreenCancelButton;
     private int lowerScreenY;
     private Texture Bug_AbilityButton;
@@ -56,6 +61,7 @@ public class Battle_Screen implements Screen {
     private Pokemon opponentPokemon;
     private boolean inDecideScreen = true;
     private boolean inAbilityScreen = false;
+    private boolean inPokemonScreen = false;
     private boolean inStartingBattle = true;
     private boolean inBattle = false;
     private boolean inEndingBattle = false;
@@ -155,6 +161,7 @@ public class Battle_Screen implements Screen {
         subtitle_bar = new Texture("Subtitle.png");
         decideScreen = new Texture("Decide_Screen.png");
         choosingAbilityScreen = new Texture("Choosing_Ability_Screen.png");
+        pokemonScreen = new Texture("Pokemon_Screen.png");
 
         // ✅ 計算總高度 = 背景 + 字幕 + 下方畫面(取最大值)
         int lowerScreenHeight = Math.max(decideScreen.getHeight(), choosingAbilityScreen.getHeight());
@@ -166,6 +173,9 @@ public class Battle_Screen implements Screen {
         viewport = new FitViewport(backgroundWidth, backgroundHeight, camera);
 
         decideScreenFightButton = new Texture("Decide_Screen_FightButton.png");
+        decideScreenBagButton = new Texture("Decide_Screen_BagButton.png");
+        decideScreenRunButton = new Texture("Decide_Screen_RunButton.png");
+        decideScreenPokemonButton = new Texture("Decide_Screen_PokemonButton.png");
         choosingAbilityScreenCancelButton = new Texture("Choosing_Ability_Screen_CancelButton.png");
 
         Bug_AbilityButton = new Texture("AbilityButton/Bug_AbilityButton.png");
@@ -235,13 +245,13 @@ public class Battle_Screen implements Screen {
                 space += 7;
             }
         }
-        currentAbility.subtitleText(batch, ability.name, buttonX + 7 + ((108 - space) / 2), buttonY + 39 - 11);
+        currentAbility.inputText(true, batch, ability.name, buttonX + 7 + ((108 - space) / 2), buttonY + 39 - 11);
         if (ability.currentPP > 9) {
-            currentAbility.subtitleText(batch, Integer.toString(ability.currentPP), buttonX + 86 - 2 * 7, buttonY + 13);
+            currentAbility.inputText(true, batch, Integer.toString(ability.currentPP), buttonX + 86 - 2 * 7, buttonY + 13);
         } else {
-            currentAbility.subtitleText(batch, Integer.toString(ability.currentPP), buttonX + 86 - 7, buttonY + 13);
+            currentAbility.inputText(true, batch, Integer.toString(ability.currentPP), buttonX + 86 - 7, buttonY + 13);
         }
-        currentAbility.subtitleText(batch, Integer.toString(ability.maxPP), buttonX + 92, buttonY + 13);
+        currentAbility.inputText(true, batch, Integer.toString(ability.maxPP), buttonX + 92, buttonY + 13);
         Rectangle buttonBounds = new Rectangle(buttonX, buttonY, buttonTexture.getWidth(), buttonTexture.getHeight());
 
         if (Gdx.input.justTouched()) {
@@ -256,8 +266,11 @@ public class Battle_Screen implements Screen {
                     if (!ability.category.equals("Status")) {
                         opponentPokemon.currentHP -= damage_formula(playerPokemon, opponentPokemon, ability);
                     }
+                    clickable = false;
                 }
             }
+            inAbilityScreen = false;
+            inDecideScreen = true;
         }
     }
 
@@ -319,7 +332,7 @@ public class Battle_Screen implements Screen {
                     isSliding = false;  // 滑入完成,開始循環動畫
                     animationTimer = 0f;
                 }
-                batch.draw(trainer.sprites[0], trainerSlideX, opponentPokemonY);
+                batch.draw(trainer.sprites[0], trainerSlideX, opponentPokemonY + 20);
             } else {
                 animationTimer += delta;
                 if (animationTimer >= frameDuration) {
@@ -351,6 +364,57 @@ public class Battle_Screen implements Screen {
         completedLoop = 0;
     }
 
+    public void setDecideScreen() {
+        batch.draw(decideScreen, 0, lowerScreenY);
+        int fightButtonX = 20;
+        int fightButtonY = lowerScreenY + 76;
+        Button fightButton = new Button(fightButtonX, fightButtonY, decideScreenFightButton, batch, viewport, () -> {
+            if (clickable) {
+                inDecideScreen = false;
+                inAbilityScreen = true;
+            }
+        });
+        int bagButtonX = 1;
+        int bagButtonY = 12;
+        Button bagButton = new Button(bagButtonX, bagButtonY, decideScreenBagButton, batch, viewport, () -> {
+            if (clickable) {
+
+            }
+
+        });
+        int runButtonX = 89;
+        int runButtonY = 4;
+        Button runButton = new Button(runButtonX, runButtonY, decideScreenRunButton, batch, viewport, () -> {
+            if (clickable) {
+
+            }
+        });
+        int pokemonButtonX = 177;
+        Button pokemonButton = new Button(pokemonButtonX, bagButtonY, decideScreenPokemonButton, batch, viewport, () -> {
+            if (clickable) {
+                inDecideScreen = false;
+                inPokemonScreen = true;
+            }
+        });
+    }
+
+    public void setChoosingAbilityScreen() {
+        batch.draw(choosingAbilityScreen, 0, lowerScreenY);
+        allAbilityButton(playerPokemon);
+        int cancelButtonX = 9;
+        int cancelButtonY = lowerScreenY + 2;
+        Button cancelButton = new Button(cancelButtonX, cancelButtonY, choosingAbilityScreenCancelButton, batch, viewport, () -> {
+            if (clickable) {
+                inDecideScreen = true;
+                inAbilityScreen = false;
+            }
+        });
+    }
+
+    public void setPokemonScreen() {
+        batch.draw(pokemonScreen, 0, lowerScreenY);
+    }
+
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0f, 0f, 0f, 1f);
@@ -367,14 +431,14 @@ public class Battle_Screen implements Screen {
         batch.draw(background, 0, backgroundStartY);
         batch.draw(ground, 0, backgroundStartY);
         // ✅ 對手寶可夢位置 (在背景內的頂部附近)
-        opponentPokemonX = 150;
-        opponentPokemonY = backgroundStartY + background.getHeight() - 100;
+        opponentPokemonX = 152;
+        opponentPokemonY = backgroundStartY + 35;
 
         if (inStartingBattle) {
             if (!isAnimating) {
                 startAnimation();
             }
-            animation(trainer.name, "Trainer", opponentPokemonX, opponentPokemonY, delta);
+            animation(trainer.name, "Trainer", opponentPokemonX, opponentPokemonY + 20, delta);
             if (!isAnimating) {
                 inStartingBattle = false;
                 inBattle = true;
@@ -387,8 +451,10 @@ public class Battle_Screen implements Screen {
             batch.draw(playerPokemon.sprites[2], 24, playerPokemonY);
             int opponentPokemonHPBarY = backgroundStartY + 91;
             batch.draw(OpponentSingleHPBar, 0, opponentPokemonHPBarY);
-            InputText opponentName = new InputText();
-            opponentName.subtitleText(batch, opponentPokemon.name, 2, backgroundStartY + 107);
+            InputText opponentPokemonInfo = new InputText();
+            opponentPokemonInfo.inputText(false, batch, opponentPokemon.name.toUpperCase(), 2, backgroundStartY + 107);
+            opponentPokemonInfo.inputText(false, batch, "Lv" + opponentPokemon.level, 90, backgroundStartY + 107);
+
 
             // ✅ HP 顯示 (在虛擬畫布頂部)
             BitmapFont font = new BitmapFont();
@@ -401,28 +467,17 @@ public class Battle_Screen implements Screen {
 
             lowerScreenY = 0;
             if (inDecideScreen) {
-                batch.draw(decideScreen, 0, lowerScreenY);
-                int fightButtonX = 20;
-                int fightButtonY = lowerScreenY + 76;
-                Button fightButton = new Button(fightButtonX, fightButtonY, decideScreenFightButton, batch, viewport, () -> {
-                    inDecideScreen = false;
-                    inAbilityScreen = true;
-                });
+                setDecideScreen();
             } else if (inAbilityScreen) {
-                batch.draw(choosingAbilityScreen, 0, lowerScreenY);
-                allAbilityButton(playerPokemon);
-                int cancelButtonX = 9;
-                int cancelButtonY = lowerScreenY + 2;
-                Button cancelButton = new Button(cancelButtonX, cancelButtonY, choosingAbilityScreenCancelButton, batch, viewport, () -> {
-                    inDecideScreen = true;
-                    inAbilityScreen = false;
-                });
+                setChoosingAbilityScreen();
+            } else if (inPokemonScreen) {
+                setPokemonScreen();
             }
 
-            float subtitleDuration = 1f;
+            float subtitleDuration = 1.5f;
+            int subtitleTextY = subtitleBarY + subtitle_bar.getHeight() - 22;
             if (!subtitle.isEmpty()) {
-                int subtitleTextY = subtitleBarY + subtitle_bar.getHeight() - 22;
-                inputText.subtitleText(batch, subtitle, 16, subtitleTextY);
+                inputText.inputText(true, batch, subtitle, 16, subtitleTextY);
                 subtitleTimer += delta;
                 if (subtitleTimer > subtitleDuration) {
                     subtitle = "";
@@ -431,8 +486,10 @@ public class Battle_Screen implements Screen {
                         subtitleTimer = 0f;
                         abilityEffectText = "";
                     }
+                    clickable = true;
                 }
             } else {
+                inputText.inputText(true, batch, "What will " + playerPokemon.name.toUpperCase() + " do?", 16, subtitleTextY);
                 subtitleTimer = 0f;
             }
         }

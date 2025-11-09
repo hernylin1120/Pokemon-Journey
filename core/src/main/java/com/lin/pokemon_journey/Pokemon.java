@@ -28,6 +28,7 @@ public class Pokemon {
     int[] ev;
     String condition; //e.g. poisoned
     Ability[] abilities = new Ability[4];
+    Item heldItem;
 
     public Pokemon(int id, String name, Boolean genderDifferences, String[] type, Texture[] sprites,
                    int HP, int attack, int defense, int specialAttack, int specialDefense, int speed) {
