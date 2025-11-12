@@ -16,11 +16,19 @@ public class Main extends Game {
     public void create() {
         pokemonFactory = new PokemonFactory();
         trainerFactory = new TrainerFactory();
-        saveManager = new SaveManager();
-        if (saveManager.hasSaveFile()) {
-            saveData = saveManager.loadGame();
-            player = saveManager.restorePlayer(saveData);
-        }
+//        saveManager = new SaveManager();
+//        if (saveManager.hasSaveFile()) {
+//            saveData = saveManager.loadGame();
+//            player = saveManager.restorePlayer(saveData);
+//        }
+
+        player = new Player("Dream");
+        player.pokemons = new Pokemon[6];
+        player.pokemons[0] = Main.pokemonFactory.createPokemon("Charmander");
+        player.pokemons[0].abilities[0] = Main.abilityFactory.createAbility("Growl");
+        player.pokemons[0].abilities[1] = Main.abilityFactory.createAbility("Scratch");
+        player.pokemons[0].abilities[2] = Main.abilityFactory.createAbility("Ember");
+        player.pokemons[1] = Main.pokemonFactory.createPokemon("Venusaur");
         setScreen(new Home_Screen(this));
     }
 

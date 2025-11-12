@@ -26,7 +26,7 @@ public class Pokemon {
     int level;
     int[] iv;
     int[] ev;
-    String condition; //e.g. poisoned
+    String condition = ""; //e.g. poisoned
     Ability[] abilities = new Ability[4];
     Item heldItem;
 

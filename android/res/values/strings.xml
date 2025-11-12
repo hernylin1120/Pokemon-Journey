@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">Pokemon Journey</string>
+    <string name="client_id">999161976569-ohrvmjqhqltiuej787me5tj66u2kqv3f.apps.googleusercontent.com</string>
 </resources>

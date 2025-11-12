@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class PokemonFactory {
     private static final Map<String, Pokemon> pokemonMap = new HashMap<>();
+
     public static Pokemon createPokemon(String pokemonName) {
         if (pokemonMap.containsKey(pokemonName)) {
             return pokemonMap.get(pokemonName);
@@ -19,12 +20,12 @@ public class PokemonFactory {
                     1,
                     "Bulbasaur",
                     false,
-                    new String[] {"Grass", "Poison"},
-                    new Texture[] {
-//                new Texture("Gen1_Pokemon/Bulbasaur_Front1.png"),
-//                new Texture("Gen1_Pokemon/Bulbasaur_Front2.png"),
-//                new Texture("Gen1_Pokemon/Bulbasaur_Back1.png"),
-//                new Texture("Gen1_Pokemon/Bulbasaur_Back2.png"),
+                    new String[]{"Grass", "Poison"},
+                    new Texture[]{
+                        new Texture("Gen1_Pokemon/Bulbasaur_Front1.png"),
+                        new Texture("Gen1_Pokemon/Bulbasaur_Front2.png"),
+                        new Texture("Gen1_Pokemon/Bulbasaur_Back1.png"),
+                        new Texture("Gen1_Pokemon/Bulbasaur_Back2.png"),
                     },
                     45, 49, 49, 65, 65, 45
                 );
@@ -34,12 +35,12 @@ public class PokemonFactory {
                     2,
                     "Ivysaur",
                     false,
-                    new String[] {"Grass", "Poison"},
-                    new Texture[] {
-//                new Texture("Gen1_Pokemon/Ivysaur_Front1.png"),
-//                new Texture("Gen1_Pokemon/Ivysaur_Front2.png"),
-//                new Texture("Gen1_Pokemon/Ivysaur_Back1.png"),
-//                new Texture("Gen1_Pokemon/Ivysaur_Back2.png"),
+                    new String[]{"Grass", "Poison"},
+                    new Texture[]{
+                        new Texture("Gen1_Pokemon/Ivysaur_Front1.png"),
+                        new Texture("Gen1_Pokemon/Ivysaur_Front2.png"),
+                        new Texture("Gen1_Pokemon/Ivysaur_Back1.png"),
+                        new Texture("Gen1_Pokemon/Ivysaur_Back2.png"),
                     },
                     60, 62, 63, 80, 80, 60
                 );
@@ -49,12 +50,14 @@ public class PokemonFactory {
                     3,
                     "Venusaur",
                     true,
-                    new String[] {"Grass", "Poison"},
-                    new Texture[] {
-//                new Texture("Gen1_Pokemon/Venusaur_Front1.png"),
-//                new Texture("Gen1_Pokemon/Venusaur_Front2.png"),
-//                new Texture("Gen1_Pokemon/Venusaur_Back1.png"),
-//                new Texture("Gen1_Pokemon/Venusaur_Back2.png"),
+                    new String[]{"Grass", "Poison"},
+                    new Texture[]{
+                        new Texture("Gen1_Pokemon/Venusaur_Front1.png"),
+                        new Texture("Gen1_Pokemon/Venusaur_Front2.png"),
+                        new Texture("Gen1_Pokemon/Venusaur_Back1.png"),
+                        new Texture("Gen1_Pokemon/Venusaur_Back2.png"),
+                        new Texture("Gen1_Pokemon/Venusaur_Icon2.png"),
+                        new Texture("Gen1_Pokemon/Venusaur_Icon2.png")
                     },
                     80, 82, 83, 100, 100, 80
                 );
@@ -64,12 +67,14 @@ public class PokemonFactory {
                     4,
                     "Charmander",
                     false,
-                    new String[] {"Fire"},
-                    new Texture[] {
+                    new String[]{"Fire"},
+                    new Texture[]{
                         new Texture("Gen1_Pokemon/Charmander_Front1.png"),
                         new Texture("Gen1_Pokemon/Charmander_Front2.png"),
                         new Texture("Gen1_Pokemon/Charmander_Back1.png"),
                         new Texture("Gen1_Pokemon/Charmander_Back2.png"),
+                        new Texture("Gen1_Pokemon/Charmander_Icon1.png"),
+                        new Texture("Gen1_Pokemon/Charmander_Icon2.png")
                     },
                     39, 52, 43, 60, 50, 65
                 );
@@ -79,8 +84,8 @@ public class PokemonFactory {
                     5,
                     "Charmeleon",
                     false,
-                    new String[] {"Fire"},
-                    new Texture[] {
+                    new String[]{"Fire"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Charmeleon_Front1.png"),
 //                new Texture("Gen1_Pokemon/Charmeleon_Front2.png"),
 //                new Texture("Gen1_Pokemon/Charmeleon_Back1.png"),
@@ -94,8 +99,8 @@ public class PokemonFactory {
                     6,
                     "Charizard",
                     false,
-                    new String[] {"Fire", "Flying"},
-                    new Texture[] {
+                    new String[]{"Fire", "Flying"},
+                    new Texture[]{
                         new Texture("Gen1_Pokemon/Charizard_Front1.png"),
                     },
                     78, 84, 78, 109, 85, 100
@@ -106,8 +111,8 @@ public class PokemonFactory {
                     7,
                     "Squirtle",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Squirtle_Front1.png"),
 //                new Texture("Gen1_Pokemon/Squirtle_Front2.png"),
 //                new Texture("Gen1_Pokemon/Squirtle_Back1.png"),
@@ -121,8 +126,8 @@ public class PokemonFactory {
                     8,
                     "Wartortle",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Wartortle_Front1.png"),
 //                new Texture("Gen1_Pokemon/Wartortle_Front2.png"),
 //                new Texture("Gen1_Pokemon/Wartortle_Back1.png"),
@@ -136,8 +141,8 @@ public class PokemonFactory {
                     9,
                     "Blastoise",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Blastoise_Front1.png"),
 //                new Texture("Gen1_Pokemon/Blastoise_Front2.png"),
 //                new Texture("Gen1_Pokemon/Blastoise_Back1.png"),
@@ -151,8 +156,8 @@ public class PokemonFactory {
                     10,
                     "Caterpie",
                     false,
-                    new String[] {"Bug"},
-                    new Texture[] {
+                    new String[]{"Bug"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Caterpie_Front1.png"),
 //                new Texture("Gen1_Pokemon/Caterpie_Front2.png"),
 //                new Texture("Gen1_Pokemon/Caterpie_Back1.png"),
@@ -166,8 +171,8 @@ public class PokemonFactory {
                     11,
                     "Metapod",
                     false,
-                    new String[] {"Bug"},
-                    new Texture[] {
+                    new String[]{"Bug"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Metapod_Front1.png"),
 //                new Texture("Gen1_Pokemon/Metapod_Front2.png"),
 //                new Texture("Gen1_Pokemon/Metapod_Back1.png"),
@@ -181,8 +186,8 @@ public class PokemonFactory {
                     12,
                     "Butterfree",
                     false,
-                    new String[] {"Bug", "Flying"},
-                    new Texture[] {
+                    new String[]{"Bug", "Flying"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Butterfree_Front1.png"),
 //                new Texture("Gen1_Pokemon/Butterfree_Front2.png"),
 //                new Texture("Gen1_Pokemon/Butterfree_Back1.png"),
@@ -196,8 +201,8 @@ public class PokemonFactory {
                     13,
                     "Weedle",
                     false,
-                    new String[] {"Bug", "Poison"},
-                    new Texture[] {
+                    new String[]{"Bug", "Poison"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Weedle_Front1.png"),
 //                new Texture("Gen1_Pokemon/Weedle_Front2.png"),
 //                new Texture("Gen1_Pokemon/Weedle_Back1.png"),
@@ -211,8 +216,8 @@ public class PokemonFactory {
                     14,
                     "Kakuna",
                     false,
-                    new String[] {"Bug", "Poison"},
-                    new Texture[] {
+                    new String[]{"Bug", "Poison"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Kakuna_Front1.png"),
 //                new Texture("Gen1_Pokemon/Kakuna_Front2.png"),
 //                new Texture("Gen1_Pokemon/Kakuna_Back1.png"),
@@ -226,8 +231,8 @@ public class PokemonFactory {
                     15,
                     "Beedrill",
                     false,
-                    new String[] {"Bug", "Poison"},
-                    new Texture[] {
+                    new String[]{"Bug", "Poison"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Beedrill_Front1.png"),
 //                new Texture("Gen1_Pokemon/Beedrill_Front2.png"),
 //                new Texture("Gen1_Pokemon/Beedrill_Back1.png"),
@@ -241,8 +246,8 @@ public class PokemonFactory {
                     16,
                     "Pidgey",
                     false,
-                    new String[] {"Normal", "Flying"},
-                    new Texture[] {
+                    new String[]{"Normal", "Flying"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Pidgey_Front1.png"),
 //                new Texture("Gen1_Pokemon/Pidgey_Front2.png"),
 //                new Texture("Gen1_Pokemon/Pidgey_Back1.png"),
@@ -256,8 +261,8 @@ public class PokemonFactory {
                     17,
                     "Pidgeotto",
                     false,
-                    new String[] {"Normal", "Flying"},
-                    new Texture[] {
+                    new String[]{"Normal", "Flying"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Pidgeotto_Front1.png"),
 //                new Texture("Gen1_Pokemon/Pidgeotto_Front2.png"),
 //                new Texture("Gen1_Pokemon/Pidgeotto_Back1.png"),
@@ -271,8 +276,8 @@ public class PokemonFactory {
                     18,
                     "Pidgeot",
                     false,
-                    new String[] {"Normal", "Flying"},
-                    new Texture[] {
+                    new String[]{"Normal", "Flying"},
+                    new Texture[]{
 //                new Texture("Gen1_Pokemon/Pidgeot_Front1.png"),
 //                new Texture("Gen1_Pokemon/Pidgeot_Front2.png"),
 //                new Texture("Gen1_Pokemon/Pidgeot_Back1.png"),
@@ -286,8 +291,8 @@ public class PokemonFactory {
                     19,
                     "Rattata",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Rattata_Front1.png"),
                         // new Texture("Gen1_Pokemon/Rattata_Front2.png"),
                         // new Texture("Gen1_Pokemon/Rattata_Back1.png"),
@@ -301,8 +306,8 @@ public class PokemonFactory {
                     20,
                     "Raticate",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Raticate_Front1.png"),
                         // new Texture("Gen1_Pokemon/Raticate_Front2.png"),
                         // new Texture("Gen1_Pokemon/Raticate_Back1.png"),
@@ -316,8 +321,8 @@ public class PokemonFactory {
                     21,
                     "Spearow",
                     false,
-                    new String[] {"Normal", "Flying"},
-                    new Texture[] {
+                    new String[]{"Normal", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Spearow_Front1.png"),
                         // new Texture("Gen1_Pokemon/Spearow_Front2.png"),
                         // new Texture("Gen1_Pokemon/Spearow_Back1.png"),
@@ -331,8 +336,8 @@ public class PokemonFactory {
                     22,
                     "Fearow",
                     false,
-                    new String[] {"Normal", "Flying"},
-                    new Texture[] {
+                    new String[]{"Normal", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Fearow_Front1.png"),
                         // new Texture("Gen1_Pokemon/Fearow_Front2.png"),
                         // new Texture("Gen1_Pokemon/Fearow_Back1.png"),
@@ -346,8 +351,8 @@ public class PokemonFactory {
                     23,
                     "Ekans",
                     false,
-                    new String[] {"Poison"},
-                    new Texture[] {
+                    new String[]{"Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Ekans_Front1.png"),
                         // new Texture("Gen1_Pokemon/Ekans_Front2.png"),
                         // new Texture("Gen1_Pokemon/Ekans_Back1.png"),
@@ -361,8 +366,8 @@ public class PokemonFactory {
                     24,
                     "Arbok",
                     false,
-                    new String[] {"Poison"},
-                    new Texture[] {
+                    new String[]{"Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Arbok_Front1.png"),
                         // new Texture("Gen1_Pokemon/Arbok_Front2.png"),
                         // new Texture("Gen1_Pokemon/Arbok_Back1.png"),
@@ -376,8 +381,8 @@ public class PokemonFactory {
                     25,
                     "Pikachu",
                     false,
-                    new String[] {"Electric"},
-                    new Texture[] {
+                    new String[]{"Electric"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Pikachu_Front1.png"),
                         // new Texture("Gen1_Pokemon/Pikachu_Front2.png"),
                         // new Texture("Gen1_Pokemon/Pikachu_Back1.png"),
@@ -391,8 +396,8 @@ public class PokemonFactory {
                     26,
                     "Raichu",
                     false,
-                    new String[] {"Electric"},
-                    new Texture[] {
+                    new String[]{"Electric"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Raichu_Front1.png"),
                         // new Texture("Gen1_Pokemon/Raichu_Front2.png"),
                         // new Texture("Gen1_Pokemon/Raichu_Back1.png"),
@@ -406,8 +411,8 @@ public class PokemonFactory {
                     27,
                     "Sandshrew",
                     false,
-                    new String[] {"Ground"},
-                    new Texture[] {
+                    new String[]{"Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Sandshrew_Front1.png"),
                         // new Texture("Gen1_Pokemon/Sandshrew_Front2.png"),
                         // new Texture("Gen1_Pokemon/Sandshrew_Back1.png"),
@@ -421,8 +426,8 @@ public class PokemonFactory {
                     28,
                     "Sandslash",
                     false,
-                    new String[] {"Ground"},
-                    new Texture[] {
+                    new String[]{"Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Sandslash_Front1.png"),
                         // new Texture("Gen1_Pokemon/Sandslash_Front2.png"),
                         // new Texture("Gen1_Pokemon/Sandslash_Back1.png"),
@@ -436,8 +441,8 @@ public class PokemonFactory {
                     29,
                     "Nidoran♀",
                     false,
-                    new String[] {"Poison"},
-                    new Texture[] {
+                    new String[]{"Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/NidoranF_Front1.png"),
                         // new Texture("Gen1_Pokemon/NidoranF_Front2.png"),
                         // new Texture("Gen1_Pokemon/NidoranF_Back1.png"),
@@ -451,8 +456,8 @@ public class PokemonFactory {
                     30,
                     "Nidorina",
                     false,
-                    new String[] {"Poison"},
-                    new Texture[] {
+                    new String[]{"Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Nidorina_Front1.png"),
                         // new Texture("Gen1_Pokemon/Nidorina_Front2.png"),
                         // new Texture("Gen1_Pokemon/Nidorina_Back1.png"),
@@ -466,8 +471,8 @@ public class PokemonFactory {
                     31,
                     "Nidoqueen",
                     false,
-                    new String[] {"Poison", "Ground"},
-                    new Texture[] {
+                    new String[]{"Poison", "Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Nidoqueen_Front1.png"),
                         // new Texture("Gen1_Pokemon/Nidoqueen_Front2.png"),
                         // new Texture("Gen1_Pokemon/Nidoqueen_Back1.png"),
@@ -481,8 +486,8 @@ public class PokemonFactory {
                     32,
                     "Nidoran♂",
                     false,
-                    new String[] {"Poison"},
-                    new Texture[] {
+                    new String[]{"Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/NidoranM_Front1.png"),
                         // new Texture("Gen1_Pokemon/NidoranM_Front2.png"),
                         // new Texture("Gen1_Pokemon/NidoranM_Back1.png"),
@@ -496,8 +501,8 @@ public class PokemonFactory {
                     33,
                     "Nidorino",
                     false,
-                    new String[] {"Poison"},
-                    new Texture[] {
+                    new String[]{"Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Nidorino_Front1.png"),
                         // new Texture("Gen1_Pokemon/Nidorino_Front2.png"),
                         // new Texture("Gen1_Pokemon/Nidorino_Back1.png"),
@@ -511,8 +516,8 @@ public class PokemonFactory {
                     34,
                     "Nidoking",
                     false,
-                    new String[] {"Poison", "Ground"},
-                    new Texture[] {
+                    new String[]{"Poison", "Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Nidoking_Front1.png"),
                         // new Texture("Gen1_Pokemon/Nidoking_Front2.png"),
                         // new Texture("Gen1_Pokemon/Nidoking_Back1.png"),
@@ -526,8 +531,8 @@ public class PokemonFactory {
                     35,
                     "Clefairy",
                     false,
-                    new String[] {"Fairy"},
-                    new Texture[] {
+                    new String[]{"Fairy"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Clefairy_Front1.png"),
                         // new Texture("Gen1_Pokemon/Clefairy_Front2.png"),
                         // new Texture("Gen1_Pokemon/Clefairy_Back1.png"),
@@ -541,8 +546,8 @@ public class PokemonFactory {
                     36,
                     "Clefable",
                     false,
-                    new String[] {"Fairy"},
-                    new Texture[] {
+                    new String[]{"Fairy"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Clefable_Front1.png"),
                         // new Texture("Gen1_Pokemon/Clefable_Front2.png"),
                         // new Texture("Gen1_Pokemon/Clefable_Back1.png"),
@@ -556,8 +561,8 @@ public class PokemonFactory {
                     37,
                     "Vulpix",
                     false,
-                    new String[] {"Fire"},
-                    new Texture[] {
+                    new String[]{"Fire"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Vulpix_Front1.png"),
                         // new Texture("Gen1_Pokemon/Vulpix_Front2.png"),
                         // new Texture("Gen1_Pokemon/Vulpix_Back1.png"),
@@ -571,8 +576,8 @@ public class PokemonFactory {
                     38,
                     "Ninetales",
                     false,
-                    new String[] {"Fire"},
-                    new Texture[] {
+                    new String[]{"Fire"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Ninetales_Front1.png"),
                         // new Texture("Gen1_Pokemon/Ninetales_Front2.png"),
                         // new Texture("Gen1_Pokemon/Ninetales_Back1.png"),
@@ -586,8 +591,8 @@ public class PokemonFactory {
                     39,
                     "Jigglypuff",
                     false,
-                    new String[] {"Normal", "Fairy"},
-                    new Texture[] {
+                    new String[]{"Normal", "Fairy"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Jigglypuff_Front1.png"),
                         // new Texture("Gen1_Pokemon/Jigglypuff_Front2.png"),
                         // new Texture("Gen1_Pokemon/Jigglypuff_Back1.png"),
@@ -601,8 +606,8 @@ public class PokemonFactory {
                     40,
                     "Wigglytuff",
                     false,
-                    new String[] {"Normal", "Fairy"},
-                    new Texture[] {
+                    new String[]{"Normal", "Fairy"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Wigglytuff_Front1.png"),
                         // new Texture("Gen1_Pokemon/Wigglytuff_Front2.png"),
                         // new Texture("Gen1_Pokemon/Wigglytuff_Back1.png"),
@@ -616,8 +621,8 @@ public class PokemonFactory {
                     41,
                     "Zubat",
                     false,
-                    new String[] {"Poison", "Flying"},
-                    new Texture[] {
+                    new String[]{"Poison", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Zubat_Front1.png"),
                         // new Texture("Gen1_Pokemon/Zubat_Front2.png"),
                         // new Texture("Gen1_Pokemon/Zubat_Back1.png"),
@@ -631,8 +636,8 @@ public class PokemonFactory {
                     42,
                     "Golbat",
                     false,
-                    new String[] {"Poison", "Flying"},
-                    new Texture[] {
+                    new String[]{"Poison", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Golbat_Front1.png"),
                         // new Texture("Gen1_Pokemon/Golbat_Front2.png"),
                         // new Texture("Gen1_Pokemon/Golbat_Back1.png"),
@@ -646,8 +651,8 @@ public class PokemonFactory {
                     43,
                     "Oddish",
                     false,
-                    new String[] {"Grass", "Poison"},
-                    new Texture[] {
+                    new String[]{"Grass", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Oddish_Front1.png"),
                         // new Texture("Gen1_Pokemon/Oddish_Front2.png"),
                         // new Texture("Gen1_Pokemon/Oddish_Back1.png"),
@@ -661,8 +666,8 @@ public class PokemonFactory {
                     44,
                     "Gloom",
                     false,
-                    new String[] {"Grass", "Poison"},
-                    new Texture[] {
+                    new String[]{"Grass", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Gloom_Front1.png"),
                         // new Texture("Gen1_Pokemon/Gloom_Front2.png"),
                         // new Texture("Gen1_Pokemon/Gloom_Back1.png"),
@@ -676,8 +681,8 @@ public class PokemonFactory {
                     45,
                     "Vileplume",
                     false,
-                    new String[] {"Grass", "Poison"},
-                    new Texture[] {
+                    new String[]{"Grass", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Vileplume_Front1.png"),
                         // new Texture("Gen1_Pokemon/Vileplume_Front2.png"),
                         // new Texture("Gen1_Pokemon/Vileplume_Back1.png"),
@@ -691,8 +696,8 @@ public class PokemonFactory {
                     46,
                     "Paras",
                     false,
-                    new String[] {"Bug", "Grass"},
-                    new Texture[] {
+                    new String[]{"Bug", "Grass"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Paras_Front1.png"),
                         // new Texture("Gen1_Pokemon/Paras_Front2.png"),
                         // new Texture("Gen1_Pokemon/Paras_Back1.png"),
@@ -706,8 +711,8 @@ public class PokemonFactory {
                     47,
                     "Parasect",
                     false,
-                    new String[] {"Bug", "Grass"},
-                    new Texture[] {
+                    new String[]{"Bug", "Grass"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Parasect_Front1.png"),
                         // new Texture("Gen1_Pokemon/Parasect_Front2.png"),
                         // new Texture("Gen1_Pokemon/Parasect_Back1.png"),
@@ -721,8 +726,8 @@ public class PokemonFactory {
                     48,
                     "Venonat",
                     false,
-                    new String[] {"Bug", "Poison"},
-                    new Texture[] {
+                    new String[]{"Bug", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Venonat_Front1.png"),
                         // new Texture("Gen1_Pokemon/Venonat_Front2.png"),
                         // new Texture("Gen1_Pokemon/Venonat_Back1.png"),
@@ -736,8 +741,8 @@ public class PokemonFactory {
                     49,
                     "Venomoth",
                     false,
-                    new String[] {"Bug", "Poison"},
-                    new Texture[] {
+                    new String[]{"Bug", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Venomoth_Front1.png"),
                         // new Texture("Gen1_Pokemon/Venomoth_Front2.png"),
                         // new Texture("Gen1_Pokemon/Venomoth_Back1.png"),
@@ -751,8 +756,8 @@ public class PokemonFactory {
                     50,
                     "Diglett",
                     false,
-                    new String[] {"Ground"},
-                    new Texture[] {
+                    new String[]{"Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Diglett_Front1.png"),
                         // new Texture("Gen1_Pokemon/Diglett_Front2.png"),
                         // new Texture("Gen1_Pokemon/Diglett_Back1.png"),
@@ -766,8 +771,8 @@ public class PokemonFactory {
                     51,
                     "Dugtrio",
                     false,
-                    new String[] {"Ground"},
-                    new Texture[] {
+                    new String[]{"Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Dugtrio_Front1.png"),
                         // new Texture("Gen1_Pokemon/Dugtrio_Front2.png"),
                         // new Texture("Gen1_Pokemon/Dugtrio_Back1.png"),
@@ -781,8 +786,8 @@ public class PokemonFactory {
                     52,
                     "Meowth",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Meowth_Front1.png"),
                         // new Texture("Gen1_Pokemon/Meowth_Front2.png"),
                         // new Texture("Gen1_Pokemon/Meowth_Back1.png"),
@@ -796,8 +801,8 @@ public class PokemonFactory {
                     53,
                     "Persian",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Persian_Front1.png"),
                         // new Texture("Gen1_Pokemon/Persian_Front2.png"),
                         // new Texture("Gen1_Pokemon/Persian_Back1.png"),
@@ -811,8 +816,8 @@ public class PokemonFactory {
                     54,
                     "Psyduck",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Psyduck_Front1.png"),
                         // new Texture("Gen1_Pokemon/Psyduck_Front2.png"),
                         // new Texture("Gen1_Pokemon/Psyduck_Back1.png"),
@@ -826,8 +831,8 @@ public class PokemonFactory {
                     55,
                     "Golduck",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Golduck_Front1.png"),
                         // new Texture("Gen1_Pokemon/Golduck_Front2.png"),
                         // new Texture("Gen1_Pokemon/Golduck_Back1.png"),
@@ -841,8 +846,8 @@ public class PokemonFactory {
                     56,
                     "Mankey",
                     false,
-                    new String[] {"Fighting"},
-                    new Texture[] {
+                    new String[]{"Fighting"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Mankey_Front1.png"),
                         // new Texture("Gen1_Pokemon/Mankey_Front2.png"),
                         // new Texture("Gen1_Pokemon/Mankey_Back1.png"),
@@ -856,8 +861,8 @@ public class PokemonFactory {
                     57,
                     "Primeape",
                     false,
-                    new String[] {"Fighting"},
-                    new Texture[] {
+                    new String[]{"Fighting"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Primeape_Front1.png"),
                         // new Texture("Gen1_Pokemon/Primeape_Front2.png"),
                         // new Texture("Gen1_Pokemon/Primeape_Back1.png"),
@@ -871,8 +876,8 @@ public class PokemonFactory {
                     58,
                     "Growlithe",
                     false,
-                    new String[] {"Fire"},
-                    new Texture[] {
+                    new String[]{"Fire"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Growlithe_Front1.png"),
                         // new Texture("Gen1_Pokemon/Growlithe_Front2.png"),
                         // new Texture("Gen1_Pokemon/Growlithe_Back1.png"),
@@ -886,8 +891,8 @@ public class PokemonFactory {
                     59,
                     "Arcanine",
                     false,
-                    new String[] {"Fire"},
-                    new Texture[] {
+                    new String[]{"Fire"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Arcanine_Front1.png"),
                         // new Texture("Gen1_Pokemon/Arcanine_Front2.png"),
                         // new Texture("Gen1_Pokemon/Arcanine_Back1.png"),
@@ -901,8 +906,8 @@ public class PokemonFactory {
                     60,
                     "Poliwag",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Poliwag_Front1.png"),
                         // new Texture("Gen1_Pokemon/Poliwag_Front2.png"),
                         // new Texture("Gen1_Pokemon/Poliwag_Back1.png"),
@@ -916,8 +921,8 @@ public class PokemonFactory {
                     61,
                     "Poliwhirl",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Poliwhirl_Front1.png"),
                         // new Texture("Gen1_Pokemon/Poliwhirl_Front2.png"),
                         // new Texture("Gen1_Pokemon/Poliwhirl_Back1.png"),
@@ -931,8 +936,8 @@ public class PokemonFactory {
                     62,
                     "Poliwrath",
                     false,
-                    new String[] {"Water", "Fighting"},
-                    new Texture[] {
+                    new String[]{"Water", "Fighting"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Poliwrath_Front1.png"),
                         // new Texture("Gen1_Pokemon/Poliwrath_Front2.png"),
                         // new Texture("Gen1_Pokemon/Poliwrath_Back1.png"),
@@ -946,8 +951,8 @@ public class PokemonFactory {
                     63,
                     "Abra",
                     false,
-                    new String[] {"Psychic"},
-                    new Texture[] {
+                    new String[]{"Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Abra_Front1.png"),
                         // new Texture("Gen1_Pokemon/Abra_Front2.png"),
                         // new Texture("Gen1_Pokemon/Abra_Back1.png"),
@@ -961,8 +966,8 @@ public class PokemonFactory {
                     64,
                     "Kadabra",
                     false,
-                    new String[] {"Psychic"},
-                    new Texture[] {
+                    new String[]{"Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Kadabra_Front1.png"),
                         // new Texture("Gen1_Pokemon/Kadabra_Front2.png"),
                         // new Texture("Gen1_Pokemon/Kadabra_Back1.png"),
@@ -976,8 +981,8 @@ public class PokemonFactory {
                     65,
                     "Alakazam",
                     false,
-                    new String[] {"Psychic"},
-                    new Texture[] {
+                    new String[]{"Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Alakazam_Front1.png"),
                         // new Texture("Gen1_Pokemon/Alakazam_Front2.png"),
                         // new Texture("Gen1_Pokemon/Alakazam_Back1.png"),
@@ -991,8 +996,8 @@ public class PokemonFactory {
                     66,
                     "Machop",
                     false,
-                    new String[] {"Fighting"},
-                    new Texture[] {
+                    new String[]{"Fighting"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Machop_Front1.png"),
                         // new Texture("Gen1_Pokemon/Machop_Front2.png"),
                         // new Texture("Gen1_Pokemon/Machop_Back1.png"),
@@ -1006,8 +1011,8 @@ public class PokemonFactory {
                     67,
                     "Machoke",
                     false,
-                    new String[] {"Fighting"},
-                    new Texture[] {
+                    new String[]{"Fighting"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Machoke_Front1.png"),
                         // new Texture("Gen1_Pokemon/Machoke_Front2.png"),
                         // new Texture("Gen1_Pokemon/Machoke_Back1.png"),
@@ -1021,8 +1026,8 @@ public class PokemonFactory {
                     68,
                     "Machamp",
                     false,
-                    new String[] {"Fighting"},
-                    new Texture[] {
+                    new String[]{"Fighting"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Machamp_Front1.png"),
                         // new Texture("Gen1_Pokemon/Machamp_Front2.png"),
                         // new Texture("Gen1_Pokemon/Machamp_Back1.png"),
@@ -1036,8 +1041,8 @@ public class PokemonFactory {
                     69,
                     "Bellsprout",
                     false,
-                    new String[] {"Grass", "Poison"},
-                    new Texture[] {
+                    new String[]{"Grass", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Bellsprout_Front1.png"),
                         // new Texture("Gen1_Pokemon/Bellsprout_Front2.png"),
                         // new Texture("Gen1_Pokemon/Bellsprout_Back1.png"),
@@ -1051,8 +1056,8 @@ public class PokemonFactory {
                     70,
                     "Weepinbell",
                     false,
-                    new String[] {"Grass", "Poison"},
-                    new Texture[] {
+                    new String[]{"Grass", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Weepinbell_Front1.png"),
                         // new Texture("Gen1_Pokemon/Weepinbell_Front2.png"),
                         // new Texture("Gen1_Pokemon/Weepinbell_Back1.png"),
@@ -1066,8 +1071,8 @@ public class PokemonFactory {
                     71,
                     "Victreebel",
                     false,
-                    new String[] {"Grass", "Poison"},
-                    new Texture[] {
+                    new String[]{"Grass", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Victreebel_Front1.png"),
                         // new Texture("Gen1_Pokemon/Victreebel_Front2.png"),
                         // new Texture("Gen1_Pokemon/Victreebel_Back1.png"),
@@ -1081,8 +1086,8 @@ public class PokemonFactory {
                     72,
                     "Tentacool",
                     false,
-                    new String[] {"Water", "Poison"},
-                    new Texture[] {
+                    new String[]{"Water", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Tentacool_Front1.png"),
                         // new Texture("Gen1_Pokemon/Tentacool_Front2.png"),
                         // new Texture("Gen1_Pokemon/Tentacool_Back1.png"),
@@ -1096,8 +1101,8 @@ public class PokemonFactory {
                     73,
                     "Tentacruel",
                     false,
-                    new String[] {"Water", "Poison"},
-                    new Texture[] {
+                    new String[]{"Water", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Tentacruel_Front1.png"),
                         // new Texture("Gen1_Pokemon/Tentacruel_Front2.png"),
                         // new Texture("Gen1_Pokemon/Tentacruel_Back1.png"),
@@ -1111,8 +1116,8 @@ public class PokemonFactory {
                     74,
                     "Geodude",
                     false,
-                    new String[] {"Rock", "Ground"},
-                    new Texture[] {
+                    new String[]{"Rock", "Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Geodude_Front1.png"),
                         // new Texture("Gen1_Pokemon/Geodude_Front2.png"),
                         // new Texture("Gen1_Pokemon/Geodude_Back1.png"),
@@ -1126,8 +1131,8 @@ public class PokemonFactory {
                     75,
                     "Graveler",
                     false,
-                    new String[] {"Rock", "Ground"},
-                    new Texture[] {
+                    new String[]{"Rock", "Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Graveler_Front1.png"),
                         // new Texture("Gen1_Pokemon/Graveler_Front2.png"),
                         // new Texture("Gen1_Pokemon/Graveler_Back1.png"),
@@ -1141,8 +1146,8 @@ public class PokemonFactory {
                     76,
                     "Golem",
                     false,
-                    new String[] {"Rock", "Ground"},
-                    new Texture[] {
+                    new String[]{"Rock", "Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Golem_Front1.png"),
                         // new Texture("Gen1_Pokemon/Golem_Front2.png"),
                         // new Texture("Gen1_Pokemon/Golem_Back1.png"),
@@ -1156,8 +1161,8 @@ public class PokemonFactory {
                     77,
                     "Ponyta",
                     false,
-                    new String[] {"Fire"},
-                    new Texture[] {
+                    new String[]{"Fire"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Ponyta_Front1.png"),
                         // new Texture("Gen1_Pokemon/Ponyta_Front2.png"),
                         // new Texture("Gen1_Pokemon/Ponyta_Back1.png"),
@@ -1171,8 +1176,8 @@ public class PokemonFactory {
                     78,
                     "Rapidash",
                     false,
-                    new String[] {"Fire"},
-                    new Texture[] {
+                    new String[]{"Fire"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Rapidash_Front1.png"),
                         // new Texture("Gen1_Pokemon/Rapidash_Front2.png"),
                         // new Texture("Gen1_Pokemon/Rapidash_Back1.png"),
@@ -1186,8 +1191,8 @@ public class PokemonFactory {
                     79,
                     "Slowpoke",
                     false,
-                    new String[] {"Water", "Psychic"},
-                    new Texture[] {
+                    new String[]{"Water", "Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Slowpoke_Front1.png"),
                         // new Texture("Gen1_Pokemon/Slowpoke_Front2.png"),
                         // new Texture("Gen1_Pokemon/Slowpoke_Back1.png"),
@@ -1201,8 +1206,8 @@ public class PokemonFactory {
                     80,
                     "Slowbro",
                     false,
-                    new String[] {"Water", "Psychic"},
-                    new Texture[] {
+                    new String[]{"Water", "Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Slowbro_Front1.png"),
                         // new Texture("Gen1_Pokemon/Slowbro_Front2.png"),
                         // new Texture("Gen1_Pokemon/Slowbro_Back1.png"),
@@ -1216,8 +1221,8 @@ public class PokemonFactory {
                     81,
                     "Magnemite",
                     false,
-                    new String[] {"Electric", "Steel"},
-                    new Texture[] {
+                    new String[]{"Electric", "Steel"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Magnemite_Front1.png"),
                         // new Texture("Gen1_Pokemon/Magnemite_Front2.png"),
                         // new Texture("Gen1_Pokemon/Magnemite_Back1.png"),
@@ -1231,8 +1236,8 @@ public class PokemonFactory {
                     82,
                     "Magneton",
                     false,
-                    new String[] {"Electric", "Steel"},
-                    new Texture[] {
+                    new String[]{"Electric", "Steel"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Magneton_Front1.png"),
                         // new Texture("Gen1_Pokemon/Magneton_Front2.png"),
                         // new Texture("Gen1_Pokemon/Magneton_Back1.png"),
@@ -1246,8 +1251,8 @@ public class PokemonFactory {
                     83,
                     "Farfetch'd",
                     false,
-                    new String[] {"Normal", "Flying"},
-                    new Texture[] {
+                    new String[]{"Normal", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Farfetchd_Front1.png"),
                         // new Texture("Gen1_Pokemon/Farfetchd_Front2.png"),
                         // new Texture("Gen1_Pokemon/Farfetchd_Back1.png"),
@@ -1261,8 +1266,8 @@ public class PokemonFactory {
                     84,
                     "Doduo",
                     false,
-                    new String[] {"Normal", "Flying"},
-                    new Texture[] {
+                    new String[]{"Normal", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Doduo_Front1.png"),
                         // new Texture("Gen1_Pokemon/Doduo_Front2.png"),
                         // new Texture("Gen1_Pokemon/Doduo_Back1.png"),
@@ -1276,8 +1281,8 @@ public class PokemonFactory {
                     85,
                     "Dodrio",
                     false,
-                    new String[] {"Normal", "Flying"},
-                    new Texture[] {
+                    new String[]{"Normal", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Dodrio_Front1.png"),
                         // new Texture("Gen1_Pokemon/Dodrio_Front2.png"),
                         // new Texture("Gen1_Pokemon/Dodrio_Back1.png"),
@@ -1291,8 +1296,8 @@ public class PokemonFactory {
                     86,
                     "Seel",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Seel_Front1.png"),
                         // new Texture("Gen1_Pokemon/Seel_Front2.png"),
                         // new Texture("Gen1_Pokemon/Seel_Back1.png"),
@@ -1306,8 +1311,8 @@ public class PokemonFactory {
                     87,
                     "Dewgong",
                     false,
-                    new String[] {"Water", "Ice"},
-                    new Texture[] {
+                    new String[]{"Water", "Ice"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Dewgong_Front1.png"),
                         // new Texture("Gen1_Pokemon/Dewgong_Front2.png"),
                         // new Texture("Gen1_Pokemon/Dewgong_Back1.png"),
@@ -1321,8 +1326,8 @@ public class PokemonFactory {
                     88,
                     "Grimer",
                     false,
-                    new String[] {"Poison"},
-                    new Texture[] {
+                    new String[]{"Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Grimer_Front1.png"),
                         // new Texture("Gen1_Pokemon/Grimer_Front2.png"),
                         // new Texture("Gen1_Pokemon/Grimer_Back1.png"),
@@ -1336,8 +1341,8 @@ public class PokemonFactory {
                     89,
                     "Muk",
                     false,
-                    new String[] {"Poison"},
-                    new Texture[] {
+                    new String[]{"Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Muk_Front1.png"),
                         // new Texture("Gen1_Pokemon/Muk_Front2.png"),
                         // new Texture("Gen1_Pokemon/Muk_Back1.png"),
@@ -1351,8 +1356,8 @@ public class PokemonFactory {
                     90,
                     "Shellder",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Shellder_Front1.png"),
                         // new Texture("Gen1_Pokemon/Shellder_Front2.png"),
                         // new Texture("Gen1_Pokemon/Shellder_Back1.png"),
@@ -1366,8 +1371,8 @@ public class PokemonFactory {
                     91,
                     "Cloyster",
                     false,
-                    new String[] {"Water", "Ice"},
-                    new Texture[] {
+                    new String[]{"Water", "Ice"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Cloyster_Front1.png"),
                         // new Texture("Gen1_Pokemon/Cloyster_Front2.png"),
                         // new Texture("Gen1_Pokemon/Cloyster_Back1.png"),
@@ -1381,8 +1386,8 @@ public class PokemonFactory {
                     92,
                     "Gastly",
                     false,
-                    new String[] {"Ghost", "Poison"},
-                    new Texture[] {
+                    new String[]{"Ghost", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Gastly_Front1.png"),
                         // new Texture("Gen1_Pokemon/Gastly_Front2.png"),
                         // new Texture("Gen1_Pokemon/Gastly_Back1.png"),
@@ -1396,8 +1401,8 @@ public class PokemonFactory {
                     93,
                     "Haunter",
                     false,
-                    new String[] {"Ghost", "Poison"},
-                    new Texture[] {
+                    new String[]{"Ghost", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Haunter_Front1.png"),
                         // new Texture("Gen1_Pokemon/Haunter_Front2.png"),
                         // new Texture("Gen1_Pokemon/Haunter_Back1.png"),
@@ -1411,8 +1416,8 @@ public class PokemonFactory {
                     94,
                     "Gengar",
                     false,
-                    new String[] {"Ghost", "Poison"},
-                    new Texture[] {
+                    new String[]{"Ghost", "Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Gengar_Front1.png"),
                         // new Texture("Gen1_Pokemon/Gengar_Front2.png"),
                         // new Texture("Gen1_Pokemon/Gengar_Back1.png"),
@@ -1426,8 +1431,8 @@ public class PokemonFactory {
                     95,
                     "Onix",
                     false,
-                    new String[] {"Rock", "Ground"},
-                    new Texture[] {
+                    new String[]{"Rock", "Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Onix_Front1.png"),
                         // new Texture("Gen1_Pokemon/Onix_Front2.png"),
                         // new Texture("Gen1_Pokemon/Onix_Back1.png"),
@@ -1441,8 +1446,8 @@ public class PokemonFactory {
                     96,
                     "Drowzee",
                     false,
-                    new String[] {"Psychic"},
-                    new Texture[] {
+                    new String[]{"Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Drowzee_Front1.png"),
                         // new Texture("Gen1_Pokemon/Drowzee_Front2.png"),
                         // new Texture("Gen1_Pokemon/Drowzee_Back1.png"),
@@ -1456,8 +1461,8 @@ public class PokemonFactory {
                     97,
                     "Hypno",
                     false,
-                    new String[] {"Psychic"},
-                    new Texture[] {
+                    new String[]{"Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Hypno_Front1.png"),
                         // new Texture("Gen1_Pokemon/Hypno_Front2.png"),
                         // new Texture("Gen1_Pokemon/Hypno_Back1.png"),
@@ -1471,8 +1476,8 @@ public class PokemonFactory {
                     98,
                     "Krabby",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Krabby_Front1.png"),
                         // new Texture("Gen1_Pokemon/Krabby_Front2.png"),
                         // new Texture("Gen1_Pokemon/Krabby_Back1.png"),
@@ -1486,8 +1491,8 @@ public class PokemonFactory {
                     99,
                     "Kingler",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Kingler_Front1.png"),
                         // new Texture("Gen1_Pokemon/Kingler_Front2.png"),
                         // new Texture("Gen1_Pokemon/Kingler_Back1.png"),
@@ -1501,8 +1506,8 @@ public class PokemonFactory {
                     100,
                     "Voltorb",
                     false,
-                    new String[] {"Electric"},
-                    new Texture[] {
+                    new String[]{"Electric"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Voltorb_Front1.png"),
                         // new Texture("Gen1_Pokemon/Voltorb_Front2.png"),
                         // new Texture("Gen1_Pokemon/Voltorb_Back1.png"),
@@ -1516,8 +1521,8 @@ public class PokemonFactory {
                     101,
                     "Electrode",
                     false,
-                    new String[] {"Electric"},
-                    new Texture[] {
+                    new String[]{"Electric"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Electrode_Front1.png"),
                         // new Texture("Gen1_Pokemon/Electrode_Front2.png"),
                         // new Texture("Gen1_Pokemon/Electrode_Back1.png"),
@@ -1531,8 +1536,8 @@ public class PokemonFactory {
                     102,
                     "Exeggcute",
                     false,
-                    new String[] {"Grass", "Psychic"},
-                    new Texture[] {
+                    new String[]{"Grass", "Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Exeggcute_Front1.png"),
                         // new Texture("Gen1_Pokemon/Exeggcute_Front2.png"),
                         // new Texture("Gen1_Pokemon/Exeggcute_Back1.png"),
@@ -1546,8 +1551,8 @@ public class PokemonFactory {
                     103,
                     "Exeggutor",
                     false,
-                    new String[] {"Grass", "Psychic"},
-                    new Texture[] {
+                    new String[]{"Grass", "Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Exeggutor_Front1.png"),
                         // new Texture("Gen1_Pokemon/Exeggutor_Front2.png"),
                         // new Texture("Gen1_Pokemon/Exeggutor_Back1.png"),
@@ -1561,8 +1566,8 @@ public class PokemonFactory {
                     104,
                     "Cubone",
                     false,
-                    new String[] {"Ground"},
-                    new Texture[] {
+                    new String[]{"Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Cubone_Front1.png"),
                         // new Texture("Gen1_Pokemon/Cubone_Front2.png"),
                         // new Texture("Gen1_Pokemon/Cubone_Back1.png"),
@@ -1576,8 +1581,8 @@ public class PokemonFactory {
                     105,
                     "Marowak",
                     false,
-                    new String[] {"Ground"},
-                    new Texture[] {
+                    new String[]{"Ground"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Marowak_Front1.png"),
                         // new Texture("Gen1_Pokemon/Marowak_Front2.png"),
                         // new Texture("Gen1_Pokemon/Marowak_Back1.png"),
@@ -1591,8 +1596,8 @@ public class PokemonFactory {
                     106,
                     "Hitmonlee",
                     false,
-                    new String[] {"Fighting"},
-                    new Texture[] {
+                    new String[]{"Fighting"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Hitmonlee_Front1.png"),
                         // new Texture("Gen1_Pokemon/Hitmonlee_Front2.png"),
                         // new Texture("Gen1_Pokemon/Hitmonlee_Back1.png"),
@@ -1606,8 +1611,8 @@ public class PokemonFactory {
                     107,
                     "Hitmonchan",
                     false,
-                    new String[] {"Fighting"},
-                    new Texture[] {
+                    new String[]{"Fighting"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Hitmonchan_Front1.png"),
                         // new Texture("Gen1_Pokemon/Hitmonchan_Front2.png"),
                         // new Texture("Gen1_Pokemon/Hitmonchan_Back1.png"),
@@ -1621,8 +1626,8 @@ public class PokemonFactory {
                     108,
                     "Lickitung",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Lickitung_Front1.png"),
                         // new Texture("Gen1_Pokemon/Lickitung_Front2.png"),
                         // new Texture("Gen1_Pokemon/Lickitung_Back1.png"),
@@ -1636,8 +1641,8 @@ public class PokemonFactory {
                     109,
                     "Koffing",
                     false,
-                    new String[] {"Poison"},
-                    new Texture[] {
+                    new String[]{"Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Koffing_Front1.png"),
                         // new Texture("Gen1_Pokemon/Koffing_Front2.png"),
                         // new Texture("Gen1_Pokemon/Koffing_Back1.png"),
@@ -1651,8 +1656,8 @@ public class PokemonFactory {
                     110,
                     "Weezing",
                     false,
-                    new String[] {"Poison"},
-                    new Texture[] {
+                    new String[]{"Poison"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Weezing_Front1.png"),
                         // new Texture("Gen1_Pokemon/Weezing_Front2.png"),
                         // new Texture("Gen1_Pokemon/Weezing_Back1.png"),
@@ -1666,8 +1671,8 @@ public class PokemonFactory {
                     111,
                     "Rhyhorn",
                     false,
-                    new String[] {"Ground", "Rock"},
-                    new Texture[] {
+                    new String[]{"Ground", "Rock"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Rhyhorn_Front1.png"),
                         // new Texture("Gen1_Pokemon/Rhyhorn_Front2.png"),
                         // new Texture("Gen1_Pokemon/Rhyhorn_Back1.png"),
@@ -1681,8 +1686,8 @@ public class PokemonFactory {
                     112,
                     "Rhydon",
                     false,
-                    new String[] {"Ground", "Rock"},
-                    new Texture[] {
+                    new String[]{"Ground", "Rock"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Rhydon_Front1.png"),
                         // new Texture("Gen1_Pokemon/Rhydon_Front2.png"),
                         // new Texture("Gen1_Pokemon/Rhydon_Back1.png"),
@@ -1696,8 +1701,8 @@ public class PokemonFactory {
                     113,
                     "Chansey",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Chansey_Front1.png"),
                         // new Texture("Gen1_Pokemon/Chansey_Front2.png"),
                         // new Texture("Gen1_Pokemon/Chansey_Back1.png"),
@@ -1711,8 +1716,8 @@ public class PokemonFactory {
                     114,
                     "Tangela",
                     false,
-                    new String[] {"Grass"},
-                    new Texture[] {
+                    new String[]{"Grass"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Tangela_Front1.png"),
                         // new Texture("Gen1_Pokemon/Tangela_Front2.png"),
                         // new Texture("Gen1_Pokemon/Tangela_Back1.png"),
@@ -1726,8 +1731,8 @@ public class PokemonFactory {
                     115,
                     "Kangaskhan",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Kangaskhan_Front1.png"),
                         // new Texture("Gen1_Pokemon/Kangaskhan_Front2.png"),
                         // new Texture("Gen1_Pokemon/Kangaskhan_Back1.png"),
@@ -1741,8 +1746,8 @@ public class PokemonFactory {
                     116,
                     "Horsea",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Horsea_Front1.png"),
                         // new Texture("Gen1_Pokemon/Horsea_Front2.png"),
                         // new Texture("Gen1_Pokemon/Horsea_Back1.png"),
@@ -1756,8 +1761,8 @@ public class PokemonFactory {
                     117,
                     "Seadra",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Seadra_Front1.png"),
                         // new Texture("Gen1_Pokemon/Seadra_Front2.png"),
                         // new Texture("Gen1_Pokemon/Seadra_Back1.png"),
@@ -1771,8 +1776,8 @@ public class PokemonFactory {
                     118,
                     "Goldeen",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Goldeen_Front1.png"),
                         // new Texture("Gen1_Pokemon/Goldeen_Front2.png"),
                         // new Texture("Gen1_Pokemon/Goldeen_Back1.png"),
@@ -1786,8 +1791,8 @@ public class PokemonFactory {
                     119,
                     "Seaking",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Seaking_Front1.png"),
                         // new Texture("Gen1_Pokemon/Seaking_Front2.png"),
                         // new Texture("Gen1_Pokemon/Seaking_Back1.png"),
@@ -1801,8 +1806,8 @@ public class PokemonFactory {
                     120,
                     "Staryu",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Staryu_Front1.png"),
                         // new Texture("Gen1_Pokemon/Staryu_Front2.png"),
                         // new Texture("Gen1_Pokemon/Staryu_Back1.png"),
@@ -1816,8 +1821,8 @@ public class PokemonFactory {
                     121,
                     "Starmie",
                     false,
-                    new String[] {"Water", "Psychic"},
-                    new Texture[] {
+                    new String[]{"Water", "Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Starmie_Front1.png"),
                         // new Texture("Gen1_Pokemon/Starmie_Front2.png"),
                         // new Texture("Gen1_Pokemon/Starmie_Back1.png"),
@@ -1831,8 +1836,8 @@ public class PokemonFactory {
                     122,
                     "Mr. Mime",
                     false,
-                    new String[] {"Psychic", "Fairy"},
-                    new Texture[] {
+                    new String[]{"Psychic", "Fairy"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/MrMime_Front1.png"),
                         // new Texture("Gen1_Pokemon/MrMime_Front2.png"),
                         // new Texture("Gen1_Pokemon/MrMime_Back1.png"),
@@ -1846,8 +1851,8 @@ public class PokemonFactory {
                     123,
                     "Scyther",
                     false,
-                    new String[] {"Bug", "Flying"},
-                    new Texture[] {
+                    new String[]{"Bug", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Scyther_Front1.png"),
                         // new Texture("Gen1_Pokemon/Scyther_Front2.png"),
                         // new Texture("Gen1_Pokemon/Scyther_Back1.png"),
@@ -1861,8 +1866,8 @@ public class PokemonFactory {
                     124,
                     "Jynx",
                     false,
-                    new String[] {"Ice", "Psychic"},
-                    new Texture[] {
+                    new String[]{"Ice", "Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Jynx_Front1.png"),
                         // new Texture("Gen1_Pokemon/Jynx_Front2.png"),
                         // new Texture("Gen1_Pokemon/Jynx_Back1.png"),
@@ -1876,8 +1881,8 @@ public class PokemonFactory {
                     125,
                     "Electabuzz",
                     false,
-                    new String[] {"Electric"},
-                    new Texture[] {
+                    new String[]{"Electric"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Electabuzz_Front1.png"),
                         // new Texture("Gen1_Pokemon/Electabuzz_Front2.png"),
                         // new Texture("Gen1_Pokemon/Electabuzz_Back1.png"),
@@ -1891,8 +1896,8 @@ public class PokemonFactory {
                     126,
                     "Magmar",
                     false,
-                    new String[] {"Fire"},
-                    new Texture[] {
+                    new String[]{"Fire"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Magmar_Front1.png"),
                         // new Texture("Gen1_Pokemon/Magmar_Front2.png"),
                         // new Texture("Gen1_Pokemon/Magmar_Back1.png"),
@@ -1906,8 +1911,8 @@ public class PokemonFactory {
                     127,
                     "Pinsir",
                     false,
-                    new String[] {"Bug"},
-                    new Texture[] {
+                    new String[]{"Bug"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Pinsir_Front1.png"),
                         // new Texture("Gen1_Pokemon/Pinsir_Front2.png"),
                         // new Texture("Gen1_Pokemon/Pinsir_Back1.png"),
@@ -1921,8 +1926,8 @@ public class PokemonFactory {
                     128,
                     "Tauros",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Tauros_Front1.png"),
                         // new Texture("Gen1_Pokemon/Tauros_Front2.png"),
                         // new Texture("Gen1_Pokemon/Tauros_Back1.png"),
@@ -1936,8 +1941,8 @@ public class PokemonFactory {
                     129,
                     "Magikarp",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Magikarp_Front1.png"),
                         // new Texture("Gen1_Pokemon/Magikarp_Front2.png"),
                         // new Texture("Gen1_Pokemon/Magikarp_Back1.png"),
@@ -1951,8 +1956,8 @@ public class PokemonFactory {
                     130,
                     "Gyarados",
                     false,
-                    new String[] {"Water", "Flying"},
-                    new Texture[] {
+                    new String[]{"Water", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Gyarados_Front1.png"),
                         // new Texture("Gen1_Pokemon/Gyarados_Front2.png"),
                         // new Texture("Gen1_Pokemon/Gyarados_Back1.png"),
@@ -1966,8 +1971,8 @@ public class PokemonFactory {
                     131,
                     "Lapras",
                     false,
-                    new String[] {"Water", "Ice"},
-                    new Texture[] {
+                    new String[]{"Water", "Ice"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Lapras_Front1.png"),
                         // new Texture("Gen1_Pokemon/Lapras_Front2.png"),
                         // new Texture("Gen1_Pokemon/Lapras_Back1.png"),
@@ -1981,8 +1986,8 @@ public class PokemonFactory {
                     132,
                     "Ditto",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Ditto_Front1.png"),
                         // new Texture("Gen1_Pokemon/Ditto_Front2.png"),
                         // new Texture("Gen1_Pokemon/Ditto_Back1.png"),
@@ -1996,8 +2001,8 @@ public class PokemonFactory {
                     133,
                     "Eevee",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Eevee_Front1.png"),
                         // new Texture("Gen1_Pokemon/Eevee_Front2.png"),
                         // new Texture("Gen1_Pokemon/Eevee_Back1.png"),
@@ -2011,8 +2016,8 @@ public class PokemonFactory {
                     134,
                     "Vaporeon",
                     false,
-                    new String[] {"Water"},
-                    new Texture[] {
+                    new String[]{"Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Vaporeon_Front1.png"),
                         // new Texture("Gen1_Pokemon/Vaporeon_Front2.png"),
                         // new Texture("Gen1_Pokemon/Vaporeon_Back1.png"),
@@ -2026,8 +2031,8 @@ public class PokemonFactory {
                     135,
                     "Jolteon",
                     false,
-                    new String[] {"Electric"},
-                    new Texture[] {
+                    new String[]{"Electric"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Jolteon_Front1.png"),
                         // new Texture("Gen1_Pokemon/Jolteon_Front2.png"),
                         // new Texture("Gen1_Pokemon/Jolteon_Back1.png"),
@@ -2041,8 +2046,8 @@ public class PokemonFactory {
                     136,
                     "Flareon",
                     false,
-                    new String[] {"Fire"},
-                    new Texture[] {
+                    new String[]{"Fire"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Flareon_Front1.png"),
                         // new Texture("Gen1_Pokemon/Flareon_Front2.png"),
                         // new Texture("Gen1_Pokemon/Flareon_Back1.png"),
@@ -2056,8 +2061,8 @@ public class PokemonFactory {
                     137,
                     "Porygon",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Porygon_Front1.png"),
                         // new Texture("Gen1_Pokemon/Porygon_Front2.png"),
                         // new Texture("Gen1_Pokemon/Porygon_Back1.png"),
@@ -2071,8 +2076,8 @@ public class PokemonFactory {
                     138,
                     "Omanyte",
                     false,
-                    new String[] {"Rock", "Water"},
-                    new Texture[] {
+                    new String[]{"Rock", "Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Omanyte_Front1.png"),
                         // new Texture("Gen1_Pokemon/Omanyte_Front2.png"),
                         // new Texture("Gen1_Pokemon/Omanyte_Back1.png"),
@@ -2086,8 +2091,8 @@ public class PokemonFactory {
                     139,
                     "Omastar",
                     false,
-                    new String[] {"Rock", "Water"},
-                    new Texture[] {
+                    new String[]{"Rock", "Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Omastar_Front1.png"),
                         // new Texture("Gen1_Pokemon/Omastar_Front2.png"),
                         // new Texture("Gen1_Pokemon/Omastar_Back1.png"),
@@ -2101,8 +2106,8 @@ public class PokemonFactory {
                     140,
                     "Kabuto",
                     false,
-                    new String[] {"Rock", "Water"},
-                    new Texture[] {
+                    new String[]{"Rock", "Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Kabuto_Front1.png"),
                         // new Texture("Gen1_Pokemon/Kabuto_Front2.png"),
                         // new Texture("Gen1_Pokemon/Kabuto_Back1.png"),
@@ -2116,8 +2121,8 @@ public class PokemonFactory {
                     141,
                     "Kabutops",
                     false,
-                    new String[] {"Rock", "Water"},
-                    new Texture[] {
+                    new String[]{"Rock", "Water"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Kabutops_Front1.png"),
                         // new Texture("Gen1_Pokemon/Kabutops_Front2.png"),
                         // new Texture("Gen1_Pokemon/Kabutops_Back1.png"),
@@ -2131,8 +2136,8 @@ public class PokemonFactory {
                     142,
                     "Aerodactyl",
                     false,
-                    new String[] {"Rock", "Flying"},
-                    new Texture[] {
+                    new String[]{"Rock", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Aerodactyl_Front1.png"),
                         // new Texture("Gen1_Pokemon/Aerodactyl_Front2.png"),
                         // new Texture("Gen1_Pokemon/Aerodactyl_Back1.png"),
@@ -2146,8 +2151,8 @@ public class PokemonFactory {
                     143,
                     "Snorlax",
                     false,
-                    new String[] {"Normal"},
-                    new Texture[] {
+                    new String[]{"Normal"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Snorlax_Front1.png"),
                         // new Texture("Gen1_Pokemon/Snorlax_Front2.png"),
                         // new Texture("Gen1_Pokemon/Snorlax_Back1.png"),
@@ -2161,8 +2166,8 @@ public class PokemonFactory {
                     144,
                     "Articuno",
                     false,
-                    new String[] {"Ice", "Flying"},
-                    new Texture[] {
+                    new String[]{"Ice", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Articuno_Front1.png"),
                         // new Texture("Gen1_Pokemon/Articuno_Front2.png"),
                         // new Texture("Gen1_Pokemon/Articuno_Back1.png"),
@@ -2176,8 +2181,8 @@ public class PokemonFactory {
                     145,
                     "Zapdos",
                     false,
-                    new String[] {"Electric", "Flying"},
-                    new Texture[] {
+                    new String[]{"Electric", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Zapdos_Front1.png"),
                         // new Texture("Gen1_Pokemon/Zapdos_Front2.png"),
                         // new Texture("Gen1_Pokemon/Zapdos_Back1.png"),
@@ -2191,8 +2196,8 @@ public class PokemonFactory {
                     146,
                     "Moltres",
                     false,
-                    new String[] {"Fire", "Flying"},
-                    new Texture[] {
+                    new String[]{"Fire", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Moltres_Front1.png"),
                         // new Texture("Gen1_Pokemon/Moltres_Front2.png"),
                         // new Texture("Gen1_Pokemon/Moltres_Back1.png"),
@@ -2206,8 +2211,8 @@ public class PokemonFactory {
                     147,
                     "Dratini",
                     false,
-                    new String[] {"Dragon"},
-                    new Texture[] {
+                    new String[]{"Dragon"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Dratini_Front1.png"),
                         // new Texture("Gen1_Pokemon/Dratini_Front2.png"),
                         // new Texture("Gen1_Pokemon/Dratini_Back1.png"),
@@ -2221,8 +2226,8 @@ public class PokemonFactory {
                     148,
                     "Dragonair",
                     false,
-                    new String[] {"Dragon"},
-                    new Texture[] {
+                    new String[]{"Dragon"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Dragonair_Front1.png"),
                         // new Texture("Gen1_Pokemon/Dragonair_Front2.png"),
                         // new Texture("Gen1_Pokemon/Dragonair_Back1.png"),
@@ -2236,8 +2241,8 @@ public class PokemonFactory {
                     149,
                     "Dragonite",
                     false,
-                    new String[] {"Dragon", "Flying"},
-                    new Texture[] {
+                    new String[]{"Dragon", "Flying"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Dragonite_Front1.png"),
                         // new Texture("Gen1_Pokemon/Dragonite_Front2.png"),
                         // new Texture("Gen1_Pokemon/Dragonite_Back1.png"),
@@ -2251,8 +2256,8 @@ public class PokemonFactory {
                     150,
                     "Mewtwo",
                     false,
-                    new String[] {"Psychic"},
-                    new Texture[] {
+                    new String[]{"Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Mewtwo_Front1.png"),
                         // new Texture("Gen1_Pokemon/Mewtwo_Front2.png"),
                         // new Texture("Gen1_Pokemon/Mewtwo_Back1.png"),
@@ -2266,8 +2271,8 @@ public class PokemonFactory {
                     151,
                     "Mew",
                     false,
-                    new String[] {"Psychic"},
-                    new Texture[] {
+                    new String[]{"Psychic"},
+                    new Texture[]{
                         // new Texture("Gen1_Pokemon/Mew_Front1.png"),
                         // new Texture("Gen1_Pokemon/Mew_Front2.png"),
                         // new Texture("Gen1_Pokemon/Mew_Back1.png"),
@@ -2282,8 +2287,8 @@ public class PokemonFactory {
                     442,
                     "Spiritomb",
                     false,
-                    new String[] {"Ghost", "Dark"},
-                    new Texture[] {
+                    new String[]{"Ghost", "Dark"},
+                    new Texture[]{
                         new Texture("Gen4_Pokemon/Spiritomb_Front1.png"),
                     },
                     50, 92, 108, 92, 108, 35

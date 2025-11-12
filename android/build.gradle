@@ -7,6 +7,7 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 
 android {
   namespace "com.lin.pokemon_journey"
@@ -32,7 +33,7 @@ android {
   }
   defaultConfig {
     applicationId 'com.lin.pokemon_journey'
-    minSdkVersion 21
+    minSdkVersion 23
     targetSdkVersion 35
     versionCode 1
     versionName "1.0"
@@ -50,7 +51,7 @@ android {
   }
 
   kotlin.compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
-  
+
 }
 
 repositories {
@@ -61,6 +62,10 @@ repositories {
 configurations { natives }
 
 dependencies {
+  implementation 'com.google.firebase:firebase-auth:24.0.1'
+  implementation 'androidx.credentials:credentials:1.5.0'
+  implementation 'androidx.credentials:credentials-play-services-auth:1.5.0'
+  implementation 'com.google.android.libraries.identity.googleid:googleid:1.1.1'
   coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
   implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
   implementation project(':core')
@@ -69,7 +74,6 @@ dependencies {
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
-
 }
 
 // Called every time gradle gets executed, takes the native dependencies of

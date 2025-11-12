@@ -18,6 +18,7 @@ import java.util.Objects;
 
 public class Battle_Screen implements Screen {
     private Game game;
+    private Boolean duoGame = false;
     private SpriteBatch batch;
     private Texture background;
     private int backgroundY;
@@ -32,9 +33,11 @@ public class Battle_Screen implements Screen {
     private Texture decideScreenBagButton;
     private Texture decideScreenRunButton;
     private Texture decideScreenPokemonButton;
-
     private Texture choosingAbilityScreen;
     private Texture pokemonScreen;
+    private Texture pokemonScreenFirstPokemonCard;
+    private Texture pokemonScreenPokemonCard;
+    private Texture pokemonScreenBackButton;
     private Texture choosingAbilityScreenCancelButton;
     private int lowerScreenY;
     private Texture Bug_AbilityButton;
@@ -73,7 +76,8 @@ public class Battle_Screen implements Screen {
     private OrthographicCamera camera;
     int opponentPokemonX;
     int opponentPokemonY;
-
+    Boolean playerTurn;
+//    Boolean opponentTurn;
     public Battle_Screen(Game game) {
         this.game = game;
     }
@@ -93,15 +97,15 @@ public class Battle_Screen implements Screen {
             {2, 1, 1, 1, 1, 2, 1, 0.5, 1, 0.5, 0.5, 0.5, 2, 0, 1, 2, 2, 0.5},
             {1, 1, 1, 2, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1, 1, 0, 2},
             {1, 2, 1, 0.5, 2, 1, 1, 2, 1, 0, 1, 0.5, 2, 1, 1, 1, 2, 1},
-            {1, 1, 1, 2, 0.5, 1, 2, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 0.5 , 1},
-            {1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0.5, 1, 1, 1, 1, 0, 0.5 ,1},
-            {1, 0.5, 1, 2, 1, 1, 0.5, 0.5, 1, 0.5, 2, 1, 1, 0.5, 1, 2, 0.5 ,0.5},
-            {1, 2, 1, 1, 1, 2, 0.5, 1, 0.5, 2, 1, 2, 1, 1, 1, 1, 0.5 ,1},
-            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1 ,1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0.5 ,0},
+            {1, 1, 1, 2, 0.5, 1, 2, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 0.5, 1},
+            {1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0.5, 1, 1, 1, 1, 0, 0.5, 1},
+            {1, 0.5, 1, 2, 1, 1, 0.5, 0.5, 1, 0.5, 2, 1, 1, 0.5, 1, 2, 0.5, 0.5},
+            {1, 2, 1, 1, 1, 2, 0.5, 1, 0.5, 2, 1, 2, 1, 1, 1, 1, 0.5, 1},
+            {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0.5, 0},
             {1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1, 0.5},
-            {1, 0.5, 0.5, 1, 0.5, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0.5 ,2},
-            {1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 2, 0.5 ,1}
+            {1, 0.5, 0.5, 1, 0.5, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0.5, 2},
+            {1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 1}
         };
         int attackTypeInt = getRelativeInt(attackType);
         int defenderTypeInt1 = getRelativeInt(defenderType[0]);
@@ -129,25 +133,44 @@ public class Battle_Screen implements Screen {
 
     public int getRelativeInt(String type) {
         switch (type) {
-            case "Normal": return 0;
-            case "Fire": return 1;
-            case "Water": return 2;
-            case "Grass": return 3;
-            case "Electric": return 4;
-            case "Ice": return 5;
-            case "Fighting": return 6;
-            case "Poison": return 7;
-            case "Ground": return 8;
-            case "Flying": return 9;
-            case "Psychic": return 10;
-            case "Bug": return 11;
-            case "Rock": return 12;
-            case "Ghost": return 13;
-            case "Dragon": return 14;
-            case "Dark": return 15;
-            case "Steel": return 16;
-            case "Fairy": return 17;
-            default: return -1;
+            case "Normal":
+                return 0;
+            case "Fire":
+                return 1;
+            case "Water":
+                return 2;
+            case "Grass":
+                return 3;
+            case "Electric":
+                return 4;
+            case "Ice":
+                return 5;
+            case "Fighting":
+                return 6;
+            case "Poison":
+                return 7;
+            case "Ground":
+                return 8;
+            case "Flying":
+                return 9;
+            case "Psychic":
+                return 10;
+            case "Bug":
+                return 11;
+            case "Rock":
+                return 12;
+            case "Ghost":
+                return 13;
+            case "Dragon":
+                return 14;
+            case "Dark":
+                return 15;
+            case "Steel":
+                return 16;
+            case "Fairy":
+                return 17;
+            default:
+                return -1;
         }
     }
 
@@ -162,13 +185,15 @@ public class Battle_Screen implements Screen {
         decideScreen = new Texture("Decide_Screen.png");
         choosingAbilityScreen = new Texture("Choosing_Ability_Screen.png");
         pokemonScreen = new Texture("Pokemon_Screen.png");
+        pokemonScreenFirstPokemonCard = new Texture("Pokemon_Screen_FirstPokemonCard.png");
+        pokemonScreenPokemonCard = new Texture("Pokemon_Screen_PokemonCard.png");
+        pokemonScreenBackButton = new Texture("Pokemon_Screen_BackButton.png");
 
-        // ✅ 計算總高度 = 背景 + 字幕 + 下方畫面(取最大值)
         int lowerScreenHeight = Math.max(decideScreen.getHeight(), choosingAbilityScreen.getHeight());
         int totalHeight = background.getHeight() + subtitle_bar.getHeight() + lowerScreenHeight;
 
         backgroundWidth = background.getWidth();
-        backgroundHeight = totalHeight;  // ✅ viewport 高度 = 總高度
+        backgroundHeight = totalHeight;  //viewport 高度 = 總高度
 
         viewport = new FitViewport(backgroundWidth, backgroundHeight, camera);
 
@@ -200,34 +225,48 @@ public class Battle_Screen implements Screen {
         trainer = Main.trainerFactory.createTrainer("Cynthia");
         opponentPokemon = trainer.pokemons[0];
 
-        Pokemon charmander = Main.pokemonFactory.createPokemon("Charmander");
-        playerPokemon = charmander;
-        playerPokemon.abilities[0] = Main.abilityFactory.createAbility("Growl");
-        playerPokemon.abilities[1] = Main.abilityFactory.createAbility("Scratch");
-        playerPokemon.abilities[2] = Main.abilityFactory.createAbility("Ember");
+        playerPokemon = Main.player.pokemons[0];
     }
 
     private Texture getAbilityButtonTexture(String type) {
         switch (type) {
-            case "Normal": return Normal_AbilityButton;
-            case "Fire": return Fire_AbilityButton;
-            case "Water": return Water_AbilityButton;
-            case "Grass": return Grass_AbilityButton;
-            case "Electric": return Electric_AbilityButton;
-            case "Ice": return Ice_AbilityButton;
-            case "Fighting": return Fighting_AbilityButton;
-            case "Poison": return Poison_AbilityButton;
-            case "Ground": return Ground_AbilityButton;
-            case "Flying": return Flying_AbilityButton;
-            case "Psychic": return Psychic_AbilityButton;
-            case "Bug": return Bug_AbilityButton;
-            case "Rock": return Rock_AbilityButton;
-            case "Ghost": return Ghost_AbilityButton;
-            case "Dragon": return Dragon_AbilityButton;
-            case "Dark": return Dark_AbilityButton;
-            case "Steel": return Steel_AbilityButton;
+            case "Normal":
+                return Normal_AbilityButton;
+            case "Fire":
+                return Fire_AbilityButton;
+            case "Water":
+                return Water_AbilityButton;
+            case "Grass":
+                return Grass_AbilityButton;
+            case "Electric":
+                return Electric_AbilityButton;
+            case "Ice":
+                return Ice_AbilityButton;
+            case "Fighting":
+                return Fighting_AbilityButton;
+            case "Poison":
+                return Poison_AbilityButton;
+            case "Ground":
+                return Ground_AbilityButton;
+            case "Flying":
+                return Flying_AbilityButton;
+            case "Psychic":
+                return Psychic_AbilityButton;
+            case "Bug":
+                return Bug_AbilityButton;
+            case "Rock":
+                return Rock_AbilityButton;
+            case "Ghost":
+                return Ghost_AbilityButton;
+            case "Dragon":
+                return Dragon_AbilityButton;
+            case "Dark":
+                return Dark_AbilityButton;
+            case "Steel":
+                return Steel_AbilityButton;
 //            case "Fairy": return Fairy_AbilityButton;
-            default: return Normal_AbilityButton;
+            default:
+                return Normal_AbilityButton;
         }
     }
 
@@ -316,6 +355,7 @@ public class Battle_Screen implements Screen {
     private int currentFrame = 0;
     private boolean isAnimating = false;
     private int completedLoop = 0;
+
     public void animation(String name, String category, int x, int y, float delta) {
         int duration = 3;
         int targetLoop = 4;
@@ -413,6 +453,73 @@ public class Battle_Screen implements Screen {
 
     public void setPokemonScreen() {
         batch.draw(pokemonScreen, 0, lowerScreenY);
+        int leftMargin = 1;
+        int topMargin = 5;
+        Texture currentPokemonCard = pokemonScreenPokemonCard;
+        int cardX;
+        int cardY;
+        int playerPokemonCount = (int) Arrays.stream(Main.player.pokemons).filter(Objects::nonNull).count();
+        for (int i = 0; i < 6; i++) {
+            //lambda cannot use non-final variable, so we need to create a new variable here
+            int pokemonNumber = i;  //lambda cannot use non-final variable, also think about null and fainted might happened in the middle of pokemon  for example the 3rd pokemon
+            if (i % 2 == 0) {
+                cardX = leftMargin;
+                cardY = subtitleBarY - subtitle_bar.getHeight() - (topMargin * (i / 2 + 1) + currentPokemonCard.getHeight() * (i / 2));
+                if (i != 0) {
+                    currentPokemonCard = pokemonScreenFirstPokemonCard;
+                }
+//                if (Main.player.pokemons[i].condition.equals("Fainted")) {
+//                    currentPokemonCard = new Texture("Pokemon_Screen_FaintedPokemonCard.png");
+//                }
+                Button pokemonCard = new Button(cardX, cardY, currentPokemonCard, batch, viewport, () -> {
+                    if (Main.player.pokemons[pokemonNumber] == null) {
+                        subtitle = "No Pokemon in this slot.";
+                    } else {
+                        if (Main.player.pokemons[pokemonNumber].condition.equals("Fainted")) {
+                            subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
+                        } else {
+                            if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
+                                playerPokemon = Main.player.pokemons[pokemonNumber];
+                                inPokemonScreen = false;
+                                inDecideScreen = true;
+                            } else {
+                                subtitle = Main.player.pokemons[pokemonNumber].name + " is already in battle.";
+                            }
+                        }
+                    }
+                });
+            } else {
+                if (duoGame) {
+                    currentPokemonCard = pokemonScreenFirstPokemonCard;
+                }
+                cardX = leftMargin + currentPokemonCard.getWidth() + 2;
+                cardY = subtitleBarY - subtitle_bar.getHeight() - 5 - (topMargin * (i / 2 + 1) + currentPokemonCard.getHeight() * (i / 2));
+                Button pokemonCard = new Button(cardX, cardY, currentPokemonCard, batch, viewport, () -> {
+                    if (Main.player.pokemons[pokemonNumber] == null) {
+                        subtitle = "No Pokemon in this slot.";
+                    } else {
+                        if (Main.player.pokemons[pokemonNumber].condition.equals("Fainted")) {
+                            subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
+                        } else
+                        if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
+                            playerPokemon = Main.player.pokemons[pokemonNumber];
+                            inPokemonScreen = false;
+                            inDecideScreen = true;
+                        } else {
+                            subtitle = Main.player.pokemons[pokemonNumber].name + " is already in battle.";
+                        }
+                    }
+                });
+            }
+            if (Main.player.pokemons[pokemonNumber] != null) {
+                batch.draw(Main.player.pokemons[pokemonNumber].sprites[4], cardX + 10, cardY + 6);
+            }
+            currentPokemonCard = pokemonScreenPokemonCard;
+        }
+        Button backButton = new Button(pokemonScreen.getWidth() - 1 - pokemonScreenBackButton.getWidth(), lowerScreenY + 3, pokemonScreenBackButton, batch, viewport, () -> {
+            inPokemonScreen = false;
+            inDecideScreen = true;
+        });
     }
 
     @Override
@@ -423,14 +530,11 @@ public class Battle_Screen implements Screen {
 
         batch.begin();
 
-        // ✅ 計算下方畫面高度
         int lowerScreenHeight = Math.max(decideScreen.getHeight(), choosingAbilityScreen.getHeight());
 
-        // ✅ 背景從 (字幕高度 + 下方畫面高度) 開始繪製
         int backgroundStartY = subtitle_bar.getHeight() + lowerScreenHeight;
         batch.draw(background, 0, backgroundStartY);
         batch.draw(ground, 0, backgroundStartY);
-        // ✅ 對手寶可夢位置 (在背景內的頂部附近)
         opponentPokemonX = 152;
         opponentPokemonY = backgroundStartY + 35;
 
@@ -446,7 +550,6 @@ public class Battle_Screen implements Screen {
         } else if (inBattle) {
             batch.draw(opponentPokemon.sprites[0], opponentPokemonX, opponentPokemonY);
 
-            // ✅ 玩家寶可夢位置 (在背景底部)
             int playerPokemonY = backgroundStartY - 8;
             batch.draw(playerPokemon.sprites[2], 24, playerPokemonY);
             int opponentPokemonHPBarY = backgroundStartY + 91;
@@ -455,13 +558,10 @@ public class Battle_Screen implements Screen {
             opponentPokemonInfo.inputText(false, batch, opponentPokemon.name.toUpperCase(), 2, backgroundStartY + 107);
             opponentPokemonInfo.inputText(false, batch, "Lv" + opponentPokemon.level, 90, backgroundStartY + 107);
 
-
-            // ✅ HP 顯示 (在虛擬畫布頂部)
             BitmapFont font = new BitmapFont();
             font.getData().setScale(1f);
             font.draw(batch, String.valueOf(opponentPokemon.currentHP), 10, backgroundHeight - 5);
 
-            // ✅ 字幕列在背景下方
             subtitleBarY = lowerScreenHeight;
             batch.draw(subtitle_bar, 0, subtitleBarY);
 
@@ -493,6 +593,7 @@ public class Battle_Screen implements Screen {
                 subtitleTimer = 0f;
             }
         }
+//        trainer.nextMove();
         batch.end();
     }
 
@@ -504,10 +605,20 @@ public class Battle_Screen implements Screen {
         if (choosingAbilityScreen != null) choosingAbilityScreen.dispose();
     }
 
-    @Override public void resize(int width, int height) {
+    @Override
+    public void resize(int width, int height) {
         viewport.update(width, height, true);
     }
-    @Override public void pause() {}
-    @Override public void resume() {}
-    @Override public void hide() {}
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+    }
+
+    @Override
+    public void hide() {
+    }
 }

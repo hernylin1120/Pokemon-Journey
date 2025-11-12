@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "999161976569",
+    "project_id": "final-year-project001",
+    "storage_bucket": "final-year-project001.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999161976569:android:5c30f32b9049b63c9d7428",
+        "android_client_info": {
+          "package_name": "com.lin.pokemon_journey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999161976569-v56na50gj3lmca7rqe9gbd7bnsrhnjm4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lin.pokemon_journey",
+            "certificate_hash": "410526de854268d68ebc0f313a75f56af874f4e6"
+          }
+        },
+        {
+          "client_id": "999161976569-ohrvmjqhqltiuej787me5tj66u2kqv3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBo1sOYBdbbPd-OPzCzkNnXK5d7---hQrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999161976569-ohrvmjqhqltiuej787me5tj66u2kqv3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
