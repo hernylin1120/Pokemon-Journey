@@ -78,6 +78,8 @@ public class Battle_Screen implements Screen {
     int opponentPokemonY;
     Boolean playerTurn;
 //    Boolean opponentTurn;
+    BattleMove playerMove;
+    BattleMove opponentMove;
     public Battle_Screen(Game game) {
         this.game = game;
     }
@@ -130,7 +132,6 @@ public class Battle_Screen implements Screen {
     public void setPokemonEffect() {
 
     }
-
     public int getRelativeInt(String type) {
         switch (type) {
             case "Normal":
@@ -312,7 +313,6 @@ public class Battle_Screen implements Screen {
             inDecideScreen = true;
         }
     }
-
     public void allAbilityButton(Pokemon pokemon) {
         int Row1ButtonY = lowerScreenY + choosingAbilityScreen.getHeight() - 24 - Fire_AbilityButton.getHeight();
         int Row2ButtonY = Row1ButtonY - 7 - Fire_AbilityButton.getHeight();
@@ -345,7 +345,6 @@ public class Battle_Screen implements Screen {
             abilityNo++;
         }
     }
-
     private float slideTimer = 0f;
     private boolean isSliding = false;
     private float slideDuration = 1f;
@@ -355,7 +354,6 @@ public class Battle_Screen implements Screen {
     private int currentFrame = 0;
     private boolean isAnimating = false;
     private int completedLoop = 0;
-
     public void animation(String name, String category, int x, int y, float delta) {
         int duration = 3;
         int targetLoop = 4;
@@ -394,7 +392,6 @@ public class Battle_Screen implements Screen {
             }
         }
     }
-
     public void startAnimation() {
         isAnimating = true;
         isSliding = true;
@@ -403,7 +400,6 @@ public class Battle_Screen implements Screen {
         currentFrame = 0;
         completedLoop = 0;
     }
-
     public void setDecideScreen() {
         batch.draw(decideScreen, 0, lowerScreenY);
         int fightButtonX = 20;
@@ -437,7 +433,6 @@ public class Battle_Screen implements Screen {
             }
         });
     }
-
     public void setChoosingAbilityScreen() {
         batch.draw(choosingAbilityScreen, 0, lowerScreenY);
         allAbilityButton(playerPokemon);
@@ -450,7 +445,6 @@ public class Battle_Screen implements Screen {
             }
         });
     }
-
     public void setPokemonScreen() {
         batch.draw(pokemonScreen, 0, lowerScreenY);
         int leftMargin = 1;
@@ -520,6 +514,44 @@ public class Battle_Screen implements Screen {
             inPokemonScreen = false;
             inDecideScreen = true;
         });
+    }
+    public void activateMoves() {
+        if (playerMove.priority > opponentMove.priority) {
+            subtitle = playerMove.subtitle;
+            playerMove.activate();
+            subtitle = opponentMove.subtitle;
+            opponentMove.activate();
+        } else if (playerMove.priority < opponentMove.priority) {
+            subtitle = opponentMove.subtitle;
+            opponentMove.activate();
+            subtitle = playerMove.subtitle;
+            playerMove.activate();
+        } else {
+            if (playerPokemon.currentSpeed > opponentPokemon.currentSpeed) {
+                subtitle = playerMove.subtitle;
+                playerMove.activate();
+                subtitle = opponentMove.subtitle;
+                opponentMove.activate();
+            } else if (playerPokemon.currentSpeed < opponentPokemon.currentSpeed) {
+                subtitle = opponentMove.subtitle;
+                opponentMove.activate();
+                subtitle = playerMove.subtitle;
+                playerMove.activate();
+            } else {
+                int randomInt = (int) (Math.random() * 2);
+                if (randomInt == 0) {
+                    subtitle = playerMove.subtitle;
+                    playerMove.activate();
+                    subtitle = opponentMove.subtitle;
+                    opponentMove.activate();
+                } else {
+                    subtitle = opponentMove.subtitle;
+                    opponentMove.activate();
+                    subtitle = playerMove.subtitle;
+                    playerMove.activate();
+                }
+            }
+        }
     }
 
     @Override
@@ -593,7 +625,7 @@ public class Battle_Screen implements Screen {
                 subtitleTimer = 0f;
             }
         }
-//        trainer.nextMove();
+//        activateMoves();
         batch.end();
     }
 

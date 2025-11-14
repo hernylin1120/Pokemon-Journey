@@ -1,6 +1,9 @@
 package com.lin.pokemon_journey;
 
 public class UseAbility extends BattleMove {
+    Ability ability;
+    Pokemon attacker;
+    Pokemon target;
     public double damage_multiply(String attackType, String[] defenderType) {
         double[][] multiply_chart = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 1},
@@ -41,9 +44,11 @@ public class UseAbility extends BattleMove {
         }
         return multiplier;
     }
+
     public int damage_formula(Pokemon attacker, Pokemon defender, Ability ability) {
         return (int) (Math.floor(((2 * attacker.level / 5 + 2) * ability.power * (attacker.attack / defender.defense) / 50) + 2) * damage_multiply(ability.type, defender.type));
     }
+
     public int getRelativeInt(String type) {
         switch (type) {
             case "Normal":
@@ -86,11 +91,19 @@ public class UseAbility extends BattleMove {
                 return -1;
         }
     }
+
     public UseAbility(Pokemon attacker, Pokemon target, Ability ability) {
-            ability.currentPP--;
-            subtitle = attacker.name + " used " + ability.name + ".";
-            if (!ability.category.equals("Status")) {
-                target.currentHP -= damage_formula(attacker, target, ability);
-            }
+        super(ability.priority, attacker.name + " used " + ability.name + ".");
+        this.attacker = attacker;
+        this.target = target;
+        this.ability = ability;
+    }
+
+    @Override
+    public void activate() {
+        ability.currentPP--;
+        if (!ability.category.equals("Status")) {
+            target.currentHP -= damage_formula(attacker, target, ability);
         }
+    }
 }

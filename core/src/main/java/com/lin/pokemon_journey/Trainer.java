@@ -14,7 +14,8 @@ public class Trainer {
         this.PokemonAvailable = pokemons.length;
     }
 
-    public void nextMove(Pokemon currentPokemon, Pokemon opponent) {
+    public BattleMove nextMove(Pokemon currentPokemon, Pokemon opponent) {
 
+        return new BattleMove(0,"");
     }
 }

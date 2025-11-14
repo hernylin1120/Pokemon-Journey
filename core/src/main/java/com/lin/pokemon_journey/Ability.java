@@ -10,6 +10,7 @@ public class Ability {
     int currentPP;
     String description;
     String subtitle;
+    int priority = 0;
     public Ability(String name, String type, String category, int power, int accuracy, int maxPP) {
         this.name = name;
         this.type = type;
