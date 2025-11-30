@@ -7,6 +7,6 @@ public class UseItem extends BattleMove {
     }
     @Override
     public void activate() {
-
+        
     }
 }

@@ -6,7 +6,6 @@ public class Player {
     Pokemon[] pokemons;
     Item[] items;
     int stage;
-
     public Player(String name) {
         this.name = name;
         this.stage = 1;

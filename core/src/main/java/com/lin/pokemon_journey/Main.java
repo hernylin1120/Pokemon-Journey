@@ -7,22 +7,14 @@ public class Main extends Game {
     public static PokemonFactory pokemonFactory;
     public static TrainerFactory trainerFactory;
     public static AbilityFactory abilityFactory;
-    public static SaveManager saveManager;
-    public static SaveData saveData;
     public static Player player;
-
 
     @Override
     public void create() {
         pokemonFactory = new PokemonFactory();
         trainerFactory = new TrainerFactory();
-//        saveManager = new SaveManager();
-//        if (saveManager.hasSaveFile()) {
-//            saveData = saveManager.loadGame();
-//            player = saveManager.restorePlayer(saveData);
-//        }
 
-        player = new Player("Dream");
+        player = new Player("Lin");
         player.pokemons = new Pokemon[6];
         player.pokemons[0] = Main.pokemonFactory.createPokemon("Charmander");
         player.pokemons[0].abilities[0] = Main.abilityFactory.createAbility("Growl");
@@ -31,12 +23,4 @@ public class Main extends Game {
         player.pokemons[1] = Main.pokemonFactory.createPokemon("Venusaur");
         setScreen(new Home_Screen(this));
     }
-
-//    @Override
-//    public void pause() {
-//        // 遊戲暫停時自動儲存
-//        if (currentPlayer != null) {
-//            saveManager.saveGame(currentPlayer);
-//        }
-//    }
 }

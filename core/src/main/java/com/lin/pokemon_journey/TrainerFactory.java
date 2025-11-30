@@ -32,7 +32,12 @@ public class TrainerFactory {
                     }
                 );
                 trainer.pokemons[0].setLevel(58);
-//                trainer.pokemons[0].abilities = {};
+                trainer.pokemons[0].abilities = new Ability[] {
+                    AbilityFactory.createAbility("Dark Pulse"),
+                    AbilityFactory.createAbility("Psychic"),
+                    AbilityFactory.createAbility("Silver Wind"),
+                    AbilityFactory.createAbility("Embargo"),
+                };
                 //trainer.pokemons[1].setLevel(58);
                 //trainer.pokemons[2].setLevel(60);
                 //trainer.pokemons[3].setLevel(60);
