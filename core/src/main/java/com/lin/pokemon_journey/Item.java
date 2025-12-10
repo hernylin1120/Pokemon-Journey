@@ -11,5 +11,5 @@ public class Item {
         this.description = description;
         this.texture = texture;
     }
+    public void use(Pokemon pokemon) {}
 }
-

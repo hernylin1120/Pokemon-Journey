@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PokemonFactory {
+    private PokemonFactory() {
+    }
     private static final Map<String, Pokemon> pokemonMap = new HashMap<>();
 
     public static Pokemon createPokemon(String pokemonName) {

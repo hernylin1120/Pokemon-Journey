@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TrainerFactory {
+    private TrainerFactory() {
+    }
     private static final Map<String, Trainer> trainerMap = new HashMap<>();
     public static Trainer createTrainer(String trainerName) {
         if (trainerMap.containsKey(trainerName)) {
@@ -31,6 +33,7 @@ public class TrainerFactory {
                         new Texture("Gen4_Trainer/Cynthia_Front3.png"),
                     }
                 );
+                trainer.advance = true;
                 trainer.pokemons[0].setLevel(58);
                 trainer.pokemons[0].abilities = new Ability[] {
                     AbilityFactory.createAbility("Dark Pulse"),

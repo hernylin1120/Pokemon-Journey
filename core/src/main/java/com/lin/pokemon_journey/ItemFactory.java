@@ -4,10 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class ItemFactory {
     private static final Map<String, Item> items = new HashMap<>();
-
     public static Item createItem(String itemName) {
         if (items.containsKey(itemName)) {
             return items.get(itemName);

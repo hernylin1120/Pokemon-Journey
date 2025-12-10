@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AbilityFactory {
+    private AbilityFactory() {
+    }
     private static final Map<String, Ability> abilityMap = new HashMap<>();
-
     public static Ability createAbility(String abilityName) {
         if (abilityMap.containsKey(abilityName)) {
             return abilityMap.get(abilityName);
