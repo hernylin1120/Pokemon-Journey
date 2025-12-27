@@ -102,7 +102,7 @@ public class AbilityCalculator {
             case "Status":
                 break;
         }
-        target.currentHP -= AbilityCalculator.damage_formula(attack, defense, level, ability, multiplier);
+        target.takeDamage(AbilityCalculator.damage_formula(attack, defense, level, ability, multiplier));
         if (multiplier == 0) {
             return "It doesn't affect " + target.name + "...";
         } else if (multiplier < 1) {

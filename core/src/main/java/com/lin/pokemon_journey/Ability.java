@@ -21,11 +21,12 @@ public class Ability {
         this.currentPP = maxPP;
         this.description = description;
     }
+    // choose between activate and useAbility
     public void useAbility() {
         if (currentPP > 0) {
             currentPP--;
         } else {
-            subtitle = "";
+            subtitle = "There's no PP left for this move";
         }
     }
 }

@@ -135,7 +135,7 @@ public class Battle_Screen implements Screen {
 
         trainer = TrainerFactory.createTrainer("Cynthia");
         opponentPokemon = trainer.pokemons[0];
-        playerPokemon = Main.player.pokemons[0];
+        Main.player.setCurrentPokemon();
     }
     private Texture getAbilityButtonTexture(String type) {
         switch (type) {
@@ -209,6 +209,7 @@ public class Battle_Screen implements Screen {
                 if (ability.currentPP <= 0) {
                     subtitle = "No PP left for " + ability.name + "!";
                 } else {
+                    // need to be deleted afterward
                     ability.currentPP--;
                     subtitle = playerPokemon.name + " used " + ability.name + ".";
                     abilityEffectText = AbilityCalculator.abilityDamage(playerPokemon, opponentPokemon, ability);
@@ -358,7 +359,7 @@ public class Battle_Screen implements Screen {
         int cardX;
         int cardY;
         int playerPokemonCount = (int) Arrays.stream(Main.player.pokemons).filter(Objects::nonNull).count();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < playerPokemonCount; i++) {
             //lambda cannot use non-final variable, so we need to create a new variable here
             int pokemonNumber = i;  //lambda cannot use non-final variable, also think about null and fainted might happened in the middle of pokemon  for example the 3rd pokemon
             if (i % 2 == 0) {
@@ -378,9 +379,10 @@ public class Battle_Screen implements Screen {
                             subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
                         } else {
                             if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
-                                playerPokemon = Main.player.pokemons[pokemonNumber];
+                                playerMove = new SwitchPokemon(Main.player, Main.player.pokemons[pokemonNumber]);
                                 inPokemonScreen = false;
                                 inDecideScreen = true;
+                                activateMoves();
                             } else {
                                 subtitle = Main.player.pokemons[pokemonNumber].name + " is already in battle.";
                             }
@@ -399,13 +401,15 @@ public class Battle_Screen implements Screen {
                     } else {
                         if (Main.player.pokemons[pokemonNumber].condition.equals("Fainted")) {
                             subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
-                        } else
-                        if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
-                            playerPokemon = Main.player.pokemons[pokemonNumber];
-                            inPokemonScreen = false;
-                            inDecideScreen = true;
                         } else {
-                            subtitle = Main.player.pokemons[pokemonNumber].name + " is already in battle.";
+                            if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
+                                playerMove = new SwitchPokemon(Main.player, Main.player.pokemons[pokemonNumber]);
+                                inPokemonScreen = false;
+                                inDecideScreen = true;
+                                activateMoves();
+                            } else {
+                                subtitle = Main.player.pokemons[pokemonNumber].name + " is already in battle.";
+                            }
                         }
                     }
                 });
@@ -421,6 +425,7 @@ public class Battle_Screen implements Screen {
         });
     }
     public void activateMoves() {
+        opponentMove = trainer.nextMove(opponentPokemon, playerPokemon);
         if (playerMove.priority > opponentMove.priority) {
             subtitle = playerMove.subtitle;
             playerMove.activate();
@@ -488,6 +493,7 @@ public class Battle_Screen implements Screen {
             batch.draw(opponentPokemon.sprites[0], opponentPokemonX, opponentPokemonY);
 
             int playerPokemonY = backgroundStartY - 8;
+            playerPokemon = Main.player.currentPokemon;
             batch.draw(playerPokemon.sprites[2], 24, playerPokemonY);
             int opponentPokemonHPBarY = backgroundStartY + 91;
             batch.draw(OpponentSingleHPBar, 0, opponentPokemonHPBarY);
@@ -498,6 +504,7 @@ public class Battle_Screen implements Screen {
             BitmapFont font = new BitmapFont();
             font.getData().setScale(1f);
             font.draw(batch, String.valueOf(opponentPokemon.currentHP), 10, backgroundHeight - 5);
+            font.draw(batch, String.valueOf(playerPokemon.currentHP), 200, backgroundHeight - 130);
 
             subtitleBarY = lowerScreenHeight;
             batch.draw(subtitle_bar, 0, subtitleBarY);

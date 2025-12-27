@@ -29,6 +29,7 @@ public class Pokemon {
     String condition = ""; //e.g. poisoned
     Ability[] abilities = new Ability[4];
     Item heldItem;
+    int friendship = 0;
 
     public Pokemon(int id, String name, Boolean genderDifferences, String[] type, Texture[] sprites,
                    int HP, int attack, int defense, int specialAttack, int specialDefense, int speed) {
@@ -64,6 +65,22 @@ public class Pokemon {
 
     public void setEffect() {
         int[] statsMultiplier;
+    }
+
+    public void takeDamage(int damage) {
+        this.currentHP -= damage;
+        if (this.currentHP < 0) {
+            this.currentHP = 0;
+            this.condition = "Fainted";
+        }
+    }
+    public void changeFriendship(int i) {
+        friendship += i;
+        if (friendship >= 255) {
+            friendship = 255;
+        } else if (friendship < 0) {
+            friendship = 0;
+        }
     }
 }
 

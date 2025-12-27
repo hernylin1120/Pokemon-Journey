@@ -6,7 +6,6 @@ public class BattleMove {
     public BattleMove(int priority, String subtitle) {
         this.subtitle = subtitle;
         this.priority = priority;
-
     }
     public void activate() {
     }

@@ -2,10 +2,17 @@ package com.lin.pokemon_journey;
 
 public class SwitchPokemon extends BattleMove {
     Pokemon selectedPokemon;
-    public SwitchPokemon() {
+    Object whoUse;
+    public SwitchPokemon(Object whoUse, Pokemon selectedPokemon) {
         super(20, "Change your active Pokemon");
+        this.selectedPokemon = selectedPokemon;
+        this.whoUse = whoUse;
     }
     public void activate() {
-
+        if (whoUse instanceof Player) {
+            ((Player) whoUse).currentPokemon = selectedPokemon;
+        } else if (whoUse instanceof Trainer) {
+            ((Trainer) whoUse).currentPokemon = selectedPokemon;
+        }
     }
 }

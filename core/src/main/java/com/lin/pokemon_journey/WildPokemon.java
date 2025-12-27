@@ -6,4 +6,8 @@ public class WildPokemon extends Opponent {
         super("Wild " + pokemon.name);
         this.pokemon = pokemon;
     }
+    @Override
+    public BattleMove nextMove(Pokemon currentPokemon, Pokemon opponent) {
+        return new UseAbility(currentPokemon, opponent, UseAbility.bestAbility(this));
+    }
 }
