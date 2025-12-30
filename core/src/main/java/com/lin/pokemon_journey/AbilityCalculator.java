@@ -3,6 +3,7 @@ package com.lin.pokemon_journey;
 import static java.lang.Math.floorDiv;
 
 public class AbilityCalculator {
+    public static String effectiveness = null;
     public static int floorMul(double a, double b) {
         return (int) Math.floor(a * b);
     }
@@ -84,7 +85,7 @@ public class AbilityCalculator {
                 return -1;
         }
     }
-    public static String abilityDamage(Pokemon attacker, Pokemon target, Ability ability) {
+    public static void abilityDamage(Pokemon attacker, Pokemon target, Ability ability) {
         int attack = 0;
         int defense = 0;
         int level = attacker.level;
@@ -102,14 +103,18 @@ public class AbilityCalculator {
             case "Status":
                 break;
         }
+        if (ability.category.equals("Status")) {
+//            return attacker.name + " used " + ability.name + "!";
+        }
         target.takeDamage(AbilityCalculator.damage_formula(attack, defense, level, ability, multiplier));
         if (multiplier == 0) {
-            return "It doesn't affect " + target.name + "...";
+            effectiveness = "It doesn't affect " + target.name + "...";
         } else if (multiplier < 1) {
-            return "It's not very effective...";
+            effectiveness = "It's not very effective...";
         } else if (multiplier > 1) {
-            return "It's super effective!";
+            effectiveness = "It's super effective!";
+        } else {
+            effectiveness = null;
         }
-        return "";
     }
 }

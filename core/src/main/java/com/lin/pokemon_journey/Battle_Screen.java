@@ -28,6 +28,8 @@ public class Battle_Screen implements Screen {
     private Texture subtitle_bar;
     private int subtitleBarY;
     private Texture decideScreen;
+    int lowerScreenHeight;
+    int backgroundStartY;
     boolean clickable = true;
     private Texture decideScreenFightButton;
     private Texture decideScreenBagButton;
@@ -69,8 +71,12 @@ public class Battle_Screen implements Screen {
     private boolean inBattle = false;
     private boolean inEndingBattle = false;
     private InputText inputText = new InputText();
-    private String subtitle = "";
-    private String abilityEffectText = "";
+    private String subtitle = null;
+    private Subtitle playerSubtitle = null;
+    private Subtitle opponentSubtitle = null;
+    private Subtitle abilityEffectText = null;
+    private int subtitleTextX = 16;
+    private int subtitleTextY;    //set in show()
     private float subtitleTimer = 0f;
     private Viewport viewport;
     private OrthographicCamera camera;
@@ -80,11 +86,19 @@ public class Battle_Screen implements Screen {
 //    Boolean opponentTurn;
     BattleMove playerMove;
     BattleMove opponentMove;
+    private float delta;
     public Battle_Screen(Game game) {
         this.game = game;
     }
     public void setPokemonEffect() {
     }
+    Boolean playerHitFirst = null;
+    private Boolean playerMoveSubtitleDisplay = false;
+    Boolean playerMoveActivate = false;
+    private Boolean playerMoveEffectDisplay = false;
+    private Boolean opponentMoveSubtitleDisplay = false;
+    Boolean opponentMoveActivate = false;
+    private Boolean opponentMoveEffectDisplay = false;
     @Override
     public void show() {
         camera = new OrthographicCamera();
@@ -132,6 +146,15 @@ public class Battle_Screen implements Screen {
         Steel_AbilityButton = new Texture("AbilityButton/Steel_AbilityButton.png");
         Water_AbilityButton = new Texture("AbilityButton/Water_AbilityButton.png");
         OpponentSingleHPBar = new Texture("OpponentSingleHPBar.png");
+
+        lowerScreenHeight = Math.max(decideScreen.getHeight(), choosingAbilityScreen.getHeight());
+        subtitleBarY = lowerScreenHeight;
+
+        backgroundStartY = subtitle_bar.getHeight() + lowerScreenHeight;
+        opponentPokemonX = 152;
+        opponentPokemonY = backgroundStartY + 35;
+
+        subtitleTextY = subtitleBarY + subtitle_bar.getHeight() - 22;
 
         trainer = TrainerFactory.createTrainer("Cynthia");
         opponentPokemon = trainer.pokemons[0];
@@ -207,17 +230,23 @@ public class Battle_Screen implements Screen {
             Vector3 worldCoords = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             if (buttonBounds.contains(worldCoords.x, worldCoords.y)) {
                 if (ability.currentPP <= 0) {
+                    // ✅ 啟動字幕,而不是直接渲染
+//                    Subtitle.show(new String[] {"No PP left for " + ability.name + "!"});
+//                    Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {"No PP left for " + ability.name + "!"});
                     subtitle = "No PP left for " + ability.name + "!";
                 } else {
                     // need to be deleted afterward
                     ability.currentPP--;
-                    subtitle = playerPokemon.name + " used " + ability.name + ".";
-                    abilityEffectText = AbilityCalculator.abilityDamage(playerPokemon, opponentPokemon, ability);
+                    playerMove = new UseAbility(playerPokemon, opponentPokemon, ability);
+                    activateMoves();
+//                    System.out.println("asdiuasdahudasihuhuidhauiahdhiuhdashus");
+//                    subtitle = playerPokemon.name + " used " + ability.name + ".";
+//                    abilityEffectText = AbilityCalculator.effectiveness;
                     clickable = false;
+                    inAbilityScreen = false;
+                    inDecideScreen = true;
                 }
             }
-            inAbilityScreen = false;
-            inDecideScreen = true;
         }
     }
     public void allAbilityButton(Pokemon pokemon) {
@@ -261,7 +290,7 @@ public class Battle_Screen implements Screen {
     private int currentFrame = 0;
     private boolean isAnimating = false;
     private int completedLoop = 0;
-    public void animation(String name, String category, int x, int y, float delta) {
+    public void animation(String name, String category, int x, int y) {
         int duration = 3;
         int targetLoop = 4;
         int frames = 2;
@@ -359,7 +388,7 @@ public class Battle_Screen implements Screen {
         int cardX;
         int cardY;
         int playerPokemonCount = (int) Arrays.stream(Main.player.pokemons).filter(Objects::nonNull).count();
-        for (int i = 0; i < playerPokemonCount; i++) {
+        for (int i = 0; i < 6; i++) {
             //lambda cannot use non-final variable, so we need to create a new variable here
             int pokemonNumber = i;  //lambda cannot use non-final variable, also think about null and fainted might happened in the middle of pokemon  for example the 3rd pokemon
             if (i % 2 == 0) {
@@ -373,10 +402,15 @@ public class Battle_Screen implements Screen {
 //                }
                 Button pokemonCard = new Button(cardX, cardY, currentPokemonCard, batch, viewport, () -> {
                     if (Main.player.pokemons[pokemonNumber] == null) {
+//                        Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {"No Pokemon in this slot."});
                         subtitle = "No Pokemon in this slot.";
+
+                        // ✅ 啟動字幕,而不是直接渲染
+//                        Subtitle.show(new String[] {"No Pokemon in this slot."});
                     } else {
                         if (Main.player.pokemons[pokemonNumber].condition.equals("Fainted")) {
-                            subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
+//                            Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {Main.player.pokemons[pokemonNumber].name + " can't battle anymore."});
+//                            subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
                         } else {
                             if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
                                 playerMove = new SwitchPokemon(Main.player, Main.player.pokemons[pokemonNumber]);
@@ -384,6 +418,7 @@ public class Battle_Screen implements Screen {
                                 inDecideScreen = true;
                                 activateMoves();
                             } else {
+//                                Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {Main.player.pokemons[pokemonNumber].name + " is already in battle."});
                                 subtitle = Main.player.pokemons[pokemonNumber].name + " is already in battle.";
                             }
                         }
@@ -397,10 +432,12 @@ public class Battle_Screen implements Screen {
                 cardY = subtitleBarY - subtitle_bar.getHeight() - 5 - (topMargin * (i / 2 + 1) + currentPokemonCard.getHeight() * (i / 2));
                 Button pokemonCard = new Button(cardX, cardY, currentPokemonCard, batch, viewport, () -> {
                     if (Main.player.pokemons[pokemonNumber] == null) {
+//                        Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {Main.player.pokemons[pokemonNumber].name + " can't battle anymore."});
                         subtitle = "No Pokemon in this slot.";
                     } else {
                         if (Main.player.pokemons[pokemonNumber].condition.equals("Fainted")) {
-                            subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
+//                            Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {Main.player.pokemons[pokemonNumber].name + " can't battle anymore."});
+//                            subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
                         } else {
                             if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
                                 playerMove = new SwitchPokemon(Main.player, Main.player.pokemons[pokemonNumber]);
@@ -408,6 +445,7 @@ public class Battle_Screen implements Screen {
                                 inDecideScreen = true;
                                 activateMoves();
                             } else {
+//                                Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {Main.player.pokemons[pokemonNumber].name + " is already in battle."});
                                 subtitle = Main.player.pokemons[pokemonNumber].name + " is already in battle.";
                             }
                         }
@@ -426,39 +464,55 @@ public class Battle_Screen implements Screen {
     }
     public void activateMoves() {
         opponentMove = trainer.nextMove(opponentPokemon, playerPokemon);
+        String[] subtitles = {playerMove.subtitle};
+        playerSubtitle = new Subtitle(subtitleTextX, subtitleTextY, subtitles);
+        subtitles = new String[]{opponentMove.subtitle};
+        opponentSubtitle = new Subtitle(subtitleTextX, subtitleTextY, subtitles);
         if (playerMove.priority > opponentMove.priority) {
-            subtitle = playerMove.subtitle;
-            playerMove.activate();
-            subtitle = opponentMove.subtitle;
-            opponentMove.activate();
+            playerHitFirst = true;
+            playerMoveSubtitleDisplay = true;
+//            subtitle = playerMove.subtitle;
+//            playerMove.activate();
+//            subtitle = opponentMove.subtitle;
+//            opponentMove.activate();
         } else if (playerMove.priority < opponentMove.priority) {
-            subtitle = opponentMove.subtitle;
-            opponentMove.activate();
-            subtitle = playerMove.subtitle;
-            playerMove.activate();
+            playerHitFirst = false;
+            opponentMoveSubtitleDisplay = true;
+//            subtitle = opponentMove.subtitle;
+//            opponentMove.activate();
+//            subtitle = playerMove.subtitle;
+//            playerMove.activate();
         } else {
             if (playerPokemon.currentSpeed > opponentPokemon.currentSpeed) {
-                subtitle = playerMove.subtitle;
-                playerMove.activate();
-                subtitle = opponentMove.subtitle;
-                opponentMove.activate();
+                playerHitFirst = true;
+                playerMoveSubtitleDisplay = true;
+//                subtitle = playerMove.subtitle;
+//                playerMove.activate();
+//                subtitle = opponentMove.subtitle;
+//                opponentMove.activate();
             } else if (playerPokemon.currentSpeed < opponentPokemon.currentSpeed) {
-                subtitle = opponentMove.subtitle;
-                opponentMove.activate();
-                subtitle = playerMove.subtitle;
-                playerMove.activate();
+                playerHitFirst = false;
+                opponentMoveSubtitleDisplay = true;
+//                subtitle = opponentMove.subtitle;
+//                opponentMove.activate();
+//                subtitle = playerMove.subtitle;
+//                playerMove.activate();
             } else {
                 int randomInt = (int) (Math.random() * 2);
                 if (randomInt == 0) {
-                    subtitle = playerMove.subtitle;
-                    playerMove.activate();
-                    subtitle = opponentMove.subtitle;
-                    opponentMove.activate();
+                    playerHitFirst = true;
+                    playerMoveSubtitleDisplay = true;
+//                    subtitle = playerMove.subtitle;
+//                    playerMove.activate();
+//                    subtitle = opponentMove.subtitle;
+//                    opponentMove.activate();
                 } else {
-                    subtitle = opponentMove.subtitle;
-                    opponentMove.activate();
-                    subtitle = playerMove.subtitle;
-                    playerMove.activate();
+                    playerHitFirst = false;
+                    opponentMoveSubtitleDisplay = true;
+//                    subtitle = opponentMove.subtitle;
+//                    opponentMove.activate();
+//                    subtitle = playerMove.subtitle;
+//                    playerMove.activate();
                 }
             }
         }
@@ -466,25 +520,21 @@ public class Battle_Screen implements Screen {
 
     @Override
     public void render(float delta) {
+        this.delta = delta;
         ScreenUtils.clear(0f, 0f, 0f, 1f);
         viewport.apply();
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
 
-        int lowerScreenHeight = Math.max(decideScreen.getHeight(), choosingAbilityScreen.getHeight());
-
-        int backgroundStartY = subtitle_bar.getHeight() + lowerScreenHeight;
         batch.draw(background, 0, backgroundStartY);
         batch.draw(ground, 0, backgroundStartY);
-        opponentPokemonX = 152;
-        opponentPokemonY = backgroundStartY + 35;
 
         if (inStartingBattle) {
             if (!isAnimating) {
                 startAnimation();
             }
-            animation(trainer.name, "Trainer", opponentPokemonX, opponentPokemonY + 20, delta);
+            animation(trainer.name, "Trainer", opponentPokemonX, opponentPokemonY + 20);
             if (!isAnimating) {
                 inStartingBattle = false;
                 inBattle = true;
@@ -506,8 +556,14 @@ public class Battle_Screen implements Screen {
             font.draw(batch, String.valueOf(opponentPokemon.currentHP), 10, backgroundHeight - 5);
             font.draw(batch, String.valueOf(playerPokemon.currentHP), 200, backgroundHeight - 130);
 
-            subtitleBarY = lowerScreenHeight;
             batch.draw(subtitle_bar, 0, subtitleBarY);
+
+            // ✅ 每幀都調用字幕更新
+//            if (!Subtitle.update(delta, subtitleTextX, subtitleTextY, inputText, batch)) {
+//                // 沒有字幕時顯示預設文字
+//                inputText.inputText(true, batch, "What will " + playerPokemon.name.toUpperCase() + " do?",
+//                    subtitleTextX, subtitleTextY);
+//            }
 
             lowerScreenY = 0;
             if (inDecideScreen) {
@@ -517,24 +573,116 @@ public class Battle_Screen implements Screen {
             } else if (inPokemonScreen) {
                 setPokemonScreen();
             }
+            if (playerHitFirst != null) {
+                if (playerHitFirst) {
+                    if (playerMoveSubtitleDisplay) {
+                        if (!playerSubtitle.subsEnd) {
+                            playerSubtitle.renderSubtitle(delta, inputText, batch);
+                        } else {
+                            playerMoveSubtitleDisplay = false;
+                            playerMoveActivate = true;
+                        }
+                    } else if (playerMoveActivate) {
+                        playerMove.activate();
+                        if (playerMove.effect != null) {
+                            abilityEffectText = new Subtitle(subtitleTextX, subtitleTextY, new String[]{playerMove.effect});
+                            playerMoveEffectDisplay = true;
+                        } else {
+                            opponentMoveSubtitleDisplay = true;
+                        }
+                        playerMoveActivate = false;
+                    } else if (abilityEffectText != null) {
+                        if (!abilityEffectText.subsEnd) {
+                            abilityEffectText.renderSubtitle(delta, inputText, batch);
+                        } else {
+                            abilityEffectText = null;
+                            playerMoveEffectDisplay = false;
+                            opponentMoveSubtitleDisplay = true;
+                        }
+                    } else if (opponentMoveSubtitleDisplay) {
+                        playerSubtitle = null;
+                        if (!opponentSubtitle.subsEnd) {
+                            opponentSubtitle.renderSubtitle(delta, inputText, batch);
+                        } else {
+                            opponentMoveSubtitleDisplay = false;
+                            opponentMoveActivate = true;
+                        }
+                    } else if (opponentMoveActivate) {
+                        opponentMove.activate();
+                        if (opponentMove.effect != null) {
+                            abilityEffectText = new Subtitle(subtitleTextX, subtitleTextY, new String[]{playerMove.effect});
+                            opponentMoveEffectDisplay = true;
+                        }
+                        opponentMoveActivate = false;
+                    } else if (abilityEffectText != null) {
+                        if (!abilityEffectText.subsEnd) {
+                            abilityEffectText.renderSubtitle(delta, inputText, batch);
+                        } else {
+                            abilityEffectText = null;
+                        }
+                    } else if (abilityEffectText == null) {
+                        opponentSubtitle = null;
+                        opponentMoveEffectDisplay = false;
+                        playerHitFirst = null;
+                    }
+                } else {
+
+                }
+                clickable = true;
+                System.out.println("asdiojasdoasdasiodasdiasdjsdsadoiasdiasjdiosa" + subtitle);
+            }
+//            if (playerHitFirst != null) {
+//                if (!playerMoveActivated && !opponentMoveActivated) {
+//                    if (playerHitFirst) {
+//                        if (!playerMoveActivated) {
+//                            if (!playerSubtitle.subsEnd) {
+//                                playerSubtitle.renderSubtitle(delta, inputText, batch);
+//                            } else {
+//                                playerMove.activate();
+//                                if (playerMove.effect != null) {
+//                                    if (abilityEffectText == null) {
+//                                        abilityEffectText = new Subtitle(subtitleTextX, subtitleTextY, new String[]{AbilityCalculator.effectiveness});
+//                                    }
+//
+//                                }
+//                            }
+//                        }
+//                    } else {
+////                opponentMove.activate();
+//                        playerSubtitle = new Subtitle(subtitleTextX, subtitleTextY, new String[]{playerMove.subtitle});
+//                        playerSubtitle.renderSubtitle(delta, inputText, batch);
+//                        playerMove.activate();
+//                        if (AbilityCalculator.effectiveness != null) {
+//                            playerSubtitle = new Subtitle(subtitleTextX, subtitleTextY, new String[]{AbilityCalculator.effectiveness});
+//                        }
+//                    }
+//                }
+//            }
+
             // abilityEffect is clickable
-            float subtitleDuration = 1.5f;
-            int subtitleTextY = subtitleBarY + subtitle_bar.getHeight() - 22;
-            if (!subtitle.isEmpty()) {
+//            float subtitleDuration = 1.5f;
+//            int subtitleTextY = subtitleBarY + subtitle_bar.getHeight() - 22;
+            if (subtitle != null) {
                 inputText.inputText(true, batch, subtitle, 16, subtitleTextY);
                 subtitleTimer += delta;
-                if (subtitleTimer > subtitleDuration) {
-                    subtitle = "";
-                    if (!abilityEffectText.isEmpty()) {
-                        subtitle = abilityEffectText;
-                        subtitleTimer = 0f;
-                        abilityEffectText = "";
-                    }
+                if (subtitleTimer > Subtitle.subtitleDuration) {
+                    subtitle = null;
+//                    if (abilityEffectText != null) {
+//                        subtitle = abilityEffectText;
+//                        subtitleTimer = 0f;
+//                        abilityEffectText = null;
+//                    }
                     clickable = true;
+                    subtitleTimer = 0f;
                 }
-            } else {
+            }
+
+//            else {
+//                inputText.inputText(true, batch, "What will " + playerPokemon.name.toUpperCase() + " do?", 16, subtitleTextY);
+//                subtitleTimer = 0f;
+//            }
+            if (playerSubtitle == null && opponentSubtitle == null && abilityEffectText == null && subtitle == null) {
                 inputText.inputText(true, batch, "What will " + playerPokemon.name.toUpperCase() + " do?", 16, subtitleTextY);
-                subtitleTimer = 0f;
             }
         }
 //        activateMoves();

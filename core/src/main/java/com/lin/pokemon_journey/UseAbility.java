@@ -30,5 +30,6 @@ public class UseAbility extends BattleMove {
     public void activate() {
         ability.useAbility();
         AbilityCalculator.abilityDamage(attacker, target, ability);
+        this.effect = AbilityCalculator.effectiveness;
     }
 }
