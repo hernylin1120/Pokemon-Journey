@@ -22,8 +22,8 @@ public class Battle_Screen implements Screen {
     private SpriteBatch batch;
     private Texture background;
     private int backgroundY;
-    private int backgroundWidth;
-    private int backgroundHeight;
+    private int screenWidth;
+    private int screenHeight;
     private Texture ground;
     private Texture subtitle_bar;
     private int subtitleBarY;
@@ -36,6 +36,10 @@ public class Battle_Screen implements Screen {
     private Texture decideScreenRunButton;
     private Texture decideScreenPokemonButton;
     private Texture choosingAbilityScreen;
+    private Texture Bag_Background;
+    private Texture Bag_DescBar;
+    private Texture Bag_Items;
+    private Texture Bag_Category;
     private Texture pokemonScreen;
     private Texture pokemonScreenFirstPokemonCard;
     private Texture pokemonScreenPokemonCard;
@@ -65,6 +69,7 @@ public class Battle_Screen implements Screen {
     private Pokemon playerPokemon;
     private Pokemon opponentPokemon;
     private boolean inDecideScreen = true;
+    private boolean inBagScreen = false;
     private boolean inAbilityScreen = false;
     private boolean inPokemonScreen = false;
     private boolean inStartingBattle = true;
@@ -117,15 +122,21 @@ public class Battle_Screen implements Screen {
         int lowerScreenHeight = Math.max(decideScreen.getHeight(), choosingAbilityScreen.getHeight());
         int totalHeight = background.getHeight() + subtitle_bar.getHeight() + lowerScreenHeight;
 
-        backgroundWidth = background.getWidth();
-        backgroundHeight = totalHeight;  //viewport 高度 = 總高度
+        screenWidth = background.getWidth();
+        screenHeight = totalHeight;  //viewport 高度 = 總高度
 
-        viewport = new FitViewport(backgroundWidth, backgroundHeight, camera);
+        viewport = new FitViewport(screenWidth, screenHeight, camera);
 
         decideScreenFightButton = new Texture("Decide_Screen_FightButton.png");
         decideScreenBagButton = new Texture("Decide_Screen_BagButton.png");
         decideScreenRunButton = new Texture("Decide_Screen_RunButton.png");
         decideScreenPokemonButton = new Texture("Decide_Screen_PokemonButton.png");
+
+        Bag_Background = new Texture("Empty_Bottom_Screen.png");
+        Bag_DescBar = new Texture("Bag_DescBar.png");
+        Bag_Items = new Texture("Bag_Items.png");
+        Bag_Category = new Texture("Bag_Category.png");
+
         choosingAbilityScreenCancelButton = new Texture("Choosing_Ability_Screen_CancelButton.png");
 
         Bug_AbilityButton = new Texture("AbilityButton/Bug_AbilityButton.png");
@@ -225,24 +236,17 @@ public class Battle_Screen implements Screen {
         currentAbility.inputText(true, batch, Integer.toString(ability.maxPP), buttonX + 92, buttonY + 13);
         Rectangle buttonBounds = new Rectangle(buttonX, buttonY, buttonTexture.getWidth(), buttonTexture.getHeight());
 
-        if (Gdx.input.justTouched()) {
+        if (clickable && Gdx.input.justTouched()) {
             // 使用 viewport 轉換座標
             Vector3 worldCoords = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             if (buttonBounds.contains(worldCoords.x, worldCoords.y)) {
                 if (ability.currentPP <= 0) {
-                    // ✅ 啟動字幕,而不是直接渲染
-//                    Subtitle.show(new String[] {"No PP left for " + ability.name + "!"});
-//                    Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {"No PP left for " + ability.name + "!"});
                     subtitle = "No PP left for " + ability.name + "!";
                 } else {
                     // need to be deleted afterward
                     ability.currentPP--;
                     playerMove = new UseAbility(playerPokemon, opponentPokemon, ability);
                     activateMoves();
-//                    System.out.println("asdiuasdahudasihuhuidhauiahdhiuhdashus");
-//                    subtitle = playerPokemon.name + " used " + ability.name + ".";
-//                    abilityEffectText = AbilityCalculator.effectiveness;
-                    clickable = false;
                     inAbilityScreen = false;
                     inDecideScreen = true;
                 }
@@ -303,7 +307,7 @@ public class Battle_Screen implements Screen {
 
                 if (slideTimer >= slideDuration) {
                     trainerSlideX = opponentPokemonX;
-                    isSliding = false;  // 滑入完成,開始循環動畫
+                    isSliding = false;
                     animationTimer = 0f;
                 }
                 batch.draw(trainer.sprites[0], trainerSlideX, opponentPokemonY + 20);
@@ -350,7 +354,8 @@ public class Battle_Screen implements Screen {
         int bagButtonY = 12;
         Button bagButton = new Button(bagButtonX, bagButtonY, decideScreenBagButton, batch, viewport, () -> {
             if (clickable) {
-
+                inDecideScreen = false;
+                inBagScreen = true;
             }
         });
         int runButtonX = 89;
@@ -380,6 +385,12 @@ public class Battle_Screen implements Screen {
             }
         });
     }
+    public void setBagScreen() {
+        batch.draw(Bag_Background, 0, lowerScreenY);
+        batch.draw(Bag_DescBar, 0, lowerScreenY);
+        batch.draw(Bag_Items, screenWidth - Bag_Items.getWidth(), 52);
+        batch.draw(Bag_Category, 0, 53);
+    }
     public void setPokemonScreen() {
         batch.draw(pokemonScreen, 0, lowerScreenY);
         int leftMargin = 1;
@@ -401,25 +412,24 @@ public class Battle_Screen implements Screen {
 //                    currentPokemonCard = new Texture("Pokemon_Screen_FaintedPokemonCard.png");
 //                }
                 Button pokemonCard = new Button(cardX, cardY, currentPokemonCard, batch, viewport, () -> {
-                    if (Main.player.pokemons[pokemonNumber] == null) {
+                    if (clickable) {
+                        if (Main.player.pokemons[pokemonNumber] == null) {
 //                        Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {"No Pokemon in this slot."});
-                        subtitle = "No Pokemon in this slot.";
-
-                        // ✅ 啟動字幕,而不是直接渲染
-//                        Subtitle.show(new String[] {"No Pokemon in this slot."});
-                    } else {
-                        if (Main.player.pokemons[pokemonNumber].condition.equals("Fainted")) {
-//                            Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {Main.player.pokemons[pokemonNumber].name + " can't battle anymore."});
-//                            subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
+                            clickable = false;
+                            subtitle = "No Pokemon in this slot.";
                         } else {
-                            if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
-                                playerMove = new SwitchPokemon(Main.player, Main.player.pokemons[pokemonNumber]);
-                                inPokemonScreen = false;
-                                inDecideScreen = true;
-                                activateMoves();
+                            if (Main.player.pokemons[pokemonNumber].condition.equals("Fainted")) {
                             } else {
-//                                Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {Main.player.pokemons[pokemonNumber].name + " is already in battle."});
-                                subtitle = Main.player.pokemons[pokemonNumber].name + " is already in battle.";
+                                if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
+                                    playerMove = new SwitchPokemon(Main.player, Main.player.pokemons[pokemonNumber]);
+                                    inPokemonScreen = false;
+                                    inDecideScreen = true;
+                                    clickable = false;
+                                    activateMoves();
+                                } else {
+                                    clickable = false;
+                                    subtitle = Main.player.pokemons[pokemonNumber].name + " is already in battle.";
+                                }
                             }
                         }
                     }
@@ -471,48 +481,24 @@ public class Battle_Screen implements Screen {
         if (playerMove.priority > opponentMove.priority) {
             playerHitFirst = true;
             playerMoveSubtitleDisplay = true;
-//            subtitle = playerMove.subtitle;
-//            playerMove.activate();
-//            subtitle = opponentMove.subtitle;
-//            opponentMove.activate();
         } else if (playerMove.priority < opponentMove.priority) {
             playerHitFirst = false;
             opponentMoveSubtitleDisplay = true;
-//            subtitle = opponentMove.subtitle;
-//            opponentMove.activate();
-//            subtitle = playerMove.subtitle;
-//            playerMove.activate();
         } else {
             if (playerPokemon.currentSpeed > opponentPokemon.currentSpeed) {
                 playerHitFirst = true;
                 playerMoveSubtitleDisplay = true;
-//                subtitle = playerMove.subtitle;
-//                playerMove.activate();
-//                subtitle = opponentMove.subtitle;
-//                opponentMove.activate();
             } else if (playerPokemon.currentSpeed < opponentPokemon.currentSpeed) {
                 playerHitFirst = false;
                 opponentMoveSubtitleDisplay = true;
-//                subtitle = opponentMove.subtitle;
-//                opponentMove.activate();
-//                subtitle = playerMove.subtitle;
-//                playerMove.activate();
             } else {
                 int randomInt = (int) (Math.random() * 2);
                 if (randomInt == 0) {
                     playerHitFirst = true;
                     playerMoveSubtitleDisplay = true;
-//                    subtitle = playerMove.subtitle;
-//                    playerMove.activate();
-//                    subtitle = opponentMove.subtitle;
-//                    opponentMove.activate();
                 } else {
                     playerHitFirst = false;
                     opponentMoveSubtitleDisplay = true;
-//                    subtitle = opponentMove.subtitle;
-//                    opponentMove.activate();
-//                    subtitle = playerMove.subtitle;
-//                    playerMove.activate();
                 }
             }
         }
@@ -553,8 +539,8 @@ public class Battle_Screen implements Screen {
 
             BitmapFont font = new BitmapFont();
             font.getData().setScale(1f);
-            font.draw(batch, String.valueOf(opponentPokemon.currentHP), 10, backgroundHeight - 5);
-            font.draw(batch, String.valueOf(playerPokemon.currentHP), 200, backgroundHeight - 130);
+            font.draw(batch, String.valueOf(opponentPokemon.currentHP), 10, screenHeight - 5);
+            font.draw(batch, String.valueOf(playerPokemon.currentHP), 200, screenHeight - 130);
 
             batch.draw(subtitle_bar, 0, subtitleBarY);
 
@@ -570,6 +556,8 @@ public class Battle_Screen implements Screen {
                 setDecideScreen();
             } else if (inAbilityScreen) {
                 setChoosingAbilityScreen();
+            } else if (inBagScreen) {
+                setBagScreen();
             } else if (inPokemonScreen) {
                 setPokemonScreen();
             }
@@ -590,6 +578,9 @@ public class Battle_Screen implements Screen {
                         } else {
                             opponentMoveSubtitleDisplay = true;
                         }
+                        if (opponentMove instanceof UseAbility) {
+                            ((UseAbility) opponentMove).target = Main.player.currentPokemon;
+                        }
                         playerMoveActivate = false;
                     } else if (abilityEffectText != null) {
                         if (!abilityEffectText.subsEnd) {
@@ -600,6 +591,7 @@ public class Battle_Screen implements Screen {
                             opponentMoveSubtitleDisplay = true;
                         }
                     } else if (opponentMoveSubtitleDisplay) {
+//                        System.out.println("aojdoasjdiasjdosadas " + ((UseAbility) opponentMove).target.name);
                         playerSubtitle = null;
                         if (!opponentSubtitle.subsEnd) {
                             opponentSubtitle.renderSubtitle(delta, inputText, batch);
@@ -629,7 +621,7 @@ public class Battle_Screen implements Screen {
 
                 }
                 clickable = true;
-                System.out.println("asdiojasdoasdasiodasdiasdjsdsadoiasdiasjdiosa" + subtitle);
+//                System.out.println("asdiojasdoasdasiodasdiasdjsdsadoiasdiasjdiosa" + subtitle);
             }
 //            if (playerHitFirst != null) {
 //                if (!playerMoveActivated && !opponentMoveActivated) {
@@ -664,6 +656,7 @@ public class Battle_Screen implements Screen {
 //            int subtitleTextY = subtitleBarY + subtitle_bar.getHeight() - 22;
             if (subtitle != null) {
                 inputText.inputText(true, batch, subtitle, 16, subtitleTextY);
+                clickable = false;
                 subtitleTimer += delta;
                 if (subtitleTimer > Subtitle.subtitleDuration) {
                     subtitle = null;

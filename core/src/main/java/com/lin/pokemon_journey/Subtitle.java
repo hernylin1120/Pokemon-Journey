@@ -67,15 +67,11 @@ public class Subtitle {
             subsEnd = true;
             return;
         }
-        // ✅ 顯示當前字幕
         inputText.inputText(true, batch, subs[currentIndex], subtitleTextX, subtitleTextY);
-        inputText.inputText(true, batch, subs[currentIndex], subtitleTextX, subtitleTextY);
-        // ✅ 更新計時器
         subtitleTimer += delta;
         if (subtitleTimer >= subtitleDuration) {
             currentIndex++;
             subtitleTimer = 0f;
-
             if (currentIndex >= subs.length) {
                 subsEnd = true;
             }

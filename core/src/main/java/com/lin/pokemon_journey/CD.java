@@ -4,11 +4,12 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class CD extends Item {
     Ability ability;
-    public CD(String name, String description, Texture texture) {
-        super(name, description, texture);
+    public CD(String name, String description, Texture texture, Consumer<Pokemon> effect) {
+        super(name, description, texture, effect);
     }
     @Override
     public void use(Pokemon pokemon) {
