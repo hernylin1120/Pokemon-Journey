@@ -1,6 +1,7 @@
 package com.lin.pokemon_journey;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Player {
@@ -10,6 +11,7 @@ public class Player {
     Item[] items;
     int stage;
     Pokemon currentPokemon;
+    List<Pokemon> PokemonBox;
     public Player(String name) {
         this.name = name;
         this.stage = 1;

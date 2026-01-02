@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.HashMap;
 import java.util.Map;
 public class ItemFactory {
+    //the if statement should be handled with the class
     private static final Map<String, Item> items = new HashMap<>();
     public static Item createItem(String itemName) {
         if (items.containsKey(itemName)) {
@@ -60,6 +61,18 @@ public class ItemFactory {
                     }
                 );
                 break;
+            case "Potion":
+                newItem = new HealingItems(
+                    "Potion",
+                    "Restores 20 HP to one Pokémon.",
+                    new Texture(""),
+                    pokemon -> {{
+                        pokemon.currentHP += 20;
+                        if (pokemon.currentHP > pokemon.maxHP) {
+                            pokemon.currentHP = pokemon.maxHP;
+                        }
+                    }}
+                );
             default:
                 throw new IllegalArgumentException("Unknown item: " + itemName);
         }

@@ -13,19 +13,26 @@ public class Pokemon {
     Texture[] sprites;
     int HP;
     int currentHP;
+    int maxHP;
     int attack;
     int currentAttack;
+    int maxAttack;
     int defense;
     int currentDefense;
+    int maxDefense;
     int specialAttack;
     int currentSpecialAttack;
+    int maxSpecialAttack;
     int specialDefense;
     int currentSpecialDefense;
+    int maxSpecialDefense;
     int speed;
     int currentSpeed;
+    int maxSpeed;
     int level;
     int[] iv;
     int[] ev;
+    int[] statsChange = {0, 0, 0, 0, 0, 0, 0}; // hp, attack, defense, special attack, special defense, speed, accuracy
     String condition = ""; //e.g. poisoned
     Ability[] abilities = new Ability[4];
     Item heldItem;
@@ -51,12 +58,13 @@ public class Pokemon {
     public void setLevel(int level) {
         // current havent consider natures and abilities
         this.level = level;
-        this.currentHP = (int) Math.floor(((2 * this.HP + this.iv[0] + (this.ev[0]) / 4) * level) / 100) + level + 10;
-        this.currentAttack = (int) Math.floor((((2 * this.attack + this.iv[1] + (this.ev[1]) / 4) * level) / 100) + 5);
-        this.currentDefense = (int) Math.floor((((2 * this.defense + this.iv[2] + (this.ev[2]) / 4) * level) / 100) + 5);
-        this.currentSpecialAttack = (int) Math.floor((((2 * this.specialAttack + this.iv[3] + (this.ev[3]) / 4) * level) / 100) + 5);
-        this.currentSpecialDefense = (int) Math.floor((((2 * this.specialDefense + this.iv[4] + (this.ev[4]) / 4) * level) / 100) + 5);
-        this.currentSpeed = (int) Math.floor((((2 * this.speed + this.iv[5] + (this.ev[5]) / 4) * level) / 100) + 5);
+        this.maxHP = (int) Math.floor(((2 * this.HP + this.iv[0] + (this.ev[0]) / 4) * level) / 100) + level + 10;
+        this.maxAttack = (int) Math.floor((((2 * this.attack + this.iv[1] + (this.ev[1]) / 4) * level) / 100) + 5);
+        this.maxDefense = (int) Math.floor((((2 * this.defense + this.iv[2] + (this.ev[2]) / 4) * level) / 100) + 5);
+        this.maxSpecialAttack = (int) Math.floor((((2 * this.specialAttack + this.iv[3] + (this.ev[3]) / 4) * level) / 100) + 5);
+        this.maxSpecialDefense = (int) Math.floor((((2 * this.specialDefense + this.iv[4] + (this.ev[4]) / 4) * level) / 100) + 5);
+        this.maxSpeed = (int) Math.floor((((2 * this.speed + this.iv[5] + (this.ev[5]) / 4) * level) / 100) + 5);
+        this.setCurrentStat();
     }
 
     public void levelUp() {
@@ -68,11 +76,22 @@ public class Pokemon {
     }
 
     public void takeDamage(int damage) {
+        this.statsChange[0] -= damage;
         this.currentHP -= damage;
         if (this.currentHP < 0) {
+            this.statsChange[0] = -this.maxHP;
             this.currentHP = 0;
-            this.condition = "Fainted";
         }
+        condition = "Fainted";
+    }
+
+    public void setCurrentStat() {
+        this.currentHP = this.maxHP + statsChange[0];
+        this.currentAttack = this.maxAttack + statsChange[1];
+        this.currentDefense = this.maxDefense + statsChange[2];
+        this.currentSpecialAttack = this.maxSpecialAttack + statsChange[3];
+        this.currentSpecialDefense = this.maxSpecialDefense + statsChange[4];
+        this.currentSpeed = this.maxSpeed + statsChange[5];
     }
     public void changeFriendship(int i) {
         friendship += i;

@@ -678,6 +678,10 @@ public class Battle_Screen implements Screen {
                 inputText.inputText(true, batch, "What will " + playerPokemon.name.toUpperCase() + " do?", 16, subtitleTextY);
             }
         }
+
+        Button homeButton = new Button(0, 0, new Texture("Pokemon_Screen_BackButton.png"), batch, viewport, () -> {
+            game.setScreen(new Home_Screen(game));
+        });
 //        activateMoves();
         batch.end();
     }
