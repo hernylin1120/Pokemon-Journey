@@ -8,16 +8,11 @@ import java.util.function.Consumer;
 
 public class CD extends Item {
     Ability ability;
-    public CD(String name, String description, Texture texture, Consumer<Pokemon> effect) {
+    int TMNo;
+    int selectedSlot = Integer.parseInt(null);
+    public CD(String name, int TMNo, String description, Texture texture, Ability ability, Consumer<Pokemon> effect) {
         super(name, description, texture, effect);
-    }
-    @Override
-    public void use(Pokemon pokemon) {
-        int count = (int) Arrays.stream(pokemon.abilities).filter(Objects::nonNull).count();
-        if (count < 4) {
-            pokemon.abilities[count + 1] = ability;
-        } else {
-            // pick a ability to replace or not replace
-        }
+        this.ability = ability;
+        this.TMNo = TMNo;
     }
 }

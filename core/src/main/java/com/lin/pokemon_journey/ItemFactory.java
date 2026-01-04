@@ -2,8 +2,11 @@ package com.lin.pokemon_journey;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
 public class ItemFactory {
     //the if statement should be handled with the class
     private static final Map<String, Item> items = new HashMap<>();
@@ -65,7 +68,7 @@ public class ItemFactory {
                 newItem = new HealingItems(
                     "Potion",
                     "Restores 20 HP to one Pokémon.",
-                    new Texture(""),
+                    new Texture("Item/Potion.png"),
                     pokemon -> {{
                         pokemon.currentHP += 20;
                         if (pokemon.currentHP > pokemon.maxHP) {
@@ -73,6 +76,25 @@ public class ItemFactory {
                         }
                     }}
                 );
+                break;
+            case "TM50":
+                Ability abilityStored = AbilityFactory.createAbility("Overheat");
+                newItem = new CD(
+                    "TM50 Overheat",
+                    50,
+                    "The user attacks the foe at full power using fiery energy. It also sharply reduces the user's Sp. Atk.",
+                    new Texture("Item/TM50.png"),
+                    abilityStored,
+                    pokemon -> {
+                        int count = (int) Arrays.stream(pokemon.abilities).filter(Objects::nonNull).count();
+                        if (count < 4) {
+                            pokemon.abilities[count + 1] = abilityStored;
+                        } else {
+                            // pick a ability to replace or not replace
+                        }
+                    }
+                );
+                break;
             default:
                 throw new IllegalArgumentException("Unknown item: " + itemName);
         }

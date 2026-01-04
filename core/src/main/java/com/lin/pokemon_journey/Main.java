@@ -10,7 +10,6 @@ public class Main extends Game {
     public void create() {
 
         player = new Player("Lin");
-        player.pokemons = new Pokemon[6];
         player.pokemons[0] = PokemonFactory.createPokemon("Charmander");
         player.pokemons[0].setLevel(99);
         player.pokemons[0].abilities[0] = AbilityFactory.createAbility("Growl");
@@ -18,6 +17,7 @@ public class Main extends Game {
         player.pokemons[0].abilities[2] = AbilityFactory.createAbility("Ember");
         player.pokemons[1] = PokemonFactory.createPokemon("Venusaur");
         player.pokemons[1].setLevel(99);
+        player.bag.put(ItemFactory.createItem("Potion"), 5);
         setScreen(new Home_Screen(this));
     }
 }

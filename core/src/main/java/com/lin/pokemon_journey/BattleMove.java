@@ -1,6 +1,6 @@
 package com.lin.pokemon_journey;
 
-public class BattleMove {
+public abstract class BattleMove {
     int priority;
     String subtitle;
     String effect = null;
@@ -8,6 +8,5 @@ public class BattleMove {
         this.subtitle = subtitle;
         this.priority = priority;
     }
-    public void activate() {
-    }
+    public abstract void activate();
 }

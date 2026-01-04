@@ -21,6 +21,7 @@ public class Home_Screen implements Screen {
     private Rectangle buttonBounds;
     private Texture battleButtonTexture;
     private Texture pokemonButtonTexture;
+    private Texture bagButtonTexture;
     private float buttonX = 0;
     private float buttonY = Gdx.graphics.getHeight() - 400;
     private int screenWidth;
@@ -35,6 +36,7 @@ public class Home_Screen implements Screen {
         batch = new SpriteBatch();
         battleButtonTexture = new Texture("Quest_Icon.png");
         pokemonButtonTexture = new Texture("Pokemon_Icon.png");
+        bagButtonTexture = new Texture("Bag_Icon.png");
         camera = new OrthographicCamera();
         screenHeight = 395;
         screenWidth = 256;
@@ -58,6 +60,9 @@ public class Home_Screen implements Screen {
         });
         Button pokemonButton = new Button(64, 0, pokemonButtonTexture, batch, viewport, () -> {
             game.setScreen(new Pokemon_Screen(game));
+        });
+        Button bagButton = new Button(96, 0, bagButtonTexture, batch, viewport, () -> {
+            game.setScreen(new Bag_Screen(game));
         });
         batch.end();
         // 檢查點擊

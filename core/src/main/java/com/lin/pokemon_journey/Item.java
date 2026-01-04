@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.function.Consumer;
 
-public class Item {
+public abstract class Item {
     String name;
     String description;
     Texture texture;

@@ -60,6 +60,7 @@ public class Pokemon_Screen implements Screen, GestureDetector.GestureListener {
         Pokemon_PokemonSkills = new Texture("Pokemon_PokemonSkills.png");
         Pokemon_BattleMoves = new Texture("Pokemon_BattleMoves.png");
         Pokemon_BattleMoves_Desc = new Texture("Pokemon_BattleMoves_Desc.png");
+
         upperScreenStartY = BottomScreen.getHeight();
         camera = new OrthographicCamera();
         lowerScreenY = 0;
@@ -207,6 +208,7 @@ public class Pokemon_Screen implements Screen, GestureDetector.GestureListener {
                 }
                 break;
             case 4:
+                AbilityDetail();
                 break;
             default:
                 currentScreenNo = 0;

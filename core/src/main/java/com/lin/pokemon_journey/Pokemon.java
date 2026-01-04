@@ -32,7 +32,7 @@ public class Pokemon {
     int level;
     int[] iv;
     int[] ev;
-    int[] statsChange = {0, 0, 0, 0, 0, 0, 0}; // hp, attack, defense, special attack, special defense, speed, accuracy
+    int[] statsChange = {0, 0, 0, 0, 0, 0, 0, 0}; // hp, attack, defense, special attack, special defense, speed, accuracy, evasion
     String condition = ""; //e.g. poisoned
     Ability[] abilities = new Ability[4];
     Item heldItem;

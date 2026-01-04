@@ -2,6 +2,8 @@ package com.lin.pokemon_journey;
 
 import static java.lang.Math.floorDiv;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class AbilityCalculator {
     public static String effectiveness = null;
     public static int floorMul(double a, double b) {
@@ -106,7 +108,6 @@ public class AbilityCalculator {
         if (ability.category.equals("Status")) {
 //            return attacker.name + " used " + ability.name + "!";
         }
-        target.takeDamage(AbilityCalculator.damage_formula(attack, defense, level, ability, multiplier));
         if (multiplier == 0) {
             effectiveness = "It doesn't affect " + target.name + "...";
         } else if (multiplier < 1) {
@@ -115,6 +116,40 @@ public class AbilityCalculator {
             effectiveness = "It's super effective!";
         } else {
             effectiveness = null;
+        }
+        if (!accuracyCheck(attacker, target, ability)) {
+            effectiveness = attacker.name + "'s attack missed!";
+        } else {
+            target.takeDamage(AbilityCalculator.damage_formula(attack, defense, level, ability, multiplier));
+        }
+    }
+
+    public static float AdjustedStage(Pokemon attacker, Pokemon target) {
+        int AdjustStage = attacker.statsChange[6] - target.statsChange[7];
+        if (AdjustStage > 6) {
+            AdjustStage = 6;
+        } else if (AdjustStage < -6) {
+            AdjustStage = -6;
+        }
+        if (AdjustStage > 0) {
+            return (3 + AdjustStage) / 3;
+        } else if (AdjustStage < 0) {
+            return 3 / (3 - AdjustStage);
+        } else {
+            return 1;
+        }
+    }
+//    public float Modifier() {
+//
+//    }
+    public static boolean accuracyCheck(Pokemon attacker, Pokemon target, Ability ability) {
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
+        int accuracy = ability.accuracy;    //later for modifier
+        accuracy = (int) Math.floor(ability.accuracy * AdjustedStage(attacker, target));
+        if (accuracy > randomNum) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
