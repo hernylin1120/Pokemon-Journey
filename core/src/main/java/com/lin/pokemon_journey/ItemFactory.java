@@ -67,7 +67,7 @@ public class ItemFactory {
             case "Potion":
                 newItem = new HealingItems(
                     "Potion",
-                    "Restores 20 HP to one Pokémon.",
+                    "A spray-type medicine for wounds. It restores the HP of one Pokémon by just 20 points.",
                     new Texture("Item/Potion.png"),
                     pokemon -> {{
                         pokemon.currentHP += 20;

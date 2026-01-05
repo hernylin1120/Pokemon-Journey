@@ -78,11 +78,11 @@ public class Bag_Screen implements Screen, GestureDetector.GestureListener  {
                     selectedItem = item;
                 }
             }
-            if (selectedItem != null) {
-                batch.draw(item.texture, 2, upperScreenStartY + 9);
-                inputText.inputText(true, batch, item.description, 40, 35);
-            }
             i++;
+        }
+        if (selectedItem != null) {
+            batch.draw(selectedItem.texture, 2, upperScreenStartY + 9);
+            inputText.inputText(false, batch, selectedItem.description, 40, upperScreenStartY + 35);
         }
     }
 
