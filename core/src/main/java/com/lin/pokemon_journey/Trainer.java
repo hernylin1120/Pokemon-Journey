@@ -39,6 +39,6 @@ public class Trainer extends Opponent {
 //            possibleMoves.put(move, score);
 //        }
 
-        return new UseAbility(currentPokemon, opponent, currentPokemon.abilities[0]);
+        return new UseAbility(currentPokemon, opponent, currentPokemon.abilities[0], new String[] {"The opposing " + currentPokemon.name + "used " + currentPokemon.abilities[0].name});
     }
 }

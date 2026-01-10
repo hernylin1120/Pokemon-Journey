@@ -20,8 +20,8 @@ public class UseAbility extends BattleMove {
         }
         return null;
     }
-    public UseAbility(Pokemon attacker, Pokemon target, Ability ability) {
-        super(ability.priority, attacker.name + " used " + ability.name + ".");
+    public UseAbility(Pokemon attacker, Pokemon target, Ability ability, String[] subtitle) {
+        super(ability.priority, subtitle);
         this.attacker = attacker;
         this.target = target;
         this.ability = ability;

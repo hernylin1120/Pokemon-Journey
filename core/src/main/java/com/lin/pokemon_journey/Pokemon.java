@@ -81,8 +81,8 @@ public class Pokemon {
         if (this.currentHP < 0) {
             this.statsChange[0] = -this.maxHP;
             this.currentHP = 0;
+            condition = "Fainted";
         }
-        condition = "Fainted";
     }
 
     public void setCurrentStat() {

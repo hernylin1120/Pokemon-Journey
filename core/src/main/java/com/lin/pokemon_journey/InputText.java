@@ -12,13 +12,31 @@ public class InputText {
     int srcX;
     int srcY;
     int currentY_tuning;
-    int space = 0;
+    private Texture a = new Texture("Fonts/small_a.png");
+    private Texture b = new Texture("Fonts/small_b.png");
+    private Texture c = new Texture("Fonts/small_c.png");
+
 
     //the position has to recalculated
     //214 is the max pixel
+    private void printSubtitle(boolean black, SpriteBatch batch, String text, int x, int y, int split) {
+        originalX = x;
+        String[] words = text.split(" ");
+        int space = 0;
+        for (String word : words) {
+            for (int i = 0; i < word.length(); i++) {
+                char character = word.charAt(i);
+//                space +=
+                if (space > split) {
+
+                }
+            }
+        }
+    }
     public void inputText(boolean black , SpriteBatch batch, String text, int x, int y) {
         originalX = x;
         String[] words = text.split(" ");
+        int space = 0;
         for (String word : words) {
             space = 0;
             for (int i = 0; i < word.length(); i++) {

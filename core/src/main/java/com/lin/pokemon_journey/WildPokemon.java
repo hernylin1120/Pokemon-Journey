@@ -8,6 +8,7 @@ public class WildPokemon extends Opponent {
     }
     @Override
     public BattleMove nextMove(Pokemon currentPokemon, Pokemon opponent) {
-        return new UseAbility(currentPokemon, opponent, UseAbility.bestAbility(this));
+        Ability ability = UseAbility.bestAbility(this);
+        return new UseAbility(currentPokemon, opponent, ability, new String[] {"The wild " + ability.name + "."});
     }
 }

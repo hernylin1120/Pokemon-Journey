@@ -123,7 +123,7 @@ public class AbilityCalculator {
             target.takeDamage(AbilityCalculator.damage_formula(attack, defense, level, ability, multiplier));
         }
     }
-
+    //Accuracy and Evasion stage adjustment
     public static float AdjustedStage(Pokemon attacker, Pokemon target) {
         int AdjustStage = attacker.statsChange[6] - target.statsChange[7];
         if (AdjustStage > 6) {

@@ -81,6 +81,7 @@ public class Battle_Screen implements Screen {
     private Subtitle playerSubtitle = null;
     private Subtitle opponentSubtitle = null;
     private Subtitle abilityEffectText = null;
+    private Subtitle faintedText = null;
     private int subtitleTextX = 16;
     private int subtitleTextY;    //set in show()
     private float subtitleTimer = 0f;
@@ -98,13 +99,18 @@ public class Battle_Screen implements Screen {
     }
     public void setPokemonEffect() {
     }
-    Boolean playerHitFirst = null;
+    private Boolean playerHitFirst = null;
     private Boolean playerMoveSubtitleDisplay = false;
-    Boolean playerMoveActivate = false;
+    private Boolean playerMoveActivate = false;
     private Boolean playerMoveEffectDisplay = false;
+    private Boolean checkPlayerFainted = false;
+    private Boolean playerFaintedDisplay = false;
     private Boolean opponentMoveSubtitleDisplay = false;
-    Boolean opponentMoveActivate = false;
+    private Boolean opponentMoveActivate = false;
     private Boolean opponentMoveEffectDisplay = false;
+    private Boolean checkOpponentFainted = false;
+    private Boolean opponentFaintedDisplay = false;
+    private Boolean playerHit = null;
     @Override
     public void show() {
         camera = new OrthographicCamera();
@@ -246,7 +252,7 @@ public class Battle_Screen implements Screen {
                 } else {
                     // need to be deleted afterward
                     ability.currentPP--;
-                    playerMove = new UseAbility(playerPokemon, opponentPokemon, ability);
+                    playerMove = new UseAbility(playerPokemon, opponentPokemon, ability, new String[] {playerPokemon.name + " used " + ability.name});
                     activateMoves();
                     inAbilityScreen = false;
                     inDecideScreen = true;
@@ -406,7 +412,7 @@ public class Battle_Screen implements Screen {
                 // 使用 viewport 轉換座標
                 Vector3 worldCoords = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
                 if (buttonBounds.contains(worldCoords.x, worldCoords.y)) {
-                    playerMove = new UseItem(item, playerPokemon);
+                    playerMove = new UseItem(item, playerPokemon, new String[] {Main.player.name + " used " + item.name});
                     inPokemonScreen = false;
                     inDecideScreen = true;
                     clickable = false;
@@ -439,17 +445,18 @@ public class Battle_Screen implements Screen {
                 Button pokemonCard = new Button(cardX, cardY, currentPokemonCard, batch, viewport, () -> {
                     if (clickable) {
                         if (Main.player.pokemons[pokemonNumber] == null) {
-//                        Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {"No Pokemon in this slot."});
                             clickable = false;
                             subtitle = "No Pokemon in this slot.";
                         } else {
                             if (Main.player.pokemons[pokemonNumber].condition.equals("Fainted")) {
+                                subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
                             } else {
                                 if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
-                                    playerMove = new SwitchPokemon(Main.player, Main.player.pokemons[pokemonNumber]);
+                                    playerMove = new SwitchPokemon(Main.player, Main.player.pokemons[pokemonNumber], new String[] {"You did well, come back.", "Go " + Main.player.pokemons[pokemonNumber].name + "!"});
                                     inPokemonScreen = false;
                                     inDecideScreen = true;
                                     clickable = false;
+//                                    fainted = false;
                                     activateMoves();
                                 } else {
                                     clickable = false;
@@ -467,20 +474,18 @@ public class Battle_Screen implements Screen {
                 cardY = subtitleBarY - subtitle_bar.getHeight() - 5 - (topMargin * (i / 2 + 1) + currentPokemonCard.getHeight() * (i / 2));
                 Button pokemonCard = new Button(cardX, cardY, currentPokemonCard, batch, viewport, () -> {
                     if (Main.player.pokemons[pokemonNumber] == null) {
-//                        Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {Main.player.pokemons[pokemonNumber].name + " can't battle anymore."});
                         subtitle = "No Pokemon in this slot.";
                     } else {
                         if (Main.player.pokemons[pokemonNumber].condition.equals("Fainted")) {
-//                            Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {Main.player.pokemons[pokemonNumber].name + " can't battle anymore."});
-//                            subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
+                            subtitle = Main.player.pokemons[pokemonNumber].name + " can't battle anymore.";
                         } else {
                             if (playerPokemon != Main.player.pokemons[pokemonNumber]) {
-                                playerMove = new SwitchPokemon(Main.player, Main.player.pokemons[pokemonNumber]);
+                                playerMove = new SwitchPokemon(Main.player, Main.player.pokemons[pokemonNumber], new String[] {"You did well, come back.", "Go " + Main.player.pokemons[pokemonNumber].name + "!"});
                                 inPokemonScreen = false;
                                 inDecideScreen = true;
+//                                fainted = false;
                                 activateMoves();
                             } else {
-//                                Subtitle.renderSubtitle(subtitleTextX, subtitleBarY, delta, inputText, batch, new String[] {Main.player.pokemons[pokemonNumber].name + " is already in battle."});
                                 subtitle = Main.player.pokemons[pokemonNumber].name + " is already in battle.";
                             }
                         }
@@ -493,16 +498,20 @@ public class Battle_Screen implements Screen {
             currentPokemonCard = pokemonScreenPokemonCard;
         }
         Button backButton = new Button(pokemonScreen.getWidth() - 1 - pokemonScreenBackButton.getWidth(), lowerScreenY + 3, pokemonScreenBackButton, batch, viewport, () -> {
-            inPokemonScreen = false;
-            inDecideScreen = true;
+//            if (!fainted) {
+                inPokemonScreen = false;
+                inDecideScreen = true;
+//            }
         });
     }
     public void activateMoves() {
         opponentMove = trainer.nextMove(opponentPokemon, playerPokemon);
-        String[] subtitles = {playerMove.subtitle};
+        String[] subtitles = playerMove.subtitle;
         playerSubtitle = new Subtitle(subtitleTextX, subtitleTextY, subtitles);
-        subtitles = new String[]{opponentMove.subtitle};
+        subtitles = opponentMove.subtitle;
         opponentSubtitle = new Subtitle(subtitleTextX, subtitleTextY, subtitles);
+        System.out.println("sdoiasdiajsdioasjdoiajdioajsd" + playerMove.priority + "sdoiasdiajsdioasjdoiajdioajsd" + playerPokemon.currentSpeed);
+        System.out.println("oiadsasdiasjdasidja" + opponentMove.priority + "sdoiasdiajsdioasjdoiajdioajsd" + opponentPokemon.currentSpeed);
         if (playerMove.priority > opponentMove.priority) {
             playerHitFirst = true;
             playerMoveSubtitleDisplay = true;
@@ -529,6 +538,21 @@ public class Battle_Screen implements Screen {
         }
     }
 
+    public Boolean checkFainted(Pokemon pokemon) {
+        if (pokemon.condition.equals("Fainted")) {
+            subtitle = pokemon.name + " fainted!";
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void faintedProcess(boolean playerHitFirst) {
+        if (playerHitFirst) {
+
+        }
+    }
+
     @Override
     public void render(float delta) {
         this.delta = delta;
@@ -551,11 +575,17 @@ public class Battle_Screen implements Screen {
                 inBattle = true;
             }
         } else if (inBattle) {
-            batch.draw(opponentPokemon.sprites[0], opponentPokemonX, opponentPokemonY);
-
+            if (!opponentPokemon.condition.equals("Fainted")) {
+                batch.draw(opponentPokemon.sprites[0], opponentPokemonX, opponentPokemonY);
+            }
             int playerPokemonY = backgroundStartY - 8;
             playerPokemon = Main.player.currentPokemon;
-            batch.draw(playerPokemon.sprites[2], 24, playerPokemonY);
+            if (!playerPokemon.condition.equals("Fainted")) {
+                batch.draw(playerPokemon.sprites[2], 24, playerPokemonY);
+            }
+
+            System.out.println("playerCondition" + playerPokemon.condition);
+            System.out.println("opponentCondition" + opponentPokemon.condition);
             int opponentPokemonHPBarY = backgroundStartY + 91;
             batch.draw(OpponentSingleHPBar, 0, opponentPokemonHPBarY);
             InputText opponentPokemonInfo = new InputText();
@@ -600,6 +630,16 @@ public class Battle_Screen implements Screen {
                             ((UseAbility) opponentMove).target = Main.player.currentPokemon;
                         }
                         playerMoveActivate = false;
+//                        checkFainted(opponentPokemon);
+//                        //care for fainted of both pokemon
+//                        if (!fainted) {
+//                            playerMoveActivate = false;
+//                        } else {
+//                            abilityEffectText = null;
+//                            playerMoveEffectDisplay = false;
+//                            inDecideScreen = false;
+//                            inPokemonScreen = true;
+//                        }
                     } else if (abilityEffectText != null) {
                         if (!abilityEffectText.subsEnd) {
                             abilityEffectText.renderSubtitle(delta, inputText, batch);
@@ -636,7 +676,100 @@ public class Battle_Screen implements Screen {
                         playerHitFirst = null;
                     }
                 } else {
-
+                    if (opponentMoveSubtitleDisplay) {
+                        playerHit = false;
+                        if (!opponentSubtitle.subsEnd) {
+                            opponentSubtitle.renderSubtitle(delta, inputText, batch);
+                        } else {
+                            opponentMoveSubtitleDisplay = false;
+                            opponentMoveActivate = true;
+                        }
+                    } else if (opponentMoveActivate) {
+                        opponentMove.activate();
+                        if (opponentMove.effect != null) {
+                            abilityEffectText = new Subtitle(subtitleTextX, subtitleTextY, new String[]{opponentMove.effect});
+                            opponentMoveEffectDisplay = true;
+                        } else {
+                            playerMoveSubtitleDisplay = true;
+                        }
+                        if (playerMove instanceof UseAbility) {
+                            ((UseAbility) playerMove).target = opponentPokemon;
+                        }
+                        opponentMoveActivate = false;
+                    } else if (abilityEffectText != null) {
+                        if (!abilityEffectText.subsEnd) {
+                            abilityEffectText.renderSubtitle(delta, inputText, batch);
+                        } else {
+                            abilityEffectText = null;
+                            opponentMoveEffectDisplay = false;
+                            checkPlayerFainted = true;
+                        }
+                    } else if (checkPlayerFainted) {
+                        if (checkFainted(playerPokemon)) {
+                            faintedText = new Subtitle(subtitleTextX, subtitleTextY, new String[]{playerPokemon.name + " fainted!"});
+                            checkPlayerFainted = false;
+                            playerFaintedDisplay = true;
+                        } else {
+                            if (!playerHit) {
+                                checkOpponentFainted = true;
+                            }
+                        }
+                    } else if (playerFaintedDisplay) {
+                        if (!faintedText.subsEnd) {
+                            faintedText.renderSubtitle(delta, inputText, batch);
+                        } else {
+                            playerFaintedDisplay = false;
+                            if (!playerHit) {
+                                checkOpponentFainted = true;
+                            }
+                        }
+                    } else if (checkOpponentFainted) {
+                        if (checkFainted(opponentPokemon)) {
+                            faintedText = new Subtitle(subtitleTextX, subtitleTextY, new String[]{opponentPokemon.name + " fainted!"});
+                            checkOpponentFainted = false;
+                            opponentFaintedDisplay = true;
+                        } else {
+                            if (playerHit) {
+                                playerMoveSubtitleDisplay = true;
+                            }
+                        }
+                    } else if (opponentFaintedDisplay) {
+                        if (!faintedText.subsEnd) {
+                            faintedText.renderSubtitle(delta, inputText, batch);
+                        } else {
+                            opponentFaintedDisplay = false;
+                            if (playerHit) {
+                                playerMoveSubtitleDisplay = true;
+                            }
+                        }
+                    } else if (playerMoveSubtitleDisplay) {
+                        playerHit = true;
+                        faintedText = null;
+                        opponentSubtitle = null;
+                        if (!playerSubtitle.subsEnd) {
+                            playerSubtitle.renderSubtitle(delta, inputText, batch);
+                        } else {
+                            playerMoveSubtitleDisplay = false;
+                            playerMoveActivate = true;
+                        }
+                    } else if (playerMoveActivate) {
+                        playerMove.activate();
+                        if (playerMove.effect != null) {
+                            abilityEffectText = new Subtitle(subtitleTextX, subtitleTextY, new String[]{playerMove.effect});
+                            playerMoveEffectDisplay = true;
+                        }
+                        playerMoveActivate = false;
+                    } else if (abilityEffectText != null) {
+                        if (!abilityEffectText.subsEnd) {
+                            abilityEffectText.renderSubtitle(delta, inputText, batch);
+                        } else {
+                            abilityEffectText = null;
+                        }
+                    } else if (abilityEffectText == null) {
+                        playerSubtitle = null;
+                        playerMoveEffectDisplay = false;
+                        playerHitFirst = null;
+                    }
                 }
                 clickable = true;
 //                System.out.println("asdiojasdoasdasiodasdiasdjsdsadoiasdiasjdiosa" + subtitle);

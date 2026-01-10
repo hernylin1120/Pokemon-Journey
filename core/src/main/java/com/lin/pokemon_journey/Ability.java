@@ -1,5 +1,7 @@
 package com.lin.pokemon_journey;
 
+import java.util.function.Consumer;
+
 public class Ability {
     String name;
     String type;
@@ -11,6 +13,8 @@ public class Ability {
     String description;
     String subtitle;
     int priority = 0;
+    private Consumer<Pokemon> userEffect = null;
+    private Consumer<Pokemon> targetEffect = null;
     public Ability(String name, String type, String category, int power, int accuracy, int maxPP, String description) {
         this.name = name;
         this.type = type;
@@ -29,4 +33,5 @@ public class Ability {
             subtitle = "There's no PP left for this move";
         }
     }
+    //should be better to determine the PP left in battleScreen
 }
